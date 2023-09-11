@@ -1,5 +1,6 @@
 package com.najudoryeong.mineme.core.data.di
 
+import com.najudoryeong.mineme.core.data.repository.OfflineFirstUserDataRepository
 import com.najudoryeong.mineme.core.data.repository.UserDataRepository
 import dagger.Binds
 import dagger.Module
@@ -13,4 +14,5 @@ interface DataModule {
     fun bindsUserDataRepository(
         userDataRepository: OfflineFirstUserDataRepository,
     ): UserDataRepository
+
 }

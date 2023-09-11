@@ -43,3 +43,9 @@ androidComponents.beforeVariants {
         kotlin.srcDir(buildDir.resolve("generated/source/proto/${it.name}/kotlin"))
     }
 }
+
+dependencies {
+    implementation(libs.androidx.dataStore.core)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.protobuf.kotlin.lite)
+}

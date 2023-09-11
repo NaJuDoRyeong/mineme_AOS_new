@@ -1,12 +1,13 @@
 package com.najudoryeong.mineme.core.data.repository
 
 import android.service.autofill.UserData
+import com.najudoryeong.mineme.core.datastore.DoPreferencesDataSource
 import com.najudoryeong.mineme.core.model.data.DarkThemeConfig
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class OfflineFirstUserDataRepository @Inject constructor(
-    private val niaPreferencesDataSource: DoPreferencesDataSource,
+    private val doPreferencesDataSource: DoPreferencesDataSource,
 ) : UserDataRepository {
 
     override val userData: Flow<UserData>
@@ -23,5 +24,6 @@ class OfflineFirstUserDataRepository @Inject constructor(
     override suspend fun setShouldHideOnboarding(shouldHideOnboarding: Boolean) {
         TODO("Not yet implemented")
     }
+
 
 }
