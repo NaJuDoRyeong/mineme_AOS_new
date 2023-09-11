@@ -63,15 +63,26 @@ android {
 }
 dependencies {
 
+    implementation(project(":feature:home"))
+    implementation(project(":feature:story"))
+    implementation(project(":feature:settings"))
+
+    implementation(project(":core:common"))
     implementation(project(":core:ui"))
-    implementation(project(":core:data"))
     implementation(project(":core:designsystem"))
+    implementation(project(":core:data"))
+    implementation(project(":core:model"))
+    implementation(project(":core:analytics"))
 
 
+    androidTestImplementation(project(":core:testing"))
+    androidTestImplementation(project(":core:datastore-test"))
+    androidTestImplementation(project(":core:data-test"))
+    androidTestImplementation(project(":core:network"))
     androidTestImplementation(libs.androidx.navigation.testing)
     androidTestImplementation(libs.accompanist.testharness)
+    androidTestImplementation(kotlin("test"))
     debugImplementation(libs.androidx.compose.ui.testManifest)
-
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
@@ -88,8 +99,14 @@ dependencies {
     implementation(libs.kotlinx.coroutines.guava)
     implementation(libs.coil.kt)
 
+    // Core functions
+    testImplementation(project(":core:testing"))
+    testImplementation(project(":core:datastore-test"))
+    testImplementation(project(":core:data-test"))
+    testImplementation(project(":core:network"))
     testImplementation(libs.androidx.navigation.testing)
     testImplementation(libs.accompanist.testharness)
+    testImplementation(kotlin("test"))
     implementation(libs.work.testing)
-
+    kaptTest(libs.hilt.compiler)
 }
