@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
@@ -27,7 +28,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.R
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
@@ -39,10 +39,16 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import com.najudoryeong.mineme.core.data.util.NetworkMonitor
 import com.najudoryeong.mineme.core.designsystem.component.DoNavigationBar
 import com.najudoryeong.mineme.core.designsystem.component.DoNavigationBarItem
+import com.najudoryeong.mineme.core.designsystem.component.DoTopAppBar
 import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
+import com.najudoryeong.mineme.navigation.DoNavHost
 import com.najudoryeong.mineme.navigation.TopLevelDestination
 
-@OptIn(ExperimentalComposeUiApi::class, ExperimentalLayoutApi::class)
+@OptIn(
+    ExperimentalComposeUiApi::class,
+    ExperimentalLayoutApi::class,
+    ExperimentalMaterial3Api::class
+)
 @Composable
 fun DoApp(
     windowSizeClass: WindowSizeClass,
@@ -52,7 +58,6 @@ fun DoApp(
         windowSizeClass = windowSizeClass,
     )
 ) {
-
     Box(
         Modifier.fillMaxSize()
     ) {
@@ -86,7 +91,7 @@ fun DoApp(
                     )
                 }
             }
-        ) { padding->
+        ) { padding ->
 
             Row(
                 Modifier
@@ -100,26 +105,47 @@ fun DoApp(
                     ),
             ) {
 
+
+                //todo refactor
                 Column(Modifier.fillMaxSize()) {
                     // Show the top app bar on top level destinations.
                     val destination = appState.currentTopLevelDestination
                     if (destination != null) {
-                        DoTopAppBar(
-                            titleRes = destination.titleTextId,
-                            navigationIcon = DoIcons.Search,
-                            navigationIconContentDescription = stringResource(
-                                id = settingsR.string.top_app_bar_navigation_icon_description,
-                            ),
-                            actionIcon = DoIcons.Settings,
-                            actionIconContentDescription = stringResource(
-                                id = settingsR.string.top_app_bar_action_icon_description,
-                            ),
-                            colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                                containerColor = Color.Transparent,
-                            ),
-                            onActionClick = { showSettingsDialog = true },
-                            onNavigationClick = { appState.navigateToSearch() },
-                        )
+
+                        // story라면
+                        if (destination == TopLevelDestination.Story) {
+                            DoTopAppBar(
+                                titleRes = destination.titleTextId,
+                                navigationIcon = DoIcons.SettingBorder,
+                                navigationIconContentDescription = stringResource(
+                                    id = destination.titleTextId,
+                                ),
+                                actionIcon = DoIcons.Setting,
+                                actionIconContentDescription = stringResource(
+                                    id = destination.titleTextId,
+                                ),
+                                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                                    containerColor = Color.Transparent,
+                                ),
+                                onActionClick = { },
+                                onNavigationClick = { },
+                            )
+                        } else {
+                            DoTopAppBar(
+                                titleRes = destination.titleTextId,
+                                actionIcon = DoIcons.SettingBorder,
+                                actionIconContentDescription = stringResource(
+                                    id = destination.titleTextId,
+                                ),
+                                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                                    containerColor = Color.Transparent,
+                                ),
+                                onActionClick = {
+
+                                }
+                            )
+                        }
+
                     }
 
                     DoNavHost(appState = appState, onShowSnackbar = { message, action ->

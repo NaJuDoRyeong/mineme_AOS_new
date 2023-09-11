@@ -6,6 +6,8 @@ import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
 import com.najudoryeong.mineme.feature.home.R as homeR
 import com.najudoryeong.mineme.feature.story.R as storyR
 import com.najudoryeong.mineme.feature.settings.R as settingsR
+
+//todo 각 페이지 데이터 추가
 enum class TopLevelDestination(
     val selectedIcon: ImageVector,
     val unselectedIcon: ImageVector,
