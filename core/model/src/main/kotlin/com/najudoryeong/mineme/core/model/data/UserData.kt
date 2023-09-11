@@ -1,4 +1,7 @@
 package com.najudoryeong.mineme.core.model.data
 
-class UserData {
-}
+data class UserData(
+    val darkThemeConfig: DarkThemeConfig,
+    val useDynamicColor: Boolean,
+    val shouldHideOnboarding: Boolean,
+)

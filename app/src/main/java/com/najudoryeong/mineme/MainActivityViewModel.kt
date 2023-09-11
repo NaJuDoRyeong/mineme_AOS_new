@@ -1,5 +1,6 @@
 package com.najudoryeong.mineme
 
+import android.service.autofill.UserData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,10 +14,10 @@ class MainActivityViewModel @Inject constructor(
     userDataRepository: UserDataRepository,
 ) : ViewModel() {
     val uiState: StateFlow<MainActivityUiState> = userDataRepository.userData.map {
-        Success(it)
+        MainActivityUiState.Success(it)
     }.stateIn(
         scope = viewModelScope,
-        initialValue = Loading,
+        initialValue = MainActivityUiState.Loading,
         started = SharingStarted.WhileSubscribed(5_000),
     )
 }
