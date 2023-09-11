@@ -64,6 +64,8 @@ android {
 }
 dependencies {
 
+    implementation(project(":core:ui"))
+
     androidTestImplementation(libs.androidx.navigation.testing)
     androidTestImplementation(libs.accompanist.testharness)
     debugImplementation(libs.androidx.compose.ui.testManifest)

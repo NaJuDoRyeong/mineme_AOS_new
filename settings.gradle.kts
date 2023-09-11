@@ -18,4 +18,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "mineme"
 include(":app")
- 
+include(":core:ui")
