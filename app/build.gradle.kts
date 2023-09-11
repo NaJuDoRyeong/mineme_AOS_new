@@ -65,6 +65,8 @@ android {
 dependencies {
 
     implementation(project(":core:ui"))
+    implementation(project(":core:data"))
+
 
     androidTestImplementation(libs.androidx.navigation.testing)
     androidTestImplementation(libs.accompanist.testharness)
