@@ -16,6 +16,9 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:model"))
+
+    
     implementation(libs.androidx.core.ktx)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.datetime)
