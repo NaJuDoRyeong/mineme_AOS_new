@@ -18,4 +18,9 @@ dependencyResolutionManagement {
 
 rootProject.name = "mineme"
 include(":app")
- 
+include(":core:ui")
+include(":core:data")
+include(":core:model")
+include(":core:datastore")
+include(":core:designsystem")
+

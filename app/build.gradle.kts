@@ -7,7 +7,6 @@ plugins {
     id("mineme.android.application.jacoco")
     id("mineme.android.hilt")
     id("jacoco")
-    id("mineme.android.application.firebase")
 }
 
 android {
@@ -18,7 +17,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "com.najudoryeong.mineme.core.testing.NiaTestRunner"
+        testInstrumentationRunner = "com.najudoryeong.mineme.core.testing.DoTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -63,6 +62,11 @@ android {
     }
 }
 dependencies {
+
+    implementation(project(":core:ui"))
+    implementation(project(":core:data"))
+    implementation(project(":core:designsystem"))
+
 
     androidTestImplementation(libs.androidx.navigation.testing)
     androidTestImplementation(libs.accompanist.testharness)

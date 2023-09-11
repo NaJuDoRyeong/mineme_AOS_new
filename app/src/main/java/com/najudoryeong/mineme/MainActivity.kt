@@ -3,44 +3,82 @@ package com.najudoryeong.mineme
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.najudoryeong.mineme.ui.theme.MinemeTheme
+import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.najudoryeong.mineme.core.data.util.NetworkMonitor
+import com.najudoryeong.mineme.core.designsystem.theme.DoTheme
+import com.najudoryeong.mineme.ui.DoApp
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+
+@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 class MainActivity : ComponentActivity() {
+
+
+    val viewModel: MainActivityViewModel by viewModels()
+
+    @Inject
+    lateinit var networkMonitor: NetworkMonitor
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            MinemeTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
+        val splashScreen = installSplashScreen()
+
+        var uiState: MainActivityUiState by mutableStateOf(MainActivityUiState.Loading)
+
+
+        // ui state 수집
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState
+                    .onEach {
+                        uiState = it
+                    }
+                    .collect()
             }
         }
+
+        // uiState에 따른 splash 구현
+        splashScreen.setKeepOnScreenCondition {
+            when (uiState) {
+                MainActivityUiState.Loading -> true
+                is MainActivityUiState.Success -> false
+            }
+        }
+
+
+        // 화면을 전체 화면 모드로 설정하므로 콘텐츠가 화면의 모든 가장자리까지 확장
+        // 이는 상태 표시줄 및 탐색 표시줄과 같은 시스템 UI가 콘텐츠 아래에 나타나도록
+
+        // 전체 화면 모드를 활성화
+        enableEdgeToEdge()
+
+
+        setContent {
+            DoTheme(
+                darkTheme = false,
+                androidTheme = false,
+                disableDynamicTheming = false,
+            ) {
+                DoApp(
+                    networkMonitor = networkMonitor,
+                    windowSizeClass = calculateWindowSizeClass(this)
+                )
+            }
+        }
+
+        super.onCreate(savedInstanceState)
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MinemeTheme {
-        Greeting("Android")
-    }
-}
