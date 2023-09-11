@@ -10,6 +10,4 @@ fun DoApp(
     networkMonitor: NetworkMonitor,
 ) {
 
-
-
 }

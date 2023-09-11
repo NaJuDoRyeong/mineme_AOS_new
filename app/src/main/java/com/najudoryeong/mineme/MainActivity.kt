@@ -5,6 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -12,14 +14,23 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.najudoryeong.mineme.core.data.util.NetworkMonitor
+import com.najudoryeong.mineme.core.designsystem.theme.DoTheme
+import com.najudoryeong.mineme.ui.DoApp
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+
+@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 class MainActivity : ComponentActivity() {
 
 
     val viewModel: MainActivityViewModel by viewModels()
+
+    @Inject
+    lateinit var networkMonitor: NetworkMonitor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
@@ -53,6 +64,19 @@ class MainActivity : ComponentActivity() {
         // 전체 화면 모드를 활성화
         enableEdgeToEdge()
 
+
+        setContent {
+            DoTheme(
+                darkTheme = false,
+                androidTheme = false,
+                disableDynamicTheming = false,
+            ) {
+                DoApp(
+                    networkMonitor = networkMonitor,
+                    windowSizeClass = calculateWindowSizeClass(this)
+                )
+            }
+        }
 
         super.onCreate(savedInstanceState)
     }
