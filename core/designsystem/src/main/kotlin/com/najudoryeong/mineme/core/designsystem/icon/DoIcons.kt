@@ -10,4 +10,5 @@ object DoIcons {
     val StoryBorder = Icons.Rounded.Storyborder
     val Setting = Icons.Rounded.Setting
     val SettingBorder = Icons.Rounded.SettingBorder
+
 }

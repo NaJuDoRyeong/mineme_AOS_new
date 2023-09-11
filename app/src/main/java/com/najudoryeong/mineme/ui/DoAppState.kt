@@ -15,9 +15,12 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import androidx.tracing.trace
 import com.najudoryeong.mineme.core.data.util.NetworkMonitor
+import com.najudoryeong.mineme.feature.home.navigation.homeNavigationRoute
 import com.najudoryeong.mineme.feature.home.navigation.navigateToHome
 import com.najudoryeong.mineme.feature.story.navigation.navigateToSettings
 import com.najudoryeong.mineme.feature.story.navigation.navigateToStory
+import com.najudoryeong.mineme.feature.story.navigation.settingsNavigationRoute
+import com.najudoryeong.mineme.feature.story.navigation.storyNavigationRoute
 import com.najudoryeong.mineme.navigation.TopLevelDestination
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
@@ -59,6 +62,15 @@ class DoAppState(
     val currentDestination: NavDestination?
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
+
+
+    val currentTopLevelDestination: TopLevelDestination?
+        @Composable get() = when (currentDestination?.route) {
+            homeNavigationRoute -> TopLevelDestination.Home
+            storyNavigationRoute -> TopLevelDestination.Story
+            settingsNavigationRoute -> TopLevelDestination.Setting
+            else -> null
+        }
 
     val shouldShowBottomBar: Boolean
         get() = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact

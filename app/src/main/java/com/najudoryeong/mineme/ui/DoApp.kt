@@ -1,6 +1,7 @@
 package com.najudoryeong.mineme.ui
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
@@ -16,7 +17,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -25,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.R
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
@@ -35,6 +39,7 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import com.najudoryeong.mineme.core.data.util.NetworkMonitor
 import com.najudoryeong.mineme.core.designsystem.component.DoNavigationBar
 import com.najudoryeong.mineme.core.designsystem.component.DoNavigationBarItem
+import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
 import com.najudoryeong.mineme.navigation.TopLevelDestination
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalLayoutApi::class)
@@ -95,7 +100,36 @@ fun DoApp(
                     ),
             ) {
 
+                Column(Modifier.fillMaxSize()) {
+                    // Show the top app bar on top level destinations.
+                    val destination = appState.currentTopLevelDestination
+                    if (destination != null) {
+                        DoTopAppBar(
+                            titleRes = destination.titleTextId,
+                            navigationIcon = DoIcons.Search,
+                            navigationIconContentDescription = stringResource(
+                                id = settingsR.string.top_app_bar_navigation_icon_description,
+                            ),
+                            actionIcon = DoIcons.Settings,
+                            actionIconContentDescription = stringResource(
+                                id = settingsR.string.top_app_bar_action_icon_description,
+                            ),
+                            colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                                containerColor = Color.Transparent,
+                            ),
+                            onActionClick = { showSettingsDialog = true },
+                            onNavigationClick = { appState.navigateToSearch() },
+                        )
+                    }
 
+                    DoNavHost(appState = appState, onShowSnackbar = { message, action ->
+                        snackbarHostState.showSnackbar(
+                            message = message,
+                            actionLabel = action,
+                            duration = SnackbarDuration.Short,
+                        ) == SnackbarResult.ActionPerformed
+                    })
+                }
 
             }
 

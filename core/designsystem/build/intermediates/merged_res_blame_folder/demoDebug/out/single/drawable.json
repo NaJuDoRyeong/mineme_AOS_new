@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "com.najudoryeong.mineme.core.designsystem-merged_res-46:/drawable/abc_vector_test.xml",
+        "source": "com.najudoryeong.mineme.core.designsystem-appcompat-resources-1.4.2-13:/drawable/abc_vector_test.xml"
+    },
+    {
+        "merged": "com.najudoryeong.mineme.core.designsystem-merged_res-46:/drawable/notification_bg.xml",
+        "source": "com.najudoryeong.mineme.core.designsystem-core-1.9.0-10:/drawable/notification_bg.xml"
+    },
+    {
+        "merged": "com.najudoryeong.mineme.core.designsystem-merged_res-46:/drawable/notification_bg_low.xml",
+        "source": "com.najudoryeong.mineme.core.designsystem-core-1.9.0-10:/drawable/notification_bg_low.xml"
+    },
+    {
+        "merged": "com.najudoryeong.mineme.core.designsystem-merged_res-46:/drawable/notification_icon_background.xml",
+        "source": "com.najudoryeong.mineme.core.designsystem-core-1.9.0-10:/drawable/notification_icon_background.xml"
+    },
+    {
+        "merged": "com.najudoryeong.mineme.core.designsystem-merged_res-46:/drawable/notification_tile_bg.xml",
+        "source": "com.najudoryeong.mineme.core.designsystem-core-1.9.0-10:/drawable/notification_tile_bg.xml"
+    },
+    {
+        "merged": "com.najudoryeong.mineme.core.designsystem-merged_res-46:/drawable/ic_100tb.xml",
+        "source": "com.najudoryeong.mineme.core.designsystem-coil-base-2.2.2-42:/drawable/ic_100tb.xml"
+    }
+]
