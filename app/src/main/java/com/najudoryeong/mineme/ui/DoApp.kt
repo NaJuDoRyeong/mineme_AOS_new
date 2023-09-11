@@ -8,7 +8,6 @@ import com.najudoryeong.mineme.core.data.util.NetworkMonitor
 fun DoApp(
     windowSizeClass: WindowSizeClass,
     networkMonitor: NetworkMonitor,
-    userNewsResourceRepository: UserNewsResourceRepository,
 ) {
 
 
