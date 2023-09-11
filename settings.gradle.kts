@@ -22,4 +22,5 @@ include(":core:ui")
 include(":core:data")
 include(":core:model")
 include(":core:datastore")
+include(":core:designsystem")
 

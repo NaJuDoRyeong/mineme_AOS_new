@@ -17,7 +17,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "com.najudoryeong.mineme.core.testing.NiaTestRunner"
+        testInstrumentationRunner = "com.najudoryeong.mineme.core.testing.DoTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
