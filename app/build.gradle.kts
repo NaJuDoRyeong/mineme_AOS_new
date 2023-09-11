@@ -7,7 +7,6 @@ plugins {
     id("mineme.android.application.jacoco")
     id("mineme.android.hilt")
     id("jacoco")
-    id("mineme.android.application.firebase")
 }
 
 android {
