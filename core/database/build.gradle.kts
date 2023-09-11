@@ -24,7 +24,7 @@ plugins {
 android {
     defaultConfig {
         testInstrumentationRunner =
-            "com.najudoryeong.mineme.core.testing.NiaTestRunner"
+            "com.najudoryeong.mineme.core.testing.DoTestRunner"
     }
     namespace = "com.najudoryeong.mineme.core.database"
 }

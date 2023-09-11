@@ -15,6 +15,10 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import androidx.tracing.trace
 import com.najudoryeong.mineme.core.data.util.NetworkMonitor
+import com.najudoryeong.mineme.feature.home.navigation.navigateToHome
+import com.najudoryeong.mineme.feature.story.navigation.navigateToSettings
+import com.najudoryeong.mineme.feature.story.navigation.navigateToStory
+import com.najudoryeong.mineme.navigation.TopLevelDestination
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -22,14 +26,12 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
 @Composable
-fun rememberNiaAppState(
+fun rememberDoAppState(
     windowSizeClass: WindowSizeClass,
     networkMonitor: NetworkMonitor,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
     navController: NavHostController = rememberNavController(),
 ): DoAppState {
-    NavigationTrackingSideEffect(navController)
-
 
     return remember(
         navController,
@@ -44,6 +46,7 @@ fun rememberNiaAppState(
             networkMonitor,
         )
     }
+
 }
 
 @Stable
@@ -71,80 +74,30 @@ class DoAppState(
             initialValue = false,
         )
 
-    /**
-     * Map of top level destinations to be used in the TopBar, BottomBar and NavRail. The key is the
-     * route.
-     */
     val topLevelDestinations: List<TopLevelDestination> = TopLevelDestination.values().asList()
 
-    /**
-     * The top level destinations that have unread news resources.
-     */
-    val topLevelDestinationsWithUnreadResources: StateFlow<Set<TopLevelDestination>> =
-        userNewsResourceRepository.observeAllForFollowedTopics()
-            .combine(userNewsResourceRepository.observeAllBookmarked()) { forYouNewsResources, bookmarkedNewsResources ->
-                setOfNotNull(
-                    FOR_YOU.takeIf { forYouNewsResources.any { !it.hasBeenViewed } },
-                    BOOKMARKS.takeIf { bookmarkedNewsResources.any { !it.hasBeenViewed } },
-                )
-            }.stateIn(
-                coroutineScope,
-                SharingStarted.WhileSubscribed(5_000),
-                initialValue = emptySet(),
-            )
 
     /**
-     * UI logic for navigating to a top level destination in the app. Top level destinations have
-     * only one copy of the destination of the back stack, and save and restore state whenever you
-     * navigate to and from it.
-     *
-     * @param topLevelDestination: The destination the app needs to navigate to.
+    trace 함수는 특정 작업의 성능 추적을 수행하기 위해 사용
      */
     fun navigateToTopLevelDestination(topLevelDestination: TopLevelDestination) {
-        trace("Navigation: ${topLevelDestination.name}") {
-            val topLevelNavOptions = navOptions {
-                // Pop up to the start destination of the graph to
-                // avoid building up a large stack of destinations
-                // on the back stack as users select items
-                popUpTo(navController.graph.findStartDestination().id) {
-                    saveState = true
-                }
-                // Avoid multiple copies of the same destination when
-                // reselecting the same item
-                launchSingleTop = true
-                // Restore state when reselecting a previously selected item
-                restoreState = true
+        val topLevelNavOptions = navOptions {
+
+            // 현재 네비게이션 스택에서 시작 목적지까지 모든 목적지를 팝
+            popUpTo(navController.graph.findStartDestination().id) {
+                saveState = true
             }
 
-            when (topLevelDestination) {
-                FOR_YOU -> navController.navigateToForYou(topLevelNavOptions)
-                BOOKMARKS -> navController.navigateToBookmarks(topLevelNavOptions)
-                INTERESTS -> navController.navigateToInterestsGraph(topLevelNavOptions)
-            }
-        }
-    }
-
-    fun navigateToSearch() {
-        navController.navigateToSearch()
-    }
-}
-
-
-
-/**
- * Stores information about navigation events to be used with JankStats
- */
-@Composable
-private fun NavigationTrackingSideEffect(navController: NavHostController) {
-    TrackDisposableJank(navController) { metricsHolder ->
-        val listener = NavController.OnDestinationChangedListener { _, destination, _ ->
-            metricsHolder.state?.putState("Navigation", destination.route.toString())
+            // 이미 스택의 상위에 동일한 목적지가 있는 경우, 새 목적지 인스턴스를 시작하지 않고 기존 인스턴스를 재사용
+            launchSingleTop = true
+            // 이전에 선택한 항목을 다시 선택할 때 상태를 복원
+            restoreState = true
         }
 
-        navController.addOnDestinationChangedListener(listener)
-
-        onDispose {
-            navController.removeOnDestinationChangedListener(listener)
+        when (topLevelDestination) {
+            TopLevelDestination.Home -> navController.navigateToHome(topLevelNavOptions)
+            TopLevelDestination.Story -> navController.navigateToStory(topLevelNavOptions)
+            TopLevelDestination.Setting -> navController.navigateToSettings(topLevelNavOptions)
         }
     }
 }
