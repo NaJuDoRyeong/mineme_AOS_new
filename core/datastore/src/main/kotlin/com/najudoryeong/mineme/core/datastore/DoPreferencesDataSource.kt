@@ -11,6 +11,7 @@ class DoPreferencesDataSource @Inject constructor(
 ) {
 
     val userData = flow<UserData> {
+        userPreferences.data
         UserData(
             DarkThemeConfig.DARK, false, false
         )

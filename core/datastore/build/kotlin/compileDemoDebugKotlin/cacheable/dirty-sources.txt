@@ -1,6 +1,0 @@
-C:\Users\kimdowoo\AndroidStudioProjects\mineme\core\datastore\build\generated\source\proto\demoDebug\kotlin\com\najudoryeong\mineme\core\datastore\UserPreferencesKt.kt
-C:\Users\kimdowoo\AndroidStudioProjects\mineme\core\datastore\build\generated\source\proto\demoDebug\kotlin\com\najudoryeong\mineme\core\datastore\UserPreferencesOuterClassKt.kt
-C:\Users\kimdowoo\AndroidStudioProjects\mineme\core\datastore\src\main\kotlin\com\najudoryeong\mineme\core\datastore\DoPreferencesDataSource.kt
-C:\Users\kimdowoo\AndroidStudioProjects\mineme\core\datastore\src\main\kotlin\com\najudoryeong\mineme\core\datastore\di\DataStoreModule.kt
-C:\Users\kimdowoo\AndroidStudioProjects\mineme\core\datastore\src\main\kotlin\com\najudoryeong\mineme\core\datastore\UserPreferencesSerializer.kt
-C:\Users\kimdowoo\AndroidStudioProjects\mineme\core\datastore\build\generated\source\proto\demoDebug\kotlin\com\najudoryeong\mineme\core\datastore\DarkThemeConfigKt.kt
