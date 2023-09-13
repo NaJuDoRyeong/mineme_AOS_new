@@ -1,1 +1,0 @@
-int string story 0x0

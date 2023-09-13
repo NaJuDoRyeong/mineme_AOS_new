@@ -1,1 +1,0 @@
-com.najudoryeong.mineme.core.domain

@@ -39,3 +39,5 @@ include(":feature:settings")
 include(":feature:story")
 include(":ui-test-hilt-manifest")
 
+include(":sync:work")
+include(":sync:sync-test")

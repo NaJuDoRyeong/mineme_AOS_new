@@ -27,6 +27,10 @@ dependencies {
 
     debugApi(libs.androidx.compose.ui.tooling)
 
+    implementation(project(":core:analytics"))
+    implementation(project(":core:designsystem"))
+    implementation(project(":core:domain"))
+    implementation(project(":core:model"))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.browser)
     implementation(libs.androidx.core.ktx)
@@ -34,4 +38,5 @@ dependencies {
     implementation(libs.coil.kt.compose)
     implementation(libs.kotlinx.datetime)
 
+    androidTestImplementation(project(":core:testing"))
 }
