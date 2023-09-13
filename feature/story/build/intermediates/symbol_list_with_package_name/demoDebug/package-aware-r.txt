@@ -1,0 +1,2 @@
+com.najudoryeong.mineme.feature.story
+string story
