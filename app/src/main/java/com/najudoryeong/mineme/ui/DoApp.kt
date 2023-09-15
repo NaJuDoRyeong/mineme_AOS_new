@@ -1,5 +1,6 @@
 package com.najudoryeong.mineme.ui
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -58,6 +59,8 @@ fun DoApp(
         windowSizeClass = windowSizeClass,
     )
 ) {
+
+
     Box(
         Modifier.fillMaxSize()
     ) {
@@ -82,14 +85,12 @@ fun DoApp(
             contentWindowInsets = WindowInsets(0, 0, 0, 0),
             snackbarHost = { SnackbarHost(snackbarHostState) },
             bottomBar = {
-                if (appState.shouldShowBottomBar) {
                     DoBottomBar(
                         destinations = appState.topLevelDestinations,
                         onNavigateToDestination = appState::navigateToTopLevelDestination,
                         currentDestination = appState.currentDestination,
                         modifier = Modifier.testTag("DoBottomBar"),
                     )
-                }
             }
         ) { padding ->
 
@@ -110,8 +111,8 @@ fun DoApp(
                 Column(Modifier.fillMaxSize()) {
                     // Show the top app bar on top level destinations.
                     val destination = appState.currentTopLevelDestination
-                    if (destination != null) {
 
+                    if (destination != null) {
                         // story라면
                         if (destination == TopLevelDestination.Story) {
                             DoTopAppBar(
@@ -193,6 +194,7 @@ private fun DoBottomBar(
                     )
                 },
                 label = { Text(stringResource(destination.iconTextId)) },
+                modifier = Modifier
             )
         }
     }
