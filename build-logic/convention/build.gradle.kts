@@ -4,7 +4,6 @@ plugins {
     `kotlin-dsl`
 }
 
-group = "com.google.samples.apps.nowinandroid.buildlogic"
 
 // 프로젝트 빌드를 위한 Java 버전이 JDK 17
 java {

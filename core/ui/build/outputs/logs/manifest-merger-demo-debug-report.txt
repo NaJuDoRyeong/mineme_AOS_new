@@ -1,16 +1,16 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\kimdowoo\AndroidStudioProjects\mineme\core\ui\build\intermediates\tmp\ProcessLibraryManifest\demo\debug\tempAndroidManifest7262760711864515408.xml:2:13-83
-INJECTED from C:\Users\kimdowoo\AndroidStudioProjects\mineme\core\ui\build\intermediates\tmp\ProcessLibraryManifest\demo\debug\tempAndroidManifest7262760711864515408.xml:2:13-83
+ADDED from C:\Users\kimdowoo\AndroidStudioProjects\mineme\core\ui\build\intermediates\tmp\ProcessLibraryManifest\demo\debug\tempAndroidManifest6233478308944343897.xml:2:13-83
+INJECTED from C:\Users\kimdowoo\AndroidStudioProjects\mineme\core\ui\build\intermediates\tmp\ProcessLibraryManifest\demo\debug\tempAndroidManifest6233478308944343897.xml:2:13-83
 	package
-		INJECTED from C:\Users\kimdowoo\AndroidStudioProjects\mineme\core\ui\build\intermediates\tmp\ProcessLibraryManifest\demo\debug\tempAndroidManifest7262760711864515408.xml
+		INJECTED from C:\Users\kimdowoo\AndroidStudioProjects\mineme\core\ui\build\intermediates\tmp\ProcessLibraryManifest\demo\debug\tempAndroidManifest6233478308944343897.xml
 	xmlns:android
-		ADDED from C:\Users\kimdowoo\AndroidStudioProjects\mineme\core\ui\build\intermediates\tmp\ProcessLibraryManifest\demo\debug\tempAndroidManifest7262760711864515408.xml:2:23-81
+		ADDED from C:\Users\kimdowoo\AndroidStudioProjects\mineme\core\ui\build\intermediates\tmp\ProcessLibraryManifest\demo\debug\tempAndroidManifest6233478308944343897.xml:2:23-81
 uses-sdk
-INJECTED from C:\Users\kimdowoo\AndroidStudioProjects\mineme\core\ui\build\intermediates\tmp\ProcessLibraryManifest\demo\debug\tempAndroidManifest7262760711864515408.xml reason: use-sdk injection requested
-INJECTED from C:\Users\kimdowoo\AndroidStudioProjects\mineme\core\ui\build\intermediates\tmp\ProcessLibraryManifest\demo\debug\tempAndroidManifest7262760711864515408.xml
-INJECTED from C:\Users\kimdowoo\AndroidStudioProjects\mineme\core\ui\build\intermediates\tmp\ProcessLibraryManifest\demo\debug\tempAndroidManifest7262760711864515408.xml
+INJECTED from C:\Users\kimdowoo\AndroidStudioProjects\mineme\core\ui\build\intermediates\tmp\ProcessLibraryManifest\demo\debug\tempAndroidManifest6233478308944343897.xml reason: use-sdk injection requested
+INJECTED from C:\Users\kimdowoo\AndroidStudioProjects\mineme\core\ui\build\intermediates\tmp\ProcessLibraryManifest\demo\debug\tempAndroidManifest6233478308944343897.xml
+INJECTED from C:\Users\kimdowoo\AndroidStudioProjects\mineme\core\ui\build\intermediates\tmp\ProcessLibraryManifest\demo\debug\tempAndroidManifest6233478308944343897.xml
 	android:targetSdkVersion
-		INJECTED from C:\Users\kimdowoo\AndroidStudioProjects\mineme\core\ui\build\intermediates\tmp\ProcessLibraryManifest\demo\debug\tempAndroidManifest7262760711864515408.xml
+		INJECTED from C:\Users\kimdowoo\AndroidStudioProjects\mineme\core\ui\build\intermediates\tmp\ProcessLibraryManifest\demo\debug\tempAndroidManifest6233478308944343897.xml
 	android:minSdkVersion
-		INJECTED from C:\Users\kimdowoo\AndroidStudioProjects\mineme\core\ui\build\intermediates\tmp\ProcessLibraryManifest\demo\debug\tempAndroidManifest7262760711864515408.xml
+		INJECTED from C:\Users\kimdowoo\AndroidStudioProjects\mineme\core\ui\build\intermediates\tmp\ProcessLibraryManifest\demo\debug\tempAndroidManifest6233478308944343897.xml

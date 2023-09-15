@@ -17,20 +17,20 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.najudoryeong.mineme.core.data.util.NetworkMonitor
 import com.najudoryeong.mineme.core.designsystem.theme.DoTheme
 import com.najudoryeong.mineme.ui.DoApp
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
+@AndroidEntryPoint
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 class MainActivity : ComponentActivity() {
 
-
-    val viewModel: MainActivityViewModel by viewModels()
-
     @Inject
     lateinit var networkMonitor: NetworkMonitor
+
+    val viewModel: MainActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()

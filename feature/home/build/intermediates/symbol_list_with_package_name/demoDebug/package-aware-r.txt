@@ -1,0 +1,2 @@
+com.najudoryeong.mineme.feature.home
+string home

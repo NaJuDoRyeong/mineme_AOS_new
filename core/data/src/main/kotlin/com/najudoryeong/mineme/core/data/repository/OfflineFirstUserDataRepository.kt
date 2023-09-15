@@ -1,8 +1,8 @@
 package com.najudoryeong.mineme.core.data.repository
 
-import android.service.autofill.UserData
 import com.najudoryeong.mineme.core.datastore.DoPreferencesDataSource
 import com.najudoryeong.mineme.core.model.data.DarkThemeConfig
+import com.najudoryeong.mineme.core.model.data.UserData
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -11,19 +11,17 @@ class OfflineFirstUserDataRepository @Inject constructor(
 ) : UserDataRepository {
 
     override val userData: Flow<UserData>
-        get() = TODO("Not yet implemented")
+        = doPreferencesDataSource.userData
 
     override suspend fun setDarkThemeConfig(darkThemeConfig: DarkThemeConfig) {
-        TODO("Not yet implemented")
+        doPreferencesDataSource.setDarkThemeConfig(darkThemeConfig)
     }
-
     override suspend fun setDynamicColorPreference(useDynamicColor: Boolean) {
-        TODO("Not yet implemented")
+        doPreferencesDataSource.setDynamicColorPreference(useDynamicColor)
     }
 
     override suspend fun setShouldHideOnboarding(shouldHideOnboarding: Boolean) {
-        TODO("Not yet implemented")
+        doPreferencesDataSource.setShouldHideOnboarding(shouldHideOnboarding)
     }
-
 
 }

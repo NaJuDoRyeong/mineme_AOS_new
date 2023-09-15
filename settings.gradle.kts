@@ -18,9 +18,26 @@ dependencyResolutionManagement {
 
 rootProject.name = "mineme"
 include(":app")
-include(":core:ui")
+include(":core:common")
 include(":core:data")
-include(":core:model")
+include(":core:data-test")
+include(":core:database")
 include(":core:datastore")
+include(":core:datastore-test")
 include(":core:designsystem")
+include(":core:domain")
+include(":core:model")
+include(":core:network")
+include(":core:ui")
+include(":core:testing")
+include(":core:analytics")
+include(":core:notifications")
 
+
+include(":feature:home")
+include(":feature:settings")
+include(":feature:story")
+include(":ui-test-hilt-manifest")
+
+include(":sync:work")
+include(":sync:sync-test")

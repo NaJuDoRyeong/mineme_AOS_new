@@ -1,7 +1,7 @@
 package com.najudoryeong.mineme.core.data.repository
 
-import android.service.autofill.UserData
 import com.najudoryeong.mineme.core.model.data.DarkThemeConfig
+import com.najudoryeong.mineme.core.model.data.UserData
 import kotlinx.coroutines.flow.Flow
 
 interface UserDataRepository {
