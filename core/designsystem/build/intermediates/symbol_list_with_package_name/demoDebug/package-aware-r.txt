@@ -1,1 +1,7 @@
 com.najudoryeong.mineme.core.designsystem
+drawable home
+drawable onhome
+drawable onsetting
+drawable onstory
+drawable setting
+drawable story

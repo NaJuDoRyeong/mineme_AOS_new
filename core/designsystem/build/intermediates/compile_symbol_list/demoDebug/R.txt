@@ -1,0 +1,6 @@
+int drawable home 0x0
+int drawable onhome 0x0
+int drawable onsetting 0x0
+int drawable onstory 0x0
+int drawable setting 0x0
+int drawable story 0x0
