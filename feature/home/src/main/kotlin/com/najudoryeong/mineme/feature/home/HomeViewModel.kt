@@ -16,11 +16,26 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val userDataRepository: UserDataRepository,
-) : ViewModel() {
+    userHomeResourceRepository: UserHomeResourceRepository
+    ) : ViewModel() {
 
     private val shouldShowOnboarding: Flow<Boolean> =
         userDataRepository.userData.map { !it.shouldHideOnboarding }
 
+
+
+
+    val homeState: StateFlow<HomeUiState> =
+        userHomeResourceRepository.observeAllForFollowedTopics()
+            .map(NewsFeedUiState::Success)
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000),
+                initialValue = NewsFeedUiState.Loading,
+            )
+
+
+    
 
 
     // todo 어느 화면에서 시작?
