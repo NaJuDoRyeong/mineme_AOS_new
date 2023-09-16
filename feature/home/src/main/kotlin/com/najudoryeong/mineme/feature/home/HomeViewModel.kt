@@ -27,13 +27,15 @@ class HomeViewModel @Inject constructor(
 
 
     val homeState: StateFlow<HomeUiState> =
-        homeResourceRepository.observeAll()
+        homeResourceRepository.getHomeData()
             .map(HomeUiState::Success)
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5_000),
                 initialValue = HomeUiState.Loading,
             )
+
+
 
 
     // todo 어느 화면에서 시작?

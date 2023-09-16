@@ -1,8 +1,7 @@
 package com.najudoryeong.mineme.core.model.data
 
-import kotlinx.datetime.Instant
 
-data class HomeMainResource internal constructor(
+data class HomeMainResource constructor(
     val couple: Couple,
     val newStory: NewStory
 )

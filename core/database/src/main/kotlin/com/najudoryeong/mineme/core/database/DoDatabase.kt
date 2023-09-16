@@ -2,7 +2,6 @@ package com.najudoryeong.mineme.core.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.najudoryeong.mineme.core.database.dao.HomeDao
 import com.najudoryeong.mineme.core.database.model.CoupleEntity
 import com.najudoryeong.mineme.core.database.model.HomeMainResourceEntity
 import com.najudoryeong.mineme.core.database.model.NewStoryEntity
