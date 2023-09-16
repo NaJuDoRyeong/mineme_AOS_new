@@ -1,5 +1,7 @@
 package com.najudoryeong.mineme.core.data.di
 
+import com.najudoryeong.mineme.core.data.repository.HomeResourceRepository
+import com.najudoryeong.mineme.core.data.repository.OfflineFirstHomeResourceRepository
 import com.najudoryeong.mineme.core.data.repository.OfflineFirstUserDataRepository
 import com.najudoryeong.mineme.core.data.repository.UserDataRepository
 import com.najudoryeong.mineme.core.data.util.ConnectivityManagerNetworkMonitor
@@ -23,5 +25,9 @@ interface DataModule {
         networkMonitor: ConnectivityManagerNetworkMonitor,
     ): NetworkMonitor
 
+    @Binds
+    fun bindsHomeResourceRepository(
+        userDataRepository: OfflineFirstHomeResourceRepository,
+    ): HomeResourceRepository
 
 }
