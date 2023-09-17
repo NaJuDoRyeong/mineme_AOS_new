@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "com.najudoryeong.mineme.feature.home-merged_res-84:/layout-v21/notification_template_custom_big.xml",
+        "source": "com.najudoryeong.mineme.feature.home-core-1.9.0-25:/layout-v21/notification_template_custom_big.xml"
+    },
+    {
+        "merged": "com.najudoryeong.mineme.feature.home-merged_res-84:/layout-v21/notification_template_icon_group.xml",
+        "source": "com.najudoryeong.mineme.feature.home-core-1.9.0-25:/layout-v21/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "com.najudoryeong.mineme.feature.home-merged_res-84:/layout-v21/notification_action_tombstone.xml",
+        "source": "com.najudoryeong.mineme.feature.home-core-1.9.0-25:/layout-v21/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "com.najudoryeong.mineme.feature.home-merged_res-84:/layout-v21/notification_action.xml",
+        "source": "com.najudoryeong.mineme.feature.home-core-1.9.0-25:/layout-v21/notification_action.xml"
+    }
+]

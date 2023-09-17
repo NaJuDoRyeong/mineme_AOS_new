@@ -8,4 +8,5 @@ public final class BuildConfig {
   public static final String LIBRARY_PACKAGE_NAME = "com.najudoryeong.mineme.core.network";
   public static final String BUILD_TYPE = "debug";
   public static final String FLAVOR = "demo";
+  public static final String BACKEND_URL = "https://dev.mineme.works/";
 }

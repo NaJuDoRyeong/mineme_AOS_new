@@ -31,9 +31,11 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -42,6 +44,7 @@ import com.najudoryeong.mineme.core.designsystem.component.DoNavigationBar
 import com.najudoryeong.mineme.core.designsystem.component.DoNavigationBarItem
 import com.najudoryeong.mineme.core.designsystem.component.DoTopAppBar
 import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
+import com.najudoryeong.mineme.core.designsystem.theme.DoTheme
 import com.najudoryeong.mineme.navigation.DoNavHost
 import com.najudoryeong.mineme.navigation.TopLevelDestination
 
@@ -85,12 +88,12 @@ fun DoApp(
             contentWindowInsets = WindowInsets(0, 0, 0, 0),
             snackbarHost = { SnackbarHost(snackbarHostState) },
             bottomBar = {
-                    DoBottomBar(
-                        destinations = appState.topLevelDestinations,
-                        onNavigateToDestination = appState::navigateToTopLevelDestination,
-                        currentDestination = appState.currentDestination,
-                        modifier = Modifier.testTag("DoBottomBar"),
-                    )
+                DoBottomBar(
+                    destinations = appState.topLevelDestinations,
+                    onNavigateToDestination = appState::navigateToTopLevelDestination,
+                    currentDestination = appState.currentDestination,
+                    modifier = Modifier.testTag("DoBottomBar"),
+                )
             }
         ) { padding ->
 
@@ -113,15 +116,16 @@ fun DoApp(
                     val destination = appState.currentTopLevelDestination
 
                     if (destination != null) {
+
                         // story라면
                         if (destination == TopLevelDestination.Story) {
                             DoTopAppBar(
                                 titleRes = destination.titleTextId,
-                                navigationIcon = DoIcons.SettingBorder,
+                                navigationIcon = destination.navigationIcon,
                                 navigationIconContentDescription = stringResource(
                                     id = destination.titleTextId,
                                 ),
-                                actionIcon = DoIcons.Setting,
+                                actionIcon = destination.actionIcon,
                                 actionIconContentDescription = stringResource(
                                     id = destination.titleTextId,
                                 ),
@@ -134,7 +138,7 @@ fun DoApp(
                         } else {
                             DoTopAppBar(
                                 titleRes = destination.titleTextId,
-                                actionIcon = DoIcons.SettingBorder,
+                                actionIcon = destination.actionIcon,
                                 actionIconContentDescription = stringResource(
                                     id = destination.titleTextId,
                                 ),
@@ -157,11 +161,8 @@ fun DoApp(
                         ) == SnackbarResult.ActionPerformed
                     })
                 }
-
             }
-
         }
-
     }
 }
 
@@ -183,14 +184,16 @@ private fun DoBottomBar(
                 onClick = { onNavigateToDestination(destination) },
                 icon = {
                     Icon(
-                        imageVector = destination.unselectedIcon,
+                        painter = painterResource(id = destination.unselectedIcon),
                         contentDescription = null,
+                        tint = Color.Unspecified
                     )
                 },
                 selectedIcon = {
                     Icon(
-                        imageVector = destination.selectedIcon,
+                        painter = painterResource(id = destination.selectedIcon),
                         contentDescription = null,
+                        tint = Color.Unspecified
                     )
                 },
                 label = { Text(stringResource(destination.iconTextId)) },
@@ -199,7 +202,6 @@ private fun DoBottomBar(
         }
     }
 }
-
 
 private fun NavDestination?.isTopLevelDestinationInHierarchy(destination: TopLevelDestination) =
     this?.hierarchy?.any {

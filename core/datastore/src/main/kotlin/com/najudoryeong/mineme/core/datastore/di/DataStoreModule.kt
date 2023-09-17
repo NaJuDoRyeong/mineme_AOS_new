@@ -6,9 +6,9 @@ import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.dataStoreFile
 import com.najudoryeong.mineme.core.datastore.UserPreferences
 import com.najudoryeong.mineme.core.datastore.UserPreferencesSerializer
-import com.najudoryeong.mineme.nowinandroid.core.network.Dispatcher
-import com.najudoryeong.mineme.nowinandroid.core.network.DoDispatchers
-import com.najudoryeong.mineme.nowinandroid.core.network.di.ApplicationScope
+import com.najudoryeong.mineme.core.network.Dispatcher
+import com.najudoryeong.mineme.core.network.DoDispatchers
+import com.najudoryeong.mineme.core.network.di.ApplicationScope
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

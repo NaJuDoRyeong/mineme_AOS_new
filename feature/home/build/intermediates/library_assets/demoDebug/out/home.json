@@ -1,0 +1,28 @@
+{
+  "couple": {
+    "name": "알콩달콩",
+    "startDate": "2000-10-10",
+    "me": {
+      "profileImage": "https://via.placeholder.com/150",
+      "nickname": "이주주원",
+      "description": "나는 주주",
+      "instaId": "id",
+      "birthday": "1998-01-10",
+      "gender": "M"
+    },
+    "mine": {
+      "profileImage": "https://picsum.photos/200/300",
+      "nickname": "정금금종",
+      "description": "나는 금졍",
+      "instaId": "id",
+      "birthday": "1998-02-09",
+      "gender": "F"
+    }
+  },
+  "newStory": {
+    "postId": 5938,
+    "region": "SL002",
+    "date": "2022-12-25",
+    "thumbnailImage": "https://picsum.photos/200/300"
+  }
+}

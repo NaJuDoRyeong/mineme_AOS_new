@@ -11,11 +11,9 @@ import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
 
 
 /**
@@ -25,9 +23,9 @@ import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
 @Composable
 fun DoTopAppBar(
     @StringRes titleRes: Int,
-    navigationIcon: ImageVector,
+    navigationIcon: Int,
     navigationIconContentDescription: String?,
-    actionIcon: ImageVector,
+    actionIcon: Int,
     actionIconContentDescription: String?,
     modifier: Modifier = Modifier,
     colors: TopAppBarColors = TopAppBarDefaults.centerAlignedTopAppBarColors(),
@@ -39,7 +37,7 @@ fun DoTopAppBar(
         navigationIcon = {
             IconButton(onClick = onNavigationClick) {
                 Icon(
-                    imageVector = navigationIcon,
+                    painter = painterResource(id = navigationIcon),
                     contentDescription = navigationIconContentDescription,
                     tint = MaterialTheme.colorScheme.onSurface,
                 )
@@ -48,7 +46,7 @@ fun DoTopAppBar(
         actions = {
             IconButton(onClick = onActionClick) {
                 Icon(
-                    imageVector = actionIcon,
+                    painter = painterResource(id = actionIcon),
                     contentDescription = actionIconContentDescription,
                     tint = MaterialTheme.colorScheme.onSurface,
                 )
@@ -66,7 +64,7 @@ fun DoTopAppBar(
 @Composable
 fun DoTopAppBar(
     @StringRes titleRes: Int,
-    actionIcon: ImageVector,
+    actionIcon: Int,
     actionIconContentDescription: String?,
     modifier: Modifier = Modifier,
     colors: TopAppBarColors = TopAppBarDefaults.centerAlignedTopAppBarColors(),
@@ -77,7 +75,7 @@ fun DoTopAppBar(
         actions = {
             IconButton(onClick = onActionClick) {
                 Icon(
-                    imageVector = actionIcon,
+                    painter = painterResource(id = actionIcon),
                     contentDescription = actionIconContentDescription,
                     tint = MaterialTheme.colorScheme.onSurface,
                 )
@@ -85,16 +83,5 @@ fun DoTopAppBar(
         },
         colors = colors,
         modifier = modifier.testTag("DoTopAppBar"),
-    )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview("Top App Bar")
-@Composable
-private fun DoTopAppBarPreview() {
-    DoTopAppBar(
-        titleRes = android.R.string.untitled,
-        actionIcon = DoIcons.SettingBorder,
-        actionIconContentDescription = "Action icon",
     )
 }

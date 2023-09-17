@@ -17,8 +17,8 @@ import kotlinx.coroutines.CoroutineScope;
 @ScopeMetadata("javax.inject.Singleton")
 @QualifierMetadata({
     "dagger.hilt.android.qualifiers.ApplicationContext",
-    "com.najudoryeong.mineme.nowinandroid.core.network.Dispatcher",
-    "com.najudoryeong.mineme.nowinandroid.core.network.di.ApplicationScope"
+    "com.najudoryeong.mineme.core.network.Dispatcher",
+    "com.najudoryeong.mineme.core.network.di.ApplicationScope"
 })
 @DaggerGenerated
 @Generated(

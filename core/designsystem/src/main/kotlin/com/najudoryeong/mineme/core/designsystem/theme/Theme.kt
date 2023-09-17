@@ -207,11 +207,8 @@ fun DoTheme(
         androidTheme -> if (darkTheme) DarkAndroidBackgroundTheme else LightAndroidBackgroundTheme
         else -> defaultBackgroundTheme
     }
-    val tintTheme = when {
-        androidTheme -> TintTheme()
-        !disableDynamicTheming && supportsDynamicTheming() -> TintTheme(colorScheme.primary)
-        else -> TintTheme()
-    }
+    // todo recfactor
+    val tintTheme = TintTheme()
     // Composition locals
     CompositionLocalProvider(
         LocalGradientColors provides gradientColors,

@@ -3,6 +3,8 @@ plugins {
     id("mineme.android.library.jacoco")
     id("mineme.android.hilt")
     id("kotlinx-serialization")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+
 }
 
 android {
@@ -15,6 +17,10 @@ android {
             isIncludeAndroidResources = true
         }
     }
+}
+
+secrets {
+    defaultPropertiesFileName = "secrets.defaults.properties"
 }
 
 dependencies {
