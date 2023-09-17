@@ -33,14 +33,14 @@ public final class HomeScreenKt {
     java.lang.String profileImgUrl, int defaultIcon) {
     }
     
-    @com.najudoryeong.mineme.core.ui.DevicePreviews
+    @androidx.compose.ui.tooling.preview.Preview(showBackground = true)
     @androidx.compose.runtime.Composable
     public static final void HomeScreenSuccessPreview(@androidx.compose.ui.tooling.preview.PreviewParameter(provider = com.najudoryeong.mineme.core.ui.HomeMainResourcePreviewParameterProvider.class)
     @org.jetbrains.annotations.NotNull
     com.najudoryeong.mineme.core.model.data.HomeMainResource homeMainResource) {
     }
     
-    @com.najudoryeong.mineme.core.ui.DevicePreviews
+    @androidx.compose.ui.tooling.preview.Preview
     @androidx.compose.runtime.Composable
     public static final void HomeScreenLoadingPreview(@androidx.compose.ui.tooling.preview.PreviewParameter(provider = com.najudoryeong.mineme.core.ui.HomeMainResourcePreviewParameterProvider.class)
     @org.jetbrains.annotations.NotNull

@@ -12,10 +12,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -29,9 +32,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.najudoryeong.mineme.core.designsystem.component.DoOverlayLoadingWheel
@@ -130,7 +135,12 @@ fun CoupleProfile(
     when (homeState) {
         HomeUiState.Loading -> Unit
         is HomeUiState.Success -> {
-            Row(modifier) {
+            Row(
+                modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 48.dp, vertical = 32.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
                 Profile(
                     profileInfo = homeState.homeMainResource.couple.me,
                     defaultIcon = DoIcons.default_me.resourceId
@@ -150,12 +160,47 @@ fun Profile(
     modifier: Modifier = Modifier,
     defaultIcon: Int
 ) {
-    Column(modifier = modifier) {
+    Column(
+        modifier = modifier.width(80.dp)
+
+    ) {
+
         ProfileImage(
-            modifier = Modifier.clip(CircleShape).size(80.dp),
+            modifier = Modifier
+                .clip(CircleShape)
+                .size(80.dp),
             profileImgUrl = profileInfo.profileImage,
             defaultIcon = defaultIcon
         )
+
+        Text(
+            text = profileInfo.nickname,
+            modifier = Modifier
+                .padding(vertical = 8.dp)
+                .fillMaxWidth(),
+            style = MaterialTheme.typography.titleMedium,
+            textAlign = TextAlign.Center,
+        )
+
+        val description =
+            profileInfo.description.ifEmpty { stringResource(R.string.empty_description) }
+
+        Text(
+            text = description,
+            modifier = Modifier.fillMaxWidth(),
+            style = MaterialTheme.typography.bodyMedium,
+            textAlign = TextAlign.Center
+        )
+
+        if (profileInfo.instaId.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = profileInfo.instaId,
+                modifier = Modifier.fillMaxWidth(),
+                style = MaterialTheme.typography.bodyMedium,
+                textAlign = TextAlign.Center
+            )
+        }
     }
 }
 
@@ -183,7 +228,7 @@ fun ProfileImage(
 }
 
 
-@DevicePreviews
+@Preview(showBackground = true)
 @Composable
 fun HomeScreenSuccessPreview(
     @PreviewParameter(HomeMainResourcePreviewParameterProvider::class)
@@ -198,7 +243,7 @@ fun HomeScreenSuccessPreview(
     }
 }
 
-@DevicePreviews
+@Preview
 @Composable
 fun HomeScreenLoadingPreview(
     @PreviewParameter(HomeMainResourcePreviewParameterProvider::class)

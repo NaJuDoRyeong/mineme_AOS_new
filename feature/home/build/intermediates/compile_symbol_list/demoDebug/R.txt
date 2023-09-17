@@ -1,2 +1,3 @@
+int string empty_description 0x0
 int string home 0x0
 int string home_loading 0x0

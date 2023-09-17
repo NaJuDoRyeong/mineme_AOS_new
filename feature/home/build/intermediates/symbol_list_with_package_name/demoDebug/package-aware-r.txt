@@ -1,3 +1,4 @@
 com.najudoryeong.mineme.feature.home
+string empty_description
 string home
 string home_loading

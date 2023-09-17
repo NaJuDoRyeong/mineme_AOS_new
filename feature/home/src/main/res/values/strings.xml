@@ -2,6 +2,7 @@
 <resources>
     <string name="home">Home</string>
     <string name="home_loading">Loading for home…</string>
+    <string name="empty_description">상대의 설명을 입력해주세요!</string>
 </resources>
 
 
