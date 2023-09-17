@@ -1,3 +1,6 @@
 int string empty_description 0x0
 int string home 0x0
 int string home_loading 0x0
+int string new_story 0x0
+int string no_story 0x0
+int string no_story2 0x0

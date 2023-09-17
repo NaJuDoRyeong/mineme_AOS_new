@@ -10,27 +10,27 @@ data class NetworkHomeMainResource constructor(
 
 @Serializable
 data class NetworkCouple(
-    val name: String,
-    val startDate: String,
+    val name: String = "",
+    val startDate: String = "",
     val me: NetworkPerson,
     val mine: NetworkPerson
 )
 
 @Serializable
 data class NetworkPerson(
-    val profileImage: String,
-    val nickname: String,
-    val description: String,
-    val instaId: String,
-    val birthday: String,
-    val gender: String
+    val profileImage: String = "",
+    val nickname: String = "",
+    val description: String = "",
+    val instaId: String = "",
+    val birthday: String = "",
+    val gender: String = ""
 )
 
 @Serializable
 data class NetworkNewStory(
     val postId: Int,
-    val region: String,
-    val date: String,
-    val thumbnailImage: String
+    val region: String = "",
+    val date: String = "",
+    val thumbnailImage: String = ""
 )
 
