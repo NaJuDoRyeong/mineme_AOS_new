@@ -1,4 +1,7 @@
 com.najudoryeong.mineme.core.designsystem
+drawable appmainimage
+drawable default_me
+drawable default_mine
 drawable home
 drawable onhome
 drawable onsetting

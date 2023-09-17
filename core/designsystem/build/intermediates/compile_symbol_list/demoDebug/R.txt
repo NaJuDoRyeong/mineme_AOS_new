@@ -1,3 +1,6 @@
+int drawable appmainimage 0x0
+int drawable default_me 0x0
+int drawable default_mine 0x0
 int drawable home 0x0
 int drawable onhome 0x0
 int drawable onsetting 0x0

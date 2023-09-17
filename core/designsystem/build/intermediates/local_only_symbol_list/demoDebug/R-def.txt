@@ -1,5 +1,8 @@
 R_DEF: Internal format may change without notice
 local
+drawable appmainimage
+drawable default_me
+drawable default_mine
 drawable home
 drawable onhome
 drawable onsetting
