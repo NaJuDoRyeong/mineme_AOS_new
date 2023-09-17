@@ -16,9 +16,9 @@ public final class DataStoreModule {
     @org.jetbrains.annotations.NotNull
     public final androidx.datastore.core.DataStore<com.najudoryeong.mineme.core.datastore.UserPreferences> providesUserPreferencesDataStore(@dagger.hilt.android.qualifiers.ApplicationContext
     @org.jetbrains.annotations.NotNull
-    android.content.Context context, @com.najudoryeong.mineme.nowinandroid.core.network.Dispatcher(doDispatcher = com.najudoryeong.mineme.nowinandroid.core.network.DoDispatchers.IO)
+    android.content.Context context, @com.najudoryeong.mineme.core.network.Dispatcher(doDispatcher = com.najudoryeong.mineme.core.network.DoDispatchers.IO)
     @org.jetbrains.annotations.NotNull
-    kotlinx.coroutines.CoroutineDispatcher ioDispatcher, @com.najudoryeong.mineme.nowinandroid.core.network.di.ApplicationScope
+    kotlinx.coroutines.CoroutineDispatcher ioDispatcher, @com.najudoryeong.mineme.core.network.di.ApplicationScope
     @org.jetbrains.annotations.NotNull
     kotlinx.coroutines.CoroutineScope scope, @org.jetbrains.annotations.NotNull
     com.najudoryeong.mineme.core.datastore.UserPreferencesSerializer userPreferencesSerializer) {

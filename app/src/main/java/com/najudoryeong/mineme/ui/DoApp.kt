@@ -203,19 +203,6 @@ private fun DoBottomBar(
     }
 }
 
-@Preview
-@Composable
-fun Gdasd() {
-    DoTheme {
-        Box(modifier = Modifier.fillMaxSize()) {
-            Icon(
-                painter = painterResource(id = DoIcons.OnStory.resourceId),
-                contentDescription = null,
-            )
-        }
-    }
-}
-
 private fun NavDestination?.isTopLevelDestinationInHierarchy(destination: TopLevelDestination) =
     this?.hierarchy?.any {
         it.route?.contains(destination.name, true) ?: false

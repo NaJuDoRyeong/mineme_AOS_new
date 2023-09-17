@@ -1,2 +1,3 @@
 com.najudoryeong.mineme.feature.home
 string home
+string home_loading

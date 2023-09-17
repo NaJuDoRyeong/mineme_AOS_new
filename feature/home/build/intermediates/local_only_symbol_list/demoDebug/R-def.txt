@@ -1,3 +1,4 @@
 R_DEF: Internal format may change without notice
 local
 string home
+string home_loading

@@ -10,7 +10,7 @@ import kotlinx.coroutines.CoroutineDispatcher;
 import kotlinx.serialization.json.Json;
 
 @ScopeMetadata
-@QualifierMetadata("com.najudoryeong.mineme.nowinandroid.core.network.Dispatcher")
+@QualifierMetadata("com.najudoryeong.mineme.core.network.Dispatcher")
 @DaggerGenerated
 @Generated(
     value = "dagger.internal.codegen.ComponentProcessor",

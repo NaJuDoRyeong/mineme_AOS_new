@@ -6,6 +6,6 @@ sealed interface HomeUiState {
     data object Loading : HomeUiState
 
     data class Success(
-        val feed: HomeMainResource,
+        val homeMainResource: HomeMainResource,
     ) : HomeUiState
 }

@@ -3,14 +3,15 @@ package com.najudoryeong.mineme.core.network.fake
 import com.najudoryeong.mineme.core.network.DoNetworkDataSource
 import com.najudoryeong.mineme.core.network.JvmUnitTestFakeAssetManager
 import com.najudoryeong.mineme.core.network.model.NetworkChangeList
-import com.najudoryeong.mineme.core.network.model.NetworkHomeMainResource
-import com.najudoryeong.mineme.nowinandroid.core.network.Dispatcher
-import com.najudoryeong.mineme.nowinandroid.core.network.DoDispatchers
+import com.najudoryeong.mineme.core.network.Dispatcher
+import com.najudoryeong.mineme.core.network.DoDispatchers
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
+import com.najudoryeong.mineme.core.network.model.NetworkHomeMainResource
+import okio.use
 import javax.inject.Inject
 
 class FakeDoNetworkDataSource @Inject constructor(

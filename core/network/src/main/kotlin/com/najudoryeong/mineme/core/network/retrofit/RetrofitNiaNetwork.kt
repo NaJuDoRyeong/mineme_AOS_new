@@ -1,6 +1,7 @@
 package com.najudoryeong.mineme.core.network.retrofit
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import com.najudoryeong.mineme.core.model.data.HomeMainResource
 import com.najudoryeong.mineme.core.network.BuildConfig
 import com.najudoryeong.mineme.core.network.DoNetworkDataSource
 import com.najudoryeong.mineme.core.network.model.NetworkHomeMainResource
@@ -44,7 +45,6 @@ class RetrofitDoNetwork @Inject constructor(
         .build()
         .create(RetrofitDoNetworkApi::class.java)
 
-    override suspend fun getHomeData(): NetworkHomeMainResource =
-        networkApi.getHomeMainResource(token = "jwt").data
+    override suspend fun getHomeData(): NetworkHomeMainResource = networkApi.getHomeMainResource(token = "jwt").data
 
 }

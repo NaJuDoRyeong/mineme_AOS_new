@@ -1,25 +1,23 @@
 package com.najudoryeong.mineme.core.network.model
 
-import kotlinx.datetime.Instant
-import kotlinx.serialization.Serializable
-
+import kotlinx.serialization.Serializable;
 
 @Serializable
-data class NetworkHomeMainResource internal constructor(
-    val couple: Couple,
-    val newStory: NewStory
+data class NetworkHomeMainResource constructor(
+    val couple: NetworkCouple,
+    val newStory: NetworkNewStory
 )
 
 @Serializable
-data class Couple(
+data class NetworkCouple(
     val name: String,
     val startDate: String,
-    val me: Person,
-    val mine: Person
+    val me: NetworkPerson,
+    val mine: NetworkPerson
 )
 
 @Serializable
-data class Person(
+data class NetworkPerson(
     val profileImage: String,
     val nickname: String,
     val description: String,
@@ -29,7 +27,7 @@ data class Person(
 )
 
 @Serializable
-data class NewStory(
+data class NetworkNewStory(
     val postId: Int,
     val region: String,
     val date: String,

@@ -1,6 +1,5 @@
 package com.najudoryeong.mineme.core.model.data
 
-
 data class HomeMainResource constructor(
     val couple: Couple,
     val newStory: NewStory
@@ -12,6 +11,7 @@ data class Couple(
     val me: Person,
     val mine: Person
 )
+
 
 data class Person(
     val profileImage: String,

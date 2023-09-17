@@ -1,5 +1,7 @@
 package com.najudoryeong.mineme.core.database
 
+/*
+
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.najudoryeong.mineme.core.database.model.CoupleEntity
@@ -22,3 +24,5 @@ abstract class DoDatabase : RoomDatabase() {
 
 
 }
+ */
+
