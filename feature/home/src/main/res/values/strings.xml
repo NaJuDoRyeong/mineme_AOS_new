@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home">Home</string>
+    <string name="home_loading">Loading for home…</string>
+    <string name="empty_description">상대의 설명을 입력해주세요!</string>
+    <string name="no_story">No Story...</string>
+    <string name="new_story">New Story!</string>
+    <string name="no_story2">오늘의 스토리를 작성해주세요:)</string>
+</resources>
+
+
+

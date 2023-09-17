@@ -1,0 +1,13 @@
+R_DEF: Internal format may change without notice
+local
+drawable appmainimage
+drawable default_me
+drawable default_mine
+drawable heart
+drawable home
+drawable no_story
+drawable onhome
+drawable onsetting
+drawable onstory
+drawable setting
+drawable story

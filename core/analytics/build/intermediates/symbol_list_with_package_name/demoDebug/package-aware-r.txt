@@ -1,0 +1,1 @@
+com.najudoryeong.mineme.core.analytics

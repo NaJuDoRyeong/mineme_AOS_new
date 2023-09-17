@@ -1,0 +1,7 @@
+com.najudoryeong.mineme.feature.home
+string empty_description
+string home
+string home_loading
+string new_story
+string no_story
+string no_story2
