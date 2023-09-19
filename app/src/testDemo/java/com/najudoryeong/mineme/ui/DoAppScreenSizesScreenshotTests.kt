@@ -113,7 +113,7 @@ class DoAppScreenSizesScreenshotTests {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
     }
 
-    private fun testNiaAppScreenshotWithSize(width: Dp, height: Dp, screenshotName: String) {
+    private fun testDoAppScreenshotWithSize(width: Dp, height: Dp, screenshotName: String) {
         composeTestRule.setContent {
             CompositionLocalProvider(
                 LocalInspectionMode provides true,
@@ -138,9 +138,28 @@ class DoAppScreenSizesScreenshotTests {
             )
     }
 
+
+    @Test
+    fun compactWidth_mediumHeight_showsNavigationBar() {
+        testDoAppScreenshotWithSize(
+            400.dp,
+            500.dp,
+            "compactWidth_mediumHeight_showsNavigationBar",
+        )
+    }
+
+    @Test
+    fun compactWidth_expandedHeight_showsNavigationBar() {
+        testDoAppScreenshotWithSize(
+            400.dp,
+            1000.dp,
+            "compactWidth_expandedHeight_showsNavigationBar",
+        )
+    }
+
     @Test
     fun compactWidth_compactHeight_showsNavigationBar() {
-        testNiaAppScreenshotWithSize(
+        testDoAppScreenshotWithSize(
             610.dp,
             400.dp,
             "compactWidth_compactHeight_showsNavigationBar",
