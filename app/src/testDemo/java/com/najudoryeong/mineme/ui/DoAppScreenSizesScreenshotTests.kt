@@ -89,6 +89,7 @@ class DoAppScreenSizesScreenshotTests {
     @Inject
     lateinit var networkMonitor: NetworkMonitor
 
+    @Before
     fun setup() {
         val config = Configuration.Builder()
             .setMinimumLoggingLevel(Log.DEBUG)
