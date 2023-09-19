@@ -84,6 +84,7 @@ dependencies {
     androidTestImplementation(libs.accompanist.testharness)
     androidTestImplementation(kotlin("test"))
     debugImplementation(libs.androidx.compose.ui.testManifest)
+    debugImplementation(project(":ui-test-hilt-manifest"))
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
