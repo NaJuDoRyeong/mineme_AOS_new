@@ -143,7 +143,7 @@ class DoAppScreenSizesScreenshotTests {
         testNiaAppScreenshotWithSize(
             610.dp,
             400.dp,
-            "compactWidth_compactHeight_showsNavigationBar",
+            "compactWidth_compactHeight_showsNavigationBarr",
         )
     }
 
