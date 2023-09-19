@@ -27,7 +27,7 @@ interface DataModule {
 
     @Binds
     fun bindsHomeResourceRepository(
-        userDataRepository: OfflineFirstHomeResourceRepository,
+        homeResourceRepository: OfflineFirstHomeResourceRepository
     ): HomeResourceRepository
 
 }
