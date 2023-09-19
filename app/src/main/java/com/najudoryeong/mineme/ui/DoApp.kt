@@ -185,7 +185,7 @@ private fun DoBottomBar(
                     Icon(
                         painter = painterResource(id = destination.unselectedIcon),
                         contentDescription = null,
-                        tint = Color.Unspecified
+                        //tint = Color.Unspecified
                     )
                 },
                 selectedIcon = {
