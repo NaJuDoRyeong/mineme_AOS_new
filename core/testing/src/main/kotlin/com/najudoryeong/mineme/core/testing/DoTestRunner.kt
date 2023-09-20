@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.najudoryeong.mineme.core
+package com.najudoryeong.mineme.core.testing
 
 import android.app.Application
 import android.content.Context

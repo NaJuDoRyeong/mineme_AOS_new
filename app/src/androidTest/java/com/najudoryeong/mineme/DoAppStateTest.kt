@@ -24,7 +24,6 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
@@ -81,11 +80,10 @@ class DoAppStateTest {
         assertEquals(3, state.topLevelDestinations.size)
         assertTrue(state.topLevelDestinations[0].name.contains("home", true))
         assertTrue(state.topLevelDestinations[1].name.contains("story", true))
-        assertTrue(state.topLevelDestinations[2].name.contains("setting", true))
+        assertTrue(state.topLevelDestinations[2].name.contains("settings", true))
     }
 
 
-    // 바텀바 확인
     @Test
     fun doAppState_showBottomBar_compact() = runTest {
         composeTestRule.setContent {
@@ -100,6 +98,7 @@ class DoAppStateTest {
         assertTrue(state.shouldShowBottomBar)
     }
 
+    // offline 설정 잘 되는지
     @Test
     fun stateIsOfflineWhenNetworkMonitorIsOffline() = runTest(UnconfinedTestDispatcher()) {
         composeTestRule.setContent {

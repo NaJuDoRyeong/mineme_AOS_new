@@ -35,7 +35,7 @@ fun RowScope.DoNavigationBarItem(
     selectedIcon: @Composable () -> Unit = icon,
     enabled: Boolean = true,
     label: @Composable (() -> Unit)? = null,
-    alwaysShowLabel: Boolean = true,
+    alwaysShowLabel: Boolean = false,
 ) {
     NavigationBarItem(
         selected = selected,
@@ -43,6 +43,7 @@ fun RowScope.DoNavigationBarItem(
         icon = if (selected) selectedIcon else icon,
         modifier = modifier,
         enabled = enabled,
+        label = label,
         alwaysShowLabel = alwaysShowLabel,
         colors = NavigationBarItemDefaults.colors(
             selectedIconColor = DoNavigationDefaults.navigationSelectedItemColor(),
@@ -50,7 +51,7 @@ fun RowScope.DoNavigationBarItem(
             selectedTextColor = DoNavigationDefaults.navigationSelectedItemColor(),
             unselectedTextColor = DoNavigationDefaults.navigationContentColor(),
             indicatorColor = DoNavigationDefaults.navigationIndicatorColor(),
-        ),
+        )
     )
 }
 
