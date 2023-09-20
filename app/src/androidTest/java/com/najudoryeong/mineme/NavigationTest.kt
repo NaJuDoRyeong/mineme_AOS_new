@@ -2,6 +2,7 @@ package com.najudoryeong.mineme
 
 import androidx.annotation.StringRes
 import androidx.compose.ui.test.assertIsSelected
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -12,6 +13,7 @@ import androidx.test.espresso.NoActivityResumedException
 import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -75,6 +77,7 @@ class NavigationTest {
     }
 
     // homeDestination back 을 하면 종료 Test
+    // NoActivityResumedException가 발생해야 통과 , 즉 앱종료
     @Test(expected = NoActivityResumedException::class)
     fun homeDestination_back_quitsApp() {
         composeTestRule.apply {
@@ -89,7 +92,7 @@ class NavigationTest {
 
     // 다른 topDestination 에서 back homeDestinatnion 으로 가는지 Test
     @Test
-    fun navigationBar_backFromAnyDestination_returnsToForYou() {
+    fun navigationBar_backFromAnyDestination_returnsToHome() {
         composeTestRule.apply {
             onNodeWithText(settings).performClick()
             Espresso.pressBack()
@@ -100,4 +103,5 @@ class NavigationTest {
             onNodeWithText(home).assertExists()
         }
     }
+
 }
