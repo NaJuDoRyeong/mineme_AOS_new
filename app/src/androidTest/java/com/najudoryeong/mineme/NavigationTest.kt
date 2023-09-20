@@ -98,7 +98,7 @@ class NavigationTest {
             Espresso.pressBack()
             onNodeWithText(home).assertExists()
 
-            onNodeWithText(settings).performClick()
+            onNodeWithText(story).performClick()
             Espresso.pressBack()
             onNodeWithText(home).assertExists()
         }
