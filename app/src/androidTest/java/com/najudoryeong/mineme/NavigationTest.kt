@@ -78,14 +78,26 @@ class NavigationTest {
     @Test(expected = NoActivityResumedException::class)
     fun homeDestination_back_quitsApp() {
         composeTestRule.apply {
-            // GIVEN the user navigates to the Interests destination
+
             onNodeWithText(settings).performClick()
-            // and then navigates to the For you destination
             onNodeWithText(home).performClick()
-            // WHEN the user uses the system button/gesture to go back
+
             Espresso.pressBack()
-            // THEN the app quits
         }
     }
 
+
+    // 다른 topDestination 에서 back homeDestinatnion 으로 가는지 Test
+    @Test
+    fun navigationBar_backFromAnyDestination_returnsToForYou() {
+        composeTestRule.apply {
+            onNodeWithText(settings).performClick()
+            Espresso.pressBack()
+            onNodeWithText(home).assertExists()
+
+            onNodeWithText(settings).performClick()
+            Espresso.pressBack()
+            onNodeWithText(home).assertExists()
+        }
+    }
 }
