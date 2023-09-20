@@ -7,6 +7,8 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.test.espresso.Espresso
+import androidx.test.espresso.NoActivityResumedException
 import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -57,6 +59,8 @@ class NavigationTest {
 
 
     //todo  restore the state  previously visited destinations Test
+
+
     @Test
     fun topLevelDestinations_doNotShowUpArrow() {
         composeTestRule.apply {
@@ -67,6 +71,20 @@ class NavigationTest {
 
             onNodeWithText(settings).performClick()
             onNodeWithContentDescription(navigateUp).assertDoesNotExist()
+        }
+    }
+
+    // homeDestination back 을 하면 종료 Test
+    @Test(expected = NoActivityResumedException::class)
+    fun homeDestination_back_quitsApp() {
+        composeTestRule.apply {
+            // GIVEN the user navigates to the Interests destination
+            onNodeWithText(settings).performClick()
+            // and then navigates to the For you destination
+            onNodeWithText(home).performClick()
+            // WHEN the user uses the system button/gesture to go back
+            Espresso.pressBack()
+            // THEN the app quits
         }
     }
 
