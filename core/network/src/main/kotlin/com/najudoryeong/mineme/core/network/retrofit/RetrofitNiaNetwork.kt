@@ -5,6 +5,8 @@ import com.najudoryeong.mineme.core.model.data.HomeMainResource
 import com.najudoryeong.mineme.core.network.BuildConfig
 import com.najudoryeong.mineme.core.network.DoNetworkDataSource
 import com.najudoryeong.mineme.core.network.model.NetworkHomeMainResource
+import com.najudoryeong.mineme.core.network.model.NetworkStoryCalendarResource
+import com.najudoryeong.mineme.core.network.model.NetworkStoryRegionResource
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import okhttp3.Call
@@ -21,6 +23,8 @@ private interface RetrofitDoNetworkApi {
     suspend fun getHomeMainResource(
         @Header("Authorization") token: String
     ): NetworkResponse<NetworkHomeMainResource>
+
+
 }
 
 private const val DO_BASE_URL = BuildConfig.BACKEND_URL
@@ -46,5 +50,12 @@ class RetrofitDoNetwork @Inject constructor(
         .create(RetrofitDoNetworkApi::class.java)
 
     override suspend fun getHomeData(): NetworkHomeMainResource = networkApi.getHomeMainResource(token = "jwt").data
+    override fun getStoryResource(region: String): NetworkStoryRegionResource {
+        TODO("Not yet implemented")
+    }
+
+    override fun getCalendarStory(year: String, month: String): NetworkStoryCalendarResource {
+        TODO("Not yet implemented")
+    }
 
 }

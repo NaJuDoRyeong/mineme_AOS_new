@@ -1,6 +1,7 @@
 package com.najudoryeong.mineme.core.data.repository
 
-import com.najudoryeong.mineme.core.model.data.HomeMainResource
+import com.najudoryeong.mineme.core.model.data.StoryCalendarResource
+import com.najudoryeong.mineme.core.model.data.StoryRegionResource
 import kotlinx.coroutines.flow.Flow
 
 interface StoryResourceRepository {
