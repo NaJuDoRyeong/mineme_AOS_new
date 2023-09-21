@@ -1,0 +1,36 @@
+{
+  "stories": [
+    {
+      "region": "경남",
+      "city": "창원시",
+      "posts": [
+        {
+          "date": "2022-10-01",
+          "thumbnail": "https://picsum.photos/200/300",
+          "postId": 577
+        },
+        {
+          "date": "2022-10-02",
+          "thumbnail": "https://picsum.photos/200/300",
+          "postId": 578
+        }
+      ]
+    },
+    {
+      "region": "서울",
+      "city": "관악구",
+      "posts": [
+        {
+          "date": "2022-10-03",
+          "thumbnail": "https://picsum.photos/200/300",
+          "postId": 579
+        },
+        {
+          "date": "2022-10-04",
+          "thumbnail": "https://picsum.photos/200/300",
+          "postId": 580
+        }
+      ]
+    }
+  ]
+}
