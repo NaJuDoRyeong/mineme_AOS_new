@@ -6,7 +6,7 @@ drawable heart
 drawable home
 drawable no_story
 drawable onhome
-drawable onsetting
+drawable onsettings
 drawable onstory
-drawable setting
+drawable settings
 drawable story

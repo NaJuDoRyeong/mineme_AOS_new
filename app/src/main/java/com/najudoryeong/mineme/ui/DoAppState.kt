@@ -68,7 +68,7 @@ class DoAppState(
         @Composable get() = when (currentDestination?.route) {
             homeNavigationRoute -> TopLevelDestination.Home
             storyNavigationRoute -> TopLevelDestination.Story
-            settingsNavigationRoute -> TopLevelDestination.Setting
+            settingsNavigationRoute -> TopLevelDestination.settings
             else -> null
         }
 
@@ -109,7 +109,7 @@ class DoAppState(
         when (topLevelDestination) {
             TopLevelDestination.Home -> navController.navigateToHome(topLevelNavOptions)
             TopLevelDestination.Story -> navController.navigateToStory(topLevelNavOptions)
-            TopLevelDestination.Setting -> navController.navigateToSettings(topLevelNavOptions)
+            TopLevelDestination.settings -> navController.navigateToSettings(topLevelNavOptions)
         }
     }
 }
