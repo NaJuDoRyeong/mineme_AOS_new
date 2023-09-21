@@ -6,11 +6,9 @@ import kotlinx.coroutines.flow.Flow
 interface StoryResourceRepository {
 
     // 지역별
-    fun getRegionStory(): Flow<HomeMainResource>
-
+    fun getStoryResource(region : String): Flow<StoryRegionResource>
 
     //캘린더
-    fun getCalendarStory(): Flow<HomeMainResource>
-
+    fun getCalendarStory(year : String, month : String): Flow<StoryCalendarResource>
 
 }
