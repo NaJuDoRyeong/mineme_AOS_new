@@ -14,6 +14,8 @@ import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Retrofit
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Path
+import retrofit2.http.Query
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -29,9 +31,11 @@ private interface RetrofitDoNetworkApi {
         @Header("Authorization") token: String
     ): NetworkResponse<NetworkStoryRegionResource>
 
-    @GET("api/v1/stories/calendar?year=&month=")
+    @GET("api/v1/stories/calendar")
     suspend fun getCalendarStory(
-        @Header("Authorization") token: String
+        @Header("Authorization") token: String,
+        @Query("year") year: String,
+        @Query("month") month: String
     ): NetworkResponse<NetworkStoryCalendarResource>
 
 }
@@ -61,13 +65,14 @@ class RetrofitDoNetwork @Inject constructor(
     override suspend fun getHomeData(): NetworkHomeMainResource =
         networkApi.getHomeMainResource(token = "jwt").data
 
-    override fun getRegionStory(region: String): NetworkStoryRegionResource {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getRegionStory(region: String): NetworkStoryRegionResource =
+        networkApi.getRegionStory(token = "jwt").data
 
 
-    override fun getCalendarStory(year: String, month: String): NetworkStoryCalendarResource {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getCalendarStory(
+        year: String,
+        month: String
+    ): NetworkStoryCalendarResource =
+        networkApi.getCalendarStory(token = "jwt", year = year, month = month).data
 
 }
