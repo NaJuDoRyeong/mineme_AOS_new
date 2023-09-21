@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 interface DoNetworkDataSource {
     suspend fun getHomeData(): NetworkHomeMainResource
 
-    fun getStoryResource(region : String): NetworkStoryRegionResource
+    fun getRegionStory(region : String): NetworkStoryRegionResource
 
     fun getCalendarStory(year : String, month : String): NetworkStoryCalendarResource
 

@@ -24,6 +24,15 @@ private interface RetrofitDoNetworkApi {
         @Header("Authorization") token: String
     ): NetworkResponse<NetworkHomeMainResource>
 
+    @GET("api/v1/stories/location")
+    suspend fun getRegionStory(
+        @Header("Authorization") token: String
+    ): NetworkResponse<NetworkStoryRegionResource>
+
+    @GET("api/v1/stories/calendar?year=&month=")
+    suspend fun getCalendarStory(
+        @Header("Authorization") token: String
+    ): NetworkResponse<NetworkStoryCalendarResource>
 
 }
 
@@ -49,10 +58,13 @@ class RetrofitDoNetwork @Inject constructor(
         .build()
         .create(RetrofitDoNetworkApi::class.java)
 
-    override suspend fun getHomeData(): NetworkHomeMainResource = networkApi.getHomeMainResource(token = "jwt").data
-    override fun getStoryResource(region: String): NetworkStoryRegionResource {
+    override suspend fun getHomeData(): NetworkHomeMainResource =
+        networkApi.getHomeMainResource(token = "jwt").data
+
+    override fun getRegionStory(region: String): NetworkStoryRegionResource {
         TODO("Not yet implemented")
     }
+
 
     override fun getCalendarStory(year: String, month: String): NetworkStoryCalendarResource {
         TODO("Not yet implemented")
