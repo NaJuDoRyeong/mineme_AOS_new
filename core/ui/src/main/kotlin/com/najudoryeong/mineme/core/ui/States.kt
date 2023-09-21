@@ -9,3 +9,10 @@ sealed interface HomeUiState {
         val homeMainResource: HomeMainResource,
     ) : HomeUiState
 }
+
+
+sealed interface StoryUiState {
+
+    data object Loading :
+
+}

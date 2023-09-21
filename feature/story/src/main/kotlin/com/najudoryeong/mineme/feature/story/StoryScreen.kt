@@ -11,9 +11,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 @Composable
 internal fun StoryRoute(
     modifier: Modifier = Modifier,
-    viewModel : StoryViewModel = hiltViewModel()
+    viewModel: StoryViewModel = hiltViewModel()
 ) {
-    StoryScreen()
+    val storyState by viewModel.
+
+    StoryScreen(
+
+        modifier = modifier
+    )
 }
 
 @Composable

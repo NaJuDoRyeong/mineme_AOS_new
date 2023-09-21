@@ -68,8 +68,7 @@ internal fun HomeRoute(
 }
 
 @Composable
-internal fun
-        HomeScreen(
+internal fun HomeScreen(
     homeState: HomeUiState,
     modifier: Modifier = Modifier
 ) {
