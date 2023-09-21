@@ -65,7 +65,7 @@ class RetrofitDoNetwork @Inject constructor(
     override suspend fun getHomeData(): NetworkHomeMainResource =
         networkApi.getHomeMainResource(token = "jwt").data
 
-    override suspend fun getRegionStory(region: String): NetworkStoryRegionResource =
+    override suspend fun getRegionStory(): NetworkStoryRegionResource =
         networkApi.getRegionStory(token = "jwt").data
 
 

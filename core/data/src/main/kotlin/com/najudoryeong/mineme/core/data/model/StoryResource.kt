@@ -36,7 +36,6 @@ fun NetworkStoryWithYearMonth.asDomainModel() = StoryWithYearMonth(
 
 
 
-
 fun NetworkPost.asDomainModel() = Post(
     date = date,
     thumbnail = thumbnail,

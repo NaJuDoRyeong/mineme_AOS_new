@@ -1,6 +1,8 @@
 package com.najudoryeong.mineme.core.ui
 
 import com.najudoryeong.mineme.core.model.data.HomeMainResource
+import com.najudoryeong.mineme.core.model.data.StoryCalendarResource
+import com.najudoryeong.mineme.core.model.data.StoryRegionResource
 
 sealed interface HomeUiState {
     data object Loading : HomeUiState
@@ -11,8 +13,20 @@ sealed interface HomeUiState {
 }
 
 
-sealed interface StoryUiState {
+sealed interface RegionStoryUiState {
 
-    data object Loading :
+    data object Loading : RegionStoryUiState
 
+    data class Success(
+        val storyRegionResource: StoryRegionResource
+    ) : RegionStoryUiState
+}
+
+
+sealed interface CalendarStoryUiState {
+    data object Loading : CalendarStoryUiState
+
+    data class Success(
+        val storyCalendarResource: StoryCalendarResource
+    ) : CalendarStoryUiState
 }

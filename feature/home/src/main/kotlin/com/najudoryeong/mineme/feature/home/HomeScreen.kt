@@ -81,7 +81,7 @@ internal fun HomeScreen(
 
     Box(modifier = modifier.fillMaxSize()) {
 
-        LazyColumn(modifier = Modifier.fillMaxSize()) { // <-- 이 부분을 변경했습니다
+        LazyColumn(modifier = Modifier.fillMaxSize()) {
 
             item {
                 when (homeState) {
