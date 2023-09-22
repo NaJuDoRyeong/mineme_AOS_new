@@ -38,7 +38,7 @@ class FakeDoNetworkDataSource @Inject constructor(
         }
 
     @OptIn(ExperimentalSerializationApi::class)
-    override suspend fun getRegionStory(region: String): NetworkStoryRegionResource  =
+    override suspend fun getRegionStory(): NetworkStoryRegionResource =
         withContext(ioDispatcher) {
             assets.open(StoryRegion_ASSET).use(networkJson::decodeFromStream)
         }

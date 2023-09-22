@@ -5,7 +5,7 @@ data class StoryCalendarResource constructor(
     val stories: List<StoryWithYearMonth>
 )
 
-data class StoryRegionResource constructor(
+data class StoryRegionResource(
     val stories: List<StoryWithRegion>
 )
 

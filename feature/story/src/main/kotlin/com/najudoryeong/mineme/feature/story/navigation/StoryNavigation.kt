@@ -11,10 +11,12 @@ fun NavController.navigateToStory(navOptions: NavOptions? = null) {
     this.navigate(storyNavigationRoute, navOptions)
 }
 
-fun NavGraphBuilder.storyScreen() {
+fun NavGraphBuilder.storyScreen(
+    onStoryClick: (Int) -> Unit
+) {
     composable(
         route = storyNavigationRoute,
     ) {
-        StoryRoute()
+        StoryRoute(onStoryClick = onStoryClick)
     }
 }

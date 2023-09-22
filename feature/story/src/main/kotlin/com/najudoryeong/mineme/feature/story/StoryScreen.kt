@@ -1,33 +1,39 @@
 package com.najudoryeong.mineme.feature.story
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBars
-import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.najudoryeong.mineme.core.designsystem.component.DoOverlayLoadingWheel
+import com.najudoryeong.mineme.core.designsystem.component.DynamicAsyncImage
+import com.najudoryeong.mineme.core.model.data.Post
 import com.najudoryeong.mineme.core.ui.CalendarStoryUiState
 import com.najudoryeong.mineme.core.ui.RegionStoryUiState
+import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
 
@@ -36,6 +42,7 @@ import java.time.YearMonth
 internal fun StoryRoute(
     modifier: Modifier = Modifier,
     viewModel: StoryViewModel = hiltViewModel(),
+    onStoryClick: (Int) -> Unit
 ) {
 
     val shouldShowCalendar by viewModel.shouldShowCalendar.collectAsStateWithLifecycle()
@@ -46,7 +53,8 @@ internal fun StoryRoute(
         modifier = modifier,
         shouldShowCalendar = shouldShowCalendar,
         regionState = regionState,
-        calendarState = calendarState
+        calendarState = calendarState,
+        onStoryClick = onStoryClick
     )
 }
 
@@ -55,7 +63,8 @@ internal fun StoryScreen(
     modifier: Modifier = Modifier,
     shouldShowCalendar: Boolean,
     regionState: RegionStoryUiState,
-    calendarState: CalendarStoryUiState
+    calendarState: CalendarStoryUiState,
+    onStoryClick: (Int) -> Unit
 ) {
 
     val isRegionLoading = regionState is RegionStoryUiState.Loading
@@ -65,11 +74,13 @@ internal fun StoryScreen(
 
         if (shouldShowCalendar) {
             CalendarView(
-                calendarState = calendarState
+                calendarState = calendarState,
+                onStoryClick = onStoryClick
             )
         } else {
             RegionView(
-                regionState = regionState
+                regionState = regionState,
+                onStoryClick = onStoryClick
             )
         }
 
@@ -104,28 +115,34 @@ internal fun StoryScreen(
 @Composable
 fun CalendarView(
     modifier: Modifier = Modifier,
-    calendarState: CalendarStoryUiState
+    calendarState: CalendarStoryUiState,
+    onStoryClick: (Int) -> Unit
 ) {
 
     when (calendarState) {
         CalendarStoryUiState.Loading -> Unit
         is CalendarStoryUiState.Success -> {
-
-
-
+            Log.d("StoryTest", calendarState.toString())
+            MonthlyCalendar(
+                year = calendarState.year.toInt(),
+                month = calendarState.month.toInt(),
+                stories = calendarState.storyCalendarResource.stories[0].posts,
+                onStoryClicked = onStoryClick,
+                modifier = modifier
+            )
         }
     }
-
 }
 
 
 @Composable
 fun RegionView(
     modifier: Modifier = Modifier,
-    regionState: RegionStoryUiState
+    regionState: RegionStoryUiState,
+    onStoryClick: (Int) -> Unit
 ) {
 
-    when(regionState) {
+    when (regionState) {
         RegionStoryUiState.Loading -> Unit
         is RegionStoryUiState.Success -> {
 
@@ -136,55 +153,107 @@ fun RegionView(
 
 @Composable
 fun MonthlyCalendar(
+    stories: List<Post>,
+    onStoryClicked: (Int) -> Unit,
+    modifier: Modifier = Modifier,
     year: Int,
-    month: Int,
-    calendarUiState: CalendarUiState,
-    onDateClicked: (LocalDate) -> Unit
+    month: Int
 ) {
+    val storiesMap = stories.associateBy { LocalDate.parse(it.date) }
     val daysInMonth = YearMonth.of(year, month).lengthOfMonth()
     val firstDayOfMonth = LocalDate.of(year, month, 1)
-    val daysBefore = firstDayOfMonth.dayOfWeek.value % 7
+    val daysBefore = firstDayOfMonth.dayOfWeek.value % DAYS_IN_WEEK
 
     Column(
-        modifier = Modifier.padding(16.dp),
+        modifier = modifier.padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // 요일 헤더
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            DayOfWeek.values().forEach { dayOfWeek ->
-                Text(text = dayOfWeek.name.take(3), fontWeight = FontWeight.Bold)
-            }
-        }
-
+        WeekdaysRow()
         Spacer(modifier = Modifier.height(8.dp))
+        CalendarRows(storiesMap, daysBefore, daysInMonth, year, month, onStoryClicked)
+    }
+}
 
-        // 날짜
-        val totalDays = daysBefore + daysInMonth
-        for (i in 0 until totalDays step 7) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                for (j in i until i + 7) {
-                    if (j < daysBefore || j >= daysBefore + daysInMonth) {
-                        Text(text = "", modifier = Modifier.weight(1f))
-                    } else {
-                        val day = j - daysBefore + 1
-                        val date = LocalDate.of(year, month, day)
-                        val isSelected = calendarUiState.isDateInSelectedPeriod(date)
-                        Text(
-                            text = "$day",
-                            modifier = Modifier.weight(1f).clickable {
-                                onDateClicked(date)
-                            },
-                            color = if (isSelected) MaterialTheme.colors.primary else MaterialTheme.colors.onSurface
-                        )
+@Composable
+fun WeekdaysRow(modifier: Modifier = Modifier) {
+    val daysInKorean = listOf("월", "화", "수", "목", "금", "토", "일")
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.Center
+    ) {
+        DayOfWeek.values().forEach { dayOfWeek ->
+            Text(
+                modifier = Modifier.weight(1f).fillMaxWidth(),
+                text = daysInKorean[dayOfWeek.ordinal],
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center
+            )
+        }
+    }
+}
+
+@Composable
+fun CalendarRows(
+    storiesMap: Map<LocalDate, Post>,
+    daysBefore: Int,
+    daysInMonth: Int,
+    year: Int,
+    month: Int,
+    onStoryClicked: (Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val totalDays = daysBefore + daysInMonth
+    for (i in 0 until totalDays step DAYS_IN_WEEK) {
+        Row(
+            modifier = modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            for (j in i until i + 7) {
+                if (j in daysBefore until daysBefore + daysInMonth) {
+                    val day = j - daysBefore + 1
+                    val date = LocalDate.of(year, month, day)
+                    val post = storiesMap[date]
+                    CalendarItem(
+                        day = day, post = post, onStoryClick = onStoryClicked,
+                        modifier = modifier.weight(1f).size(45.dp)
+                    )
+                } else {
+                    Box(modifier = modifier.weight(1f).size(45.dp)) {
+                        Text(text = "")
                     }
                 }
             }
         }
     }
 }
+
+@Composable
+fun CalendarItem(
+    day: Int,
+    post: Post?,
+    onStoryClick: (Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable(enabled = post != null) {
+                post?.let { onStoryClick(it.postId) }
+            }
+    ) {
+        Text(text = "$day", modifier = Modifier.align(Alignment.Center))
+        post?.let {
+            DynamicAsyncImage(
+                it.thumbnail,
+                contentDescription = null,
+                modifier = Modifier.align(Alignment.TopEnd)
+            )
+        }
+    }
+}
+
+
+
+const val DAYS_IN_WEEK = 7
+
+

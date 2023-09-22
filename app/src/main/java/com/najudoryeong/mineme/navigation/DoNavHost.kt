@@ -25,7 +25,8 @@ fun DoNavHost(
 
         homeScreen()
 
-        storyScreen()
+        //todo onStoryClick
+        storyScreen(onStoryClick = {})
 
         settingsScreen()
     }

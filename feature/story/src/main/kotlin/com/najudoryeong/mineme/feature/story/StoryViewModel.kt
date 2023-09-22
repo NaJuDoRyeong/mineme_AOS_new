@@ -26,7 +26,7 @@ class StoryViewModel @Inject constructor(
 ) : ViewModel() {
 
     val selectDate: MutableStateFlow<LocalDate> = MutableStateFlow(LocalDate.now())
-    val shouldShowCalendar: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val shouldShowCalendar: MutableStateFlow<Boolean> = MutableStateFlow(true)
 
     val regionState: StateFlow<RegionStoryUiState> =
         storyResourceRepository.getRegionStory()
@@ -40,10 +40,17 @@ class StoryViewModel @Inject constructor(
 
     val calendarState: StateFlow<CalendarStoryUiState> =
         selectDate.flatMapLatest { date ->
+            val year = date.year.toString()
+            val month = date.monthValue.toString()
             storyResourceRepository.getCalendarStory(
-                date.year.toString(),
-                date.monthValue.toString()
-            ).map(CalendarStoryUiState::Success)
+                year, month
+            ).map { storyResource ->
+                CalendarStoryUiState.Success(
+                    year = year,
+                    month = month,
+                    storyCalendarResource = storyResource
+                )
+            }
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),

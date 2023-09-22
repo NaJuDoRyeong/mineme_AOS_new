@@ -27,6 +27,8 @@ sealed interface CalendarStoryUiState {
     data object Loading : CalendarStoryUiState
 
     data class Success(
+        val year : String,
+        val month : String,
         val storyCalendarResource: StoryCalendarResource
     ) : CalendarStoryUiState
 }
