@@ -5,6 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.najudoryeong.mineme.feature.story.StoryRoute
+import kotlinx.coroutines.flow.MutableStateFlow
 
 const val storyNavigationRoute = "story_route"
 fun NavController.navigateToStory(navOptions: NavOptions? = null) {
@@ -12,11 +13,12 @@ fun NavController.navigateToStory(navOptions: NavOptions? = null) {
 }
 
 fun NavGraphBuilder.storyScreen(
-    onStoryClick: (Int) -> Unit
+    onStoryClick: (Int) -> Unit,
+    showCalendar: MutableStateFlow<Boolean>
 ) {
     composable(
         route = storyNavigationRoute,
     ) {
-        StoryRoute(onStoryClick = onStoryClick)
+        StoryRoute(onStoryClick = onStoryClick, showCalendar = showCalendar)
     }
 }

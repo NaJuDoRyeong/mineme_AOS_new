@@ -23,6 +23,7 @@ import com.najudoryeong.mineme.feature.story.navigation.settingsNavigationRoute
 import com.najudoryeong.mineme.feature.story.navigation.storyNavigationRoute
 import com.najudoryeong.mineme.navigation.TopLevelDestination
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
@@ -75,6 +76,8 @@ class DoAppState(
     val shouldShowBottomBar: Boolean
         get() = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact
 
+    val shouldShowCalendar: MutableStateFlow<Boolean> = MutableStateFlow(false)
+
     val shouldShowNavRail: Boolean
         get() = !shouldShowBottomBar
 
@@ -88,6 +91,10 @@ class DoAppState(
 
     val topLevelDestinations: List<TopLevelDestination> = TopLevelDestination.values().asList()
 
+
+    fun updateShowCalendar() {
+        shouldShowCalendar.value = !shouldShowCalendar.value
+    }
 
     /**
     trace 함수는 특정 작업의 성능 추적을 수행하기 위해 사용

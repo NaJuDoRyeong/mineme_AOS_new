@@ -26,7 +26,7 @@ fun DoNavHost(
         homeScreen()
 
         //todo onStoryClick
-        storyScreen(onStoryClick = {})
+        storyScreen(onStoryClick = {}, showCalendar = appState.shouldShowCalendar)
 
         settingsScreen()
     }

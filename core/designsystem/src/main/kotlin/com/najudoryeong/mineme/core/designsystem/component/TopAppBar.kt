@@ -1,6 +1,7 @@
 package com.najudoryeong.mineme.core.designsystem.component
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -11,14 +12,16 @@ import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 
 
 /**
-    왼쪽 Navigation 있는 TopAppBar
-  */
+왼쪽 Navigation 있는 TopAppBar
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DoTopAppBar(
@@ -39,7 +42,7 @@ fun DoTopAppBar(
                 Icon(
                     painter = painterResource(id = navigationIcon),
                     contentDescription = navigationIconContentDescription,
-                    tint = MaterialTheme.colorScheme.onSurface,
+                    tint = Color.Unspecified,
                 )
             }
         },
@@ -58,7 +61,7 @@ fun DoTopAppBar(
 }
 
 /**
-    왼쪽 Navigation 없는 TopAppBar
+왼쪽 Navigation 없는 TopAppBar
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

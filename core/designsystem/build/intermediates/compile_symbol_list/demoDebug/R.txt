@@ -9,3 +9,5 @@ int drawable onsettings 0x0
 int drawable onstory 0x0
 int drawable settings 0x0
 int drawable story 0x0
+int drawable top_region 0x0
+int drawable top_story 0x0

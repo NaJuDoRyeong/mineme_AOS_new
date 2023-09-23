@@ -26,7 +26,6 @@ class StoryViewModel @Inject constructor(
 ) : ViewModel() {
 
     val selectDate: MutableStateFlow<LocalDate> = MutableStateFlow(LocalDate.now())
-    val shouldShowCalendar: MutableStateFlow<Boolean> = MutableStateFlow(true)
 
     val regionState: StateFlow<RegionStoryUiState> =
         storyResourceRepository.getRegionStory()
@@ -57,5 +56,8 @@ class StoryViewModel @Inject constructor(
             initialValue = CalendarStoryUiState.Loading,
         )
 
+    fun updateYearMonth(year: Int, month: Int) {
+        selectDate.value = LocalDate.of(year, month, 1)
+    }
 
 }
