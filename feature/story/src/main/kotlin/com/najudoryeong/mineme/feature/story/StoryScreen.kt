@@ -6,6 +6,8 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,19 +19,34 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.GenericShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Outline
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.najudoryeong.mineme.core.designsystem.component.DoOverlayLoadingWheel
 import com.najudoryeong.mineme.core.designsystem.component.DynamicAsyncImage
+import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
 import com.najudoryeong.mineme.core.model.data.Post
 import com.najudoryeong.mineme.core.ui.CalendarStoryUiState
 import com.najudoryeong.mineme.core.ui.RegionStoryUiState
@@ -177,16 +194,13 @@ fun MonthlyCalendar(
 @Composable
 fun WeekdaysRow(modifier: Modifier = Modifier) {
     val daysInKorean = listOf("월", "화", "수", "목", "금", "토", "일")
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.Center
-    ) {
+    Row(modifier = modifier.fillMaxWidth()) {
         DayOfWeek.values().forEach { dayOfWeek ->
             Text(
-                modifier = Modifier.weight(1f).fillMaxWidth(),
+                modifier = Modifier.weight(1f),
                 text = daysInKorean[dayOfWeek.ordinal],
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.titleSmall
             )
         }
     }
@@ -204,23 +218,26 @@ fun CalendarRows(
 ) {
     val totalDays = daysBefore + daysInMonth
     for (i in 0 until totalDays step DAYS_IN_WEEK) {
-        Row(
-            modifier = modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ) {
+        Row(modifier = modifier.fillMaxWidth()) {
             for (j in i until i + 7) {
+                val day = j - daysBefore + 1
                 if (j in daysBefore until daysBefore + daysInMonth) {
-                    val day = j - daysBefore + 1
-                    val date = LocalDate.of(year, month, day)
-                    val post = storiesMap[date]
                     CalendarItem(
-                        day = day, post = post, onStoryClick = onStoryClicked,
-                        modifier = modifier.weight(1f).size(45.dp)
+                        day = day,
+                        post = storiesMap[LocalDate.of(year, month, day)],
+                        onStoryClick = onStoryClicked,
+                        modifier = modifier
+                            .weight(1f)
+                            .size(45.dp)
+                            .padding(2.dp)
                     )
                 } else {
-                    Box(modifier = modifier.weight(1f).size(45.dp)) {
-                        Text(text = "")
-                    }
+                    Box(
+                        modifier = modifier
+                            .weight(1f)
+                            .size(45.dp)
+                            .padding(2.dp)
+                    )
                 }
             }
         }
@@ -234,24 +251,71 @@ fun CalendarItem(
     onStoryClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val density = LocalDensity.current
+    val radiusPx = with(density) { 45.dp.toPx() } / 2
+
     Box(
         modifier = modifier
-            .fillMaxWidth()
-            .clickable(enabled = post != null) {
-                post?.let { onStoryClick(it.postId) }
-            }
+            .background(
+                brush = Brush.radialGradient(
+                    colors = listOf(Color(0xFFD9D9D9), Color(0xFFD9D9D9)),
+                    radius = radiusPx
+                ),
+                shape = RoundedIrregularShape()
+            ),
+        contentAlignment = Alignment.Center
     ) {
-        Text(text = "$day", modifier = Modifier.align(Alignment.Center))
+        Text(text = "$day", style = MaterialTheme.typography.bodyMedium, color = Color.White)
         post?.let {
             DynamicAsyncImage(
                 it.thumbnail,
                 contentDescription = null,
-                modifier = Modifier.align(Alignment.TopEnd)
+                modifier = Modifier
+                    .clip(RoundedIrregularShape())
+                    .clickable {
+                        onStoryClick(post.postId)
+                    }
             )
         }
     }
 }
 
+@Composable
+fun RoundedIrregularShape(): Shape {
+    return object : Shape {
+        override fun createOutline(
+            size: Size,
+            layoutDirection: LayoutDirection,
+            density: Density
+        ): Outline {
+            return Outline.Generic(
+                Path().apply {
+                    // Adjusting the path to fit the given size
+                    val scaleX = size.width / 46f
+                    val scaleY = size.height / 48f
+
+                    moveTo(36.403f * scaleX, 42.868f * scaleY)
+                    cubicTo(
+                        26.23f * scaleX, 47.249f * scaleY,
+                        4.996f * scaleX, 47.898f * scaleY,
+                        0.996f * scaleX, 25.536f * scaleY
+                    )
+                    cubicTo(
+                        -0.004f * scaleX, 12.361f * scaleY,
+                        8.033f * scaleX, -3.979f * scaleY,
+                        32.447f * scaleX, 2.368f * scaleY
+                    )
+                    cubicTo(
+                        51.245f * scaleX, 7.255f * scaleY,
+                        51.118f * scaleX, 36.531f * scaleY,
+                        36.403f * scaleX, 42.868f * scaleY
+                    )
+                    close()
+                }
+            )
+        }
+    }
+}
 
 
 const val DAYS_IN_WEEK = 7
