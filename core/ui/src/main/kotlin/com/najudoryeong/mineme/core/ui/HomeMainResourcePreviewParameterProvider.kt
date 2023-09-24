@@ -18,12 +18,6 @@ class HomeMainResourcePreviewParameterProvider : PreviewParameterProvider<HomeMa
 
 object PreviewParameterData {
 
-    private val userData: UserData = UserData(
-        darkThemeConfig = DarkThemeConfig.DARK,
-        shouldHideOnboarding = true,
-        useDynamicColor = false,
-    )
-
     val homeMainResource = HomeMainResource(
         Couple(
             "알콩달콩",

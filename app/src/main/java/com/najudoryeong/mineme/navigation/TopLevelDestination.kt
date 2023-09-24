@@ -11,7 +11,6 @@ import com.najudoryeong.mineme.feature.settings.R as settingsR
 enum class TopLevelDestination(
     val selectedIcon: Int,
     val unselectedIcon: Int,
-    val navigationIcon : Int = DoIcons.Story.resourceId,
     val actionIcon : Int = DoIcons.settings.resourceId,
     val iconTextId: Int,
     val titleTextId: Int,

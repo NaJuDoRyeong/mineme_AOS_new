@@ -6,8 +6,11 @@ drawable default_mine
 drawable heart
 drawable home
 drawable no_story
+drawable no_story_instory
 drawable onhome
 drawable onsettings
 drawable onstory
 drawable settings
 drawable story
+drawable top_region
+drawable top_story
