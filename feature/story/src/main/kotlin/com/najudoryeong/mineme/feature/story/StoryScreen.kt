@@ -6,6 +6,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,6 +21,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Card
@@ -211,12 +213,16 @@ fun RegionView(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     RegionDropdownMenu(
-                        modifier = Modifier.width(screenWidth / 2 - 24.dp),
+                        modifier = Modifier
+                            .width(screenWidth / 2 - 24.dp)
+                            .weight(1f).padding(4.dp),
                         allRegions = allRegions,
                         onItemSelected = updateRegion
                     )
                     CityDropdownMenu(
-                        modifier = Modifier.width(screenWidth / 2 - 24.dp),
+                        modifier = Modifier
+                            .width(screenWidth / 2 - 24.dp)
+                            .weight(1f).padding(4.dp),
                         allCities = allCities,
                         onItemSelected = updateCity
                     )
@@ -230,6 +236,7 @@ fun RegionView(
         }
     }
 }
+
 @Composable
 fun RegionStoriesGrid(
     modifier: Modifier = Modifier,
@@ -263,17 +270,16 @@ fun RegionStoriesGrid(
 }
 
 
-
 @Composable
 fun PostItem(
     modifier: Modifier = Modifier,
     imgModifier: Modifier = Modifier,
     post: Post,
-    region: String, // region 매개변수 추가
-    city: String,   // city 매개변수 추가
+    region: String,
+    city: String,
     onStoryClick: (Int) -> Unit,
 ) {
-    val regionCityStr = "$region $city" // region과 city를 사용하여 문자열 생성
+    val regionCityStr = "$region $city"
 
     Column(
         modifier = modifier
@@ -283,7 +289,8 @@ fun PostItem(
             }, horizontalAlignment = Alignment.Start
     ) {
         DynamicAsyncImage(
-            modifier = imgModifier,
+            modifier = imgModifier
+                .clip(RoundedCornerShape(8.dp)),
             imageUrl = post.thumbnail,
             contentDescription = null,
         )
@@ -300,7 +307,6 @@ fun PostItem(
     }
 }
 
-
 @Composable
 fun RegionDropdownMenu(
     allRegions: List<String>,
@@ -311,9 +317,18 @@ fun RegionDropdownMenu(
     var selectedRegion by remember { mutableStateOf(allRegions.firstOrNull() ?: "") }
 
     Box(modifier = modifier) {
-        Text(text = selectedRegion, modifier = Modifier.clickable {
-            expanded = true
-        })
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { expanded = true }
+                .border(1.dp, Color.Gray, RoundedCornerShape(8.dp)) // 둥근 테두리 추가
+                .padding(8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(text = selectedRegion)
+            Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = null) // 화살표 아이콘 추가
+        }
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
             allRegions.forEach { region ->
                 DropdownMenuItem(onClick = {
@@ -338,7 +353,18 @@ fun CityDropdownMenu(
     var selectedCity by remember { mutableStateOf(allCities.firstOrNull() ?: "") }
 
     Box(modifier = modifier) {
-        Text(text = selectedCity, modifier = Modifier.clickable { expanded = true })
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { expanded = true }
+                .border(1.dp, Color.Gray, RoundedCornerShape(8.dp)) // 둥근 테두리 추가
+                .padding(8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(text = selectedCity)
+            Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = null) // 화살표 아이콘 추가
+        }
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
