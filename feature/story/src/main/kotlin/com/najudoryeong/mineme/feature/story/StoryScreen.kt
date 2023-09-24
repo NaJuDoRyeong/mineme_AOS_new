@@ -273,7 +273,9 @@ fun RegionDropdownMenu(
     var selectedRegion by remember { mutableStateOf(allRegions.firstOrNull() ?: "") }
 
     Box(modifier = modifier) {
-        Text(text = selectedRegion, modifier = Modifier.clickable { expanded = true })
+        Text(text = selectedRegion, modifier = Modifier.clickable {
+            expanded = true
+        })
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
             allRegions.forEach { region ->
                 DropdownMenuItem(onClick = {
@@ -299,7 +301,10 @@ fun CityDropdownMenu(
 
     Box(modifier = modifier) {
         Text(text = selectedCity, modifier = Modifier.clickable { expanded = true })
-        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+        ) {
             allCities.forEach { city ->
                 DropdownMenuItem(onClick = {
                     selectedCity = city

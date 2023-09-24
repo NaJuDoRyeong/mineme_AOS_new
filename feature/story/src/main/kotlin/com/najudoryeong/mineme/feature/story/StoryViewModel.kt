@@ -30,11 +30,11 @@ class StoryViewModel @Inject constructor(
 
     val selectDate: MutableStateFlow<LocalDate> = MutableStateFlow(LocalDate.now())
 
-    val searchRegion: MutableStateFlow<String> = MutableStateFlow("")
-    val searchCity: MutableStateFlow<String> = MutableStateFlow("")
+    val searchRegion: MutableStateFlow<String> = MutableStateFlow("전체")
+    val searchCity: MutableStateFlow<String> = MutableStateFlow("전체")
 
-    val allRegions: MutableStateFlow<List<String>> = MutableStateFlow(emptyList())
-    val allCities: MutableStateFlow<List<String>> = MutableStateFlow(emptyList())
+    val allRegions: MutableStateFlow<List<String>> = MutableStateFlow(listOf("전체"))
+    val allCities: MutableStateFlow<List<String>> = MutableStateFlow(listOf("전체"))
 
     val regionState: StateFlow<RegionStoryUiState> =
         combine(
@@ -44,24 +44,26 @@ class StoryViewModel @Inject constructor(
         ) { storyRegionResource, regionQuery, cityQuery ->
 
             // 초기에만 filter
-            if (allRegions.value.isEmpty()) {
-                allRegions.value = storyRegionResource.stories.map { it.region }.distinct()
+            if (allRegions.value.size <= 1) { // "전체"만 있는 경우
+                allRegions.value =
+                    listOf("전체") + storyRegionResource.stories.map { it.region }.distinct()
             }
 
             // 선택된 지역에 따라 해당하는 도시만 allCities에 업데이트
-            if (regionQuery.isNotBlank()) {
-                allCities.value = storyRegionResource.stories
+            if (regionQuery == "전체") {
+                allCities.value = listOf("전체")
+                searchCity.value = "전체"
+            } else if (regionQuery.isNotBlank()) {
+                allCities.value = listOf("전체") + storyRegionResource.stories
                     .filter { it.region == regionQuery }
                     .map { it.city }
                     .distinct()
-            } else if (allCities.value.isEmpty()) {
-                allCities.value = storyRegionResource.stories.map { it.city }.distinct()
             }
 
             // Filter stories based on region and city
             storyRegionResource.stories.filter {
-                (regionQuery.isBlank() || it.region.contains(regionQuery, ignoreCase = true)) &&
-                        (cityQuery.isBlank() || it.city.contains(cityQuery, ignoreCase = true))
+                (regionQuery == "전체" || it.region.contains(regionQuery, ignoreCase = true)) &&
+                        (cityQuery == "전체" || it.city.contains(cityQuery, ignoreCase = true))
             }
         }.map { filteredStories ->
             RegionStoryUiState.Success(
@@ -72,7 +74,6 @@ class StoryViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = RegionStoryUiState.Loading,
         )
-
 
     val calendarState: StateFlow<CalendarStoryUiState> =
         selectDate.flatMapLatest { date ->
