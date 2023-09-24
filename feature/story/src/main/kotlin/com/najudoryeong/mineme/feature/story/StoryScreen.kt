@@ -5,6 +5,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -48,6 +49,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Density
@@ -60,6 +62,7 @@ import com.najudoryeong.mineme.core.designsystem.component.DoOverlayLoadingWheel
 import com.najudoryeong.mineme.core.designsystem.component.DynamicAsyncImage
 import com.najudoryeong.mineme.core.designsystem.component.Picker
 import com.najudoryeong.mineme.core.designsystem.component.rememberPickerState
+import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
 import com.najudoryeong.mineme.core.model.data.Post
 import com.najudoryeong.mineme.core.model.data.StoryRegionResource
 import com.najudoryeong.mineme.core.model.data.StoryWithRegion
@@ -106,12 +109,12 @@ internal fun StoryScreen(
     shouldShowCalendar: Boolean,
     regionState: RegionStoryUiState,
     calendarState: CalendarStoryUiState,
-    onStoryClick: (Int) -> Unit,
-    onUpdateDate: (Int, Int) -> Unit,
-    updateRegion: (String) -> Unit,
-    updateCity: (String) -> Unit,
-    allRegions: List<String>,
-    allCities: List<String>,
+    onStoryClick: (Int) -> Unit = { _ -> },
+    onUpdateDate: (Int, Int) -> Unit = { _, _ -> },
+    updateRegion: (String) -> Unit = { _ -> },
+    updateCity: (String) -> Unit = { _ -> },
+    allRegions: List<String> = emptyList(),
+    allCities: List<String> = emptyList()
 ) {
 
     val isRegionLoading = regionState is RegionStoryUiState.Loading
@@ -215,14 +218,16 @@ fun RegionView(
                     RegionDropdownMenu(
                         modifier = Modifier
                             .width(screenWidth / 2 - 24.dp)
-                            .weight(1f).padding(4.dp),
+                            .weight(1f)
+                            .padding(4.dp),
                         allRegions = allRegions,
                         onItemSelected = updateRegion
                     )
                     CityDropdownMenu(
                         modifier = Modifier
                             .width(screenWidth / 2 - 24.dp)
-                            .weight(1f).padding(4.dp),
+                            .weight(1f)
+                            .padding(4.dp),
                         allCities = allCities,
                         onItemSelected = updateCity
                     )
@@ -252,19 +257,31 @@ fun RegionStoriesGrid(
         }
     }
 
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
-        modifier = modifier,
-    ) {
-        items(allPosts.size) { index ->
-            val (post, storyWithPost) = allPosts[index]
-            PostItem(
-                imgModifier = Modifier.size(imageSize),
-                post = post,
-                region = storyWithPost.region,
-                city = storyWithPost.city,
-                onStoryClick = onStoryClick
+    if (allPosts.isEmpty()) {
+        Box(
+            modifier = modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            Image(
+                painter = painterResource(id = DoIcons.no_story_inStory.resourceId),
+                contentDescription = null
             )
+        }
+    } else {
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            modifier = modifier,
+        ) {
+            items(allPosts.size) { index ->
+                val (post, storyWithPost) = allPosts[index]
+                PostItem(
+                    imgModifier = Modifier.size(imageSize),
+                    post = post,
+                    region = storyWithPost.region,
+                    city = storyWithPost.city,
+                    onStoryClick = onStoryClick
+                )
+            }
         }
     }
 }
@@ -357,13 +374,13 @@ fun CityDropdownMenu(
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable { expanded = true }
-                .border(1.dp, Color.Gray, RoundedCornerShape(8.dp)) // 둥근 테두리 추가
+                .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
                 .padding(8.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(text = selectedCity)
-            Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = null) // 화살표 아이콘 추가
+            Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = null)
         }
         DropdownMenu(
             expanded = expanded,
@@ -642,7 +659,6 @@ fun roundedIrregularShape(): Shape {
 @DevicePreviews
 @Composable
 fun RegionViewPreview() {
-    // 임시 데이터
     val samplePosts = listOf(
         Post("2022-10-01", "https://picsum.photos/200/300", 577),
         Post("2022-10-02", "https://picsum.photos/200/300", 578)

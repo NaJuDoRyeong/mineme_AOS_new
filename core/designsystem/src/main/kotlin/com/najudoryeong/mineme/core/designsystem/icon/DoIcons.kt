@@ -28,6 +28,8 @@ object DoIcons {
 
     val top_region = Icon.DrawableResourceIcon(R.drawable.top_region)
     val top_story = Icon.DrawableResourceIcon(R.drawable.top_story)
+
+    val no_story_inStory = Icon.DrawableResourceIcon(R.drawable.no_story_instory)
 }
 
 sealed interface Icon {
