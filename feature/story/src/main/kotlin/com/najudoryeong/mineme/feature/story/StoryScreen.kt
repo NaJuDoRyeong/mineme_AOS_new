@@ -1,12 +1,10 @@
 package com.najudoryeong.mineme.feature.story
 
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -46,6 +44,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -55,13 +54,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import coil.compose.rememberImagePainter
 import com.najudoryeong.mineme.core.designsystem.component.DoOverlayLoadingWheel
 import com.najudoryeong.mineme.core.designsystem.component.DynamicAsyncImage
 import com.najudoryeong.mineme.core.designsystem.component.Picker
 import com.najudoryeong.mineme.core.designsystem.component.rememberPickerState
 import com.najudoryeong.mineme.core.model.data.Post
+import com.najudoryeong.mineme.core.model.data.StoryRegionResource
+import com.najudoryeong.mineme.core.model.data.StoryWithRegion
 import com.najudoryeong.mineme.core.ui.CalendarStoryUiState
+import com.najudoryeong.mineme.core.ui.DevicePreviews
 import com.najudoryeong.mineme.core.ui.RegionStoryUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.time.DayOfWeek
@@ -171,7 +172,6 @@ fun CalendarView(
     when (calendarState) {
         CalendarStoryUiState.Loading -> Unit
         is CalendarStoryUiState.Success -> {
-            Log.d("StoryTest", calendarState.toString())
             MonthlyCalendar(
                 year = calendarState.year.toInt(),
                 month = calendarState.month.toInt(),
@@ -194,70 +194,108 @@ fun RegionView(
     updateCity: (String) -> Unit,
     onStoryClick: (Int) -> Unit
 ) {
+    val screenWidth = LocalConfiguration.current.screenWidthDp.dp
+
     when (regionState) {
         RegionStoryUiState.Loading -> Unit
         is RegionStoryUiState.Success -> {
             Column(
-                modifier = modifier.fillMaxSize(),
+                modifier = modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Row(
                     modifier = modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    horizontalArrangement = Arrangement.Center
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-
                     RegionDropdownMenu(
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier.width(screenWidth / 2 - 24.dp),
                         allRegions = allRegions,
                         onItemSelected = updateRegion
                     )
                     CityDropdownMenu(
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier.width(screenWidth / 2 - 24.dp),
                         allCities = allCities,
                         onItemSelected = updateCity
                     )
                 }
+                Spacer(modifier = Modifier.height(16.dp))
                 RegionStoriesGrid(
-                    posts = regionState.storyRegionResource.stories.flatMap { it.posts },
+                    stories = regionState.storyRegionResource.stories,
                     onStoryClick = onStoryClick
                 )
             }
         }
     }
 }
-
 @Composable
 fun RegionStoriesGrid(
     modifier: Modifier = Modifier,
-    posts: List<Post>,
+    stories: List<StoryWithRegion>,
     onStoryClick: (Int) -> Unit,
 ) {
+    val screenWidth = LocalConfiguration.current.screenWidthDp.dp
+    val imageSize = (screenWidth - 48.dp) / 2
+
+    val allPosts = stories.flatMap { story ->
+        story.posts.map { post ->
+            Pair(post, story)
+        }
+    }
+
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
-        modifier = modifier
-            .padding(16.dp)
+        modifier = modifier,
     ) {
-        items(posts.size) { index ->
-            val post = posts[index]
-            PostItem(post = post, onStoryClick = onStoryClick)
+        items(allPosts.size) { index ->
+            val (post, storyWithPost) = allPosts[index]
+            PostItem(
+                imgModifier = Modifier.size(imageSize),
+                post = post,
+                region = storyWithPost.region,
+                city = storyWithPost.city,
+                onStoryClick = onStoryClick
+            )
         }
     }
 }
 
+
+
 @Composable
-fun PostItem(post: Post, onStoryClick: (Int) -> Unit) {
+fun PostItem(
+    modifier: Modifier = Modifier,
+    imgModifier: Modifier = Modifier,
+    post: Post,
+    region: String, // region 매개변수 추가
+    city: String,   // city 매개변수 추가
+    onStoryClick: (Int) -> Unit,
+) {
+    val regionCityStr = "$region $city" // region과 city를 사용하여 문자열 생성
+
     Column(
-        modifier = Modifier
-            .padding(8.dp)
+        modifier = modifier
+            .padding(4.dp)
             .clickable {
                 onStoryClick(post.postId)
-            }, horizontalAlignment = Alignment.CenterHorizontally
+            }, horizontalAlignment = Alignment.Start
     ) {
-        Text(text = post.date)
         DynamicAsyncImage(
-            imageUrl = post.thumbnail, contentDescription = null, modifier = Modifier.size(166.dp)
+            modifier = imgModifier,
+            imageUrl = post.thumbnail,
+            contentDescription = null,
+        )
+
+        Text(
+            text = regionCityStr,
+            style = MaterialTheme.typography.labelLarge
+        )
+
+        Text(
+            text = post.date,
+            style = MaterialTheme.typography.labelSmall
         )
     }
 }
@@ -573,6 +611,28 @@ fun roundedIrregularShape(): Shape {
             })
         }
     }
+}
+
+@DevicePreviews
+@Composable
+fun RegionViewPreview() {
+    // 임시 데이터
+    val samplePosts = listOf(
+        Post("2022-10-01", "https://picsum.photos/200/300", 577),
+        Post("2022-10-02", "https://picsum.photos/200/300", 578)
+    )
+    val sampleStoryWithRegion = StoryWithRegion("서울", "강남구", samplePosts)
+    val sampleRegionState =
+        RegionStoryUiState.Success(StoryRegionResource(listOf(sampleStoryWithRegion)))
+
+    RegionView(
+        regionState = sampleRegionState,
+        allRegions = listOf("서울", "부산"),
+        allCities = listOf("강남구", "해운대구"),
+        updateRegion = { /*TODO*/ },
+        updateCity = { /*TODO*/ },
+        onStoryClick = { /*TODO*/ }
+    )
 }
 
 
