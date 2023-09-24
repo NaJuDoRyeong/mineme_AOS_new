@@ -6,6 +6,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -19,15 +20,18 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Card
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -51,6 +55,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import coil.compose.rememberImagePainter
 import com.najudoryeong.mineme.core.designsystem.component.DoOverlayLoadingWheel
 import com.najudoryeong.mineme.core.designsystem.component.DynamicAsyncImage
 import com.najudoryeong.mineme.core.designsystem.component.Picker
@@ -75,6 +80,8 @@ internal fun StoryRoute(
     val shouldShowCalendar by showCalendar.collectAsStateWithLifecycle()
     val regionState by viewModel.regionState.collectAsStateWithLifecycle()
     val calendarState by viewModel.calendarState.collectAsStateWithLifecycle()
+    val allRegions by viewModel.allRegions.collectAsStateWithLifecycle()
+    val allCities by viewModel.allCities.collectAsStateWithLifecycle()
 
     StoryScreen(
         modifier = modifier,
@@ -82,7 +89,11 @@ internal fun StoryRoute(
         regionState = regionState,
         calendarState = calendarState,
         onStoryClick = onStoryClick,
-        onUpdateDate = viewModel::updateYearMonth
+        onUpdateDate = viewModel::updateYearMonth,
+        updateRegion = viewModel::updateRegion,
+        updateCity = viewModel::updateCity,
+        allRegions = allRegions,
+        allCities = allCities
     )
 }
 
@@ -93,7 +104,11 @@ internal fun StoryScreen(
     regionState: RegionStoryUiState,
     calendarState: CalendarStoryUiState,
     onStoryClick: (Int) -> Unit,
-    onUpdateDate: (Int, Int) -> Unit
+    onUpdateDate: (Int, Int) -> Unit,
+    updateRegion: (String) -> Unit,
+    updateCity: (String) -> Unit,
+    allRegions: List<String>,
+    allCities: List<String>,
 ) {
 
     val isRegionLoading = regionState is RegionStoryUiState.Loading
@@ -111,6 +126,10 @@ internal fun StoryScreen(
             RegionView(
                 regionState = regionState,
                 onStoryClick = onStoryClick,
+                updateRegion = updateRegion,
+                updateCity = updateCity,
+                allRegions = allRegions,
+                allCities = allCities,
             )
         }
 
@@ -132,8 +151,7 @@ internal fun StoryScreen(
                     .padding(top = 8.dp),
             ) {
                 DoOverlayLoadingWheel(
-                    modifier = Modifier
-                        .align(Alignment.Center),
+                    modifier = Modifier.align(Alignment.Center),
                     contentDesc = loadingContentDescription,
                 )
             }
@@ -157,7 +175,7 @@ fun CalendarView(
             MonthlyCalendar(
                 year = calendarState.year.toInt(),
                 month = calendarState.month.toInt(),
-                stories = calendarState.storyCalendarResource.stories[0].posts,
+                stories = calendarState.storyCalendarResource.stories.first().posts,
                 onStoryClicked = onStoryClick,
                 onUpdateDate = onUpdateDate,
                 modifier = modifier
@@ -166,18 +184,131 @@ fun CalendarView(
     }
 }
 
-
 @Composable
 fun RegionView(
     modifier: Modifier = Modifier,
     regionState: RegionStoryUiState,
+    allRegions: List<String>,
+    allCities: List<String>,
+    updateRegion: (String) -> Unit,
+    updateCity: (String) -> Unit,
     onStoryClick: (Int) -> Unit
 ) {
-
     when (regionState) {
         RegionStoryUiState.Loading -> Unit
         is RegionStoryUiState.Success -> {
+            Column(
+                modifier = modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Row(
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    horizontalArrangement = Arrangement.Center
+                ) {
 
+                    RegionDropdownMenu(
+                        modifier = Modifier.weight(1f),
+                        allRegions = allRegions,
+                        onItemSelected = updateRegion
+                    )
+                    CityDropdownMenu(
+                        modifier = Modifier.weight(1f),
+                        allCities = allCities,
+                        onItemSelected = updateCity
+                    )
+                }
+                RegionStoriesGrid(
+                    posts = regionState.storyRegionResource.stories.flatMap { it.posts },
+                    onStoryClick = onStoryClick
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun RegionStoriesGrid(
+    modifier: Modifier = Modifier,
+    posts: List<Post>,
+    onStoryClick: (Int) -> Unit,
+) {
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        modifier = modifier
+            .padding(16.dp)
+    ) {
+        items(posts.size) { index ->
+            val post = posts[index]
+            PostItem(post = post, onStoryClick = onStoryClick)
+        }
+    }
+}
+
+@Composable
+fun PostItem(post: Post, onStoryClick: (Int) -> Unit) {
+    Column(
+        modifier = Modifier
+            .padding(8.dp)
+            .clickable {
+                onStoryClick(post.postId)
+            }, horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = post.date)
+        DynamicAsyncImage(
+            imageUrl = post.thumbnail, contentDescription = null, modifier = Modifier.size(166.dp)
+        )
+    }
+}
+
+
+@Composable
+fun RegionDropdownMenu(
+    allRegions: List<String>,
+    onItemSelected: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    var expanded by remember { mutableStateOf(false) }
+    var selectedRegion by remember { mutableStateOf(allRegions.firstOrNull() ?: "") }
+
+    Box(modifier = modifier) {
+        Text(text = selectedRegion, modifier = Modifier.clickable { expanded = true })
+        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+            allRegions.forEach { region ->
+                DropdownMenuItem(onClick = {
+                    selectedRegion = region
+                    expanded = false
+                    onItemSelected(region)
+                }, text = {
+                    Text(text = region)
+                })
+            }
+        }
+    }
+}
+
+@Composable
+fun CityDropdownMenu(
+    allCities: List<String>,
+    onItemSelected: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    var expanded by remember { mutableStateOf(false) }
+    var selectedCity by remember { mutableStateOf(allCities.firstOrNull() ?: "") }
+
+    Box(modifier = modifier) {
+        Text(text = selectedCity, modifier = Modifier.clickable { expanded = true })
+        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+            allCities.forEach { city ->
+                DropdownMenuItem(onClick = {
+                    selectedCity = city
+                    expanded = false
+                    onItemSelected(city)
+                }, text = {
+                    Text(text = city)
+                })
+            }
         }
     }
 }
@@ -204,9 +335,7 @@ fun MonthlyCalendar(
     ) {
 
         YearMonthPicker(
-            selectedYear = year,
-            selectedMonth = month,
-            onYearMonthChanged = onUpdateDate
+            selectedYear = year, selectedMonth = month, onYearMonthChanged = onUpdateDate
         )
         WeekdaysRow()
         CalendarRows(storiesMap, daysBefore, daysInMonth, year, month, onStoryClicked)
@@ -215,19 +344,15 @@ fun MonthlyCalendar(
 
 @Composable
 fun YearMonthPicker(
-    selectedYear: Int,
-    selectedMonth: Int,
-    onYearMonthChanged: (Int, Int) -> Unit
+    selectedYear: Int, selectedMonth: Int, onYearMonthChanged: (Int, Int) -> Unit
 ) {
     var showDialog by rememberSaveable { mutableStateOf(false) }
 
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
+    Row(verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
         modifier = Modifier
             .clickable { showDialog = true }
-            .padding(top = 16.dp)
-    ) {
+            .padding(top = 16.dp)) {
         Text(text = "$selectedYear / $selectedMonth")
         Icon(
             imageVector = Icons.Default.ArrowDropDown,
@@ -245,7 +370,8 @@ fun YearMonthPicker(
                     .padding(16.dp),
             ) {
                 Text(
-                    text = "날짜 선택", modifier = Modifier
+                    text = "날짜 선택",
+                    modifier = Modifier
                         .padding(top = 16.dp)
                         .fillMaxWidth(),
                     textAlign = TextAlign.Center
@@ -292,8 +418,7 @@ fun YearMonthPicker(
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         TextButton(
-                            onClick = { showDialog = false },
-                            modifier = Modifier.weight(1f)
+                            onClick = { showDialog = false }, modifier = Modifier.weight(1f)
                         ) {
                             Text("취소")
                         }
@@ -348,8 +473,9 @@ fun CalendarRows(
 ) {
     val totalDays = daysBefore + daysInMonth
     for (i in 0 until totalDays step DAYS_IN_WEEK) {
-        Row(modifier = modifier
-            .fillMaxWidth()) {
+        Row(
+            modifier = modifier.fillMaxWidth()
+        ) {
             for (j in i until i + 7) {
                 val day = j - daysBefore + 1
                 if (j in daysBefore until daysBefore + daysInMonth) {
@@ -377,36 +503,27 @@ fun CalendarRows(
 
 @Composable
 fun CalendarItem(
-    day: Int,
-    post: Post?,
-    onStoryClick: (Int) -> Unit,
-    modifier: Modifier = Modifier
+    day: Int, post: Post?, onStoryClick: (Int) -> Unit, modifier: Modifier = Modifier
 ) {
     val density = LocalDensity.current
     val radiusPx = with(density) { 45.dp.toPx() } / 2
 
     Box(
-        modifier = modifier
-            .background(
-                brush = Brush.radialGradient(
-                    colors = listOf(Color(0xFFD9D9D9), Color(0xFFD9D9D9)),
-                    radius = radiusPx
-                ),
-                shape = roundedIrregularShape()
-            ),
-        contentAlignment = Alignment.Center
+        modifier = modifier.background(
+            brush = Brush.radialGradient(
+                colors = listOf(Color(0xFFD9D9D9), Color(0xFFD9D9D9)), radius = radiusPx
+            ), shape = roundedIrregularShape()
+        ), contentAlignment = Alignment.Center
     ) {
         Text(text = "$day", style = MaterialTheme.typography.bodyMedium, color = Color.White)
         post?.let {
-            DynamicAsyncImage(
-                it.thumbnail,
+            DynamicAsyncImage(it.thumbnail,
                 contentDescription = null,
                 modifier = Modifier
                     .clip(roundedIrregularShape())
                     .clickable {
                         onStoryClick(post.postId)
-                    }
-            )
+                    })
         }
     }
 }
@@ -415,35 +532,40 @@ fun CalendarItem(
 fun roundedIrregularShape(): Shape {
     return object : Shape {
         override fun createOutline(
-            size: Size,
-            layoutDirection: LayoutDirection,
-            density: Density
+            size: Size, layoutDirection: LayoutDirection, density: Density
         ): Outline {
-            return Outline.Generic(
-                Path().apply {
-                    // Adjusting the path to fit the given size
-                    val scaleX = size.width / 46f
-                    val scaleY = size.height / 48f
+            return Outline.Generic(Path().apply {
+                // Adjusting the path to fit the given size
+                val scaleX = size.width / 46f
+                val scaleY = size.height / 48f
 
-                    moveTo(36.403f * scaleX, 42.868f * scaleY)
-                    cubicTo(
-                        26.23f * scaleX, 47.249f * scaleY,
-                        4.996f * scaleX, 47.898f * scaleY,
-                        0.996f * scaleX, 25.536f * scaleY
-                    )
-                    cubicTo(
-                        -0.004f * scaleX, 12.361f * scaleY,
-                        8.033f * scaleX, -3.979f * scaleY,
-                        32.447f * scaleX, 2.368f * scaleY
-                    )
-                    cubicTo(
-                        51.245f * scaleX, 7.255f * scaleY,
-                        51.118f * scaleX, 36.531f * scaleY,
-                        36.403f * scaleX, 42.868f * scaleY
-                    )
-                    close()
-                }
-            )
+                moveTo(36.403f * scaleX, 42.868f * scaleY)
+                cubicTo(
+                    26.23f * scaleX,
+                    47.249f * scaleY,
+                    4.996f * scaleX,
+                    47.898f * scaleY,
+                    0.996f * scaleX,
+                    25.536f * scaleY
+                )
+                cubicTo(
+                    -0.004f * scaleX,
+                    12.361f * scaleY,
+                    8.033f * scaleX,
+                    -3.979f * scaleY,
+                    32.447f * scaleX,
+                    2.368f * scaleY
+                )
+                cubicTo(
+                    51.245f * scaleX,
+                    7.255f * scaleY,
+                    51.118f * scaleX,
+                    36.531f * scaleY,
+                    36.403f * scaleX,
+                    42.868f * scaleY
+                )
+                close()
+            })
         }
     }
 }
