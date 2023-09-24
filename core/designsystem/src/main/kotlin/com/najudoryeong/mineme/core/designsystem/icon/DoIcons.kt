@@ -14,8 +14,8 @@ object DoIcons {
     val OnHome = Icon.DrawableResourceIcon(R.drawable.onhome)
     val Story = Icon.DrawableResourceIcon(R.drawable.story)
     val OnStory = Icon.DrawableResourceIcon(R.drawable.onstory)
-    val Setting = Icon.DrawableResourceIcon(R.drawable.setting)
-    val OnSetting = Icon.DrawableResourceIcon(R.drawable.onsetting)
+    val settings = Icon.DrawableResourceIcon(R.drawable.settings)
+    val OnSettings = Icon.DrawableResourceIcon(R.drawable.onsettings)
 
     /** Home **/
     // Profile Img
@@ -25,6 +25,11 @@ object DoIcons {
     val heart = Icon.DrawableResourceIcon(R.drawable.heart)
 
     val no_story = Icon.DrawableResourceIcon(R.drawable.no_story)
+
+    val top_region = Icon.DrawableResourceIcon(R.drawable.top_region)
+    val top_story = Icon.DrawableResourceIcon(R.drawable.top_story)
+
+    val no_story_inStory = Icon.DrawableResourceIcon(R.drawable.no_story_instory)
 }
 
 sealed interface Icon {

@@ -28,7 +28,7 @@ data class NetworkPerson(
 
 @Serializable
 data class NetworkNewStory(
-    val postId: Int,
+    val postId: Int = -1,
     val region: String = "",
     val date: String = "",
     val thumbnailImage: String = ""

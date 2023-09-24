@@ -111,7 +111,6 @@ fun DoApp(
 
                 //todo refactor
                 Column(Modifier.fillMaxSize()) {
-                    // Show the top app bar on top level destinations.
                     val destination = appState.currentTopLevelDestination
 
                     if (destination != null) {
@@ -120,7 +119,7 @@ fun DoApp(
                         if (destination == TopLevelDestination.Story) {
                             DoTopAppBar(
                                 titleRes = destination.titleTextId,
-                                navigationIcon = destination.navigationIcon,
+                                navigationIcon = if (appState.shouldShowCalendar.collectAsStateWithLifecycle().value) DoIcons.top_story.resourceId else DoIcons.top_region.resourceId,
                                 navigationIconContentDescription = stringResource(
                                     id = destination.titleTextId,
                                 ),
@@ -131,8 +130,10 @@ fun DoApp(
                                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                                     containerColor = Color.Transparent,
                                 ),
-                                onActionClick = { },
-                                onNavigationClick = { },
+                                onActionClick = {},
+                                onNavigationClick = {
+                                    appState.updateShowCalendar()
+                                },
                             )
                         } else {
                             DoTopAppBar(

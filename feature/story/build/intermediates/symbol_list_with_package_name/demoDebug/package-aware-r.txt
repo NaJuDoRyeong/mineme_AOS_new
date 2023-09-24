@@ -1,2 +1,4 @@
 com.najudoryeong.mineme.feature.story
+string calendar_loading
+string region_loading
 string story

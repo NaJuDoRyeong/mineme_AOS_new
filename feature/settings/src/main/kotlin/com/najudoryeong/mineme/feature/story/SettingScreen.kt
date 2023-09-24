@@ -18,6 +18,6 @@ internal fun SettingsScreen(
     modifier: Modifier = Modifier
 ) {
     Box(modifier.fillMaxSize()) {
-        Text(text = "setting")
+        Text(text = "settings")
     }
 }

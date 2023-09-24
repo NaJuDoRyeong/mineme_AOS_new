@@ -41,7 +41,6 @@ fun DoLoadingWheel(
 ) {
     val infiniteTransition = rememberInfiniteTransition(label = "wheel transition")
 
-    // Specifies the float animation for slowly drawing out the lines on entering
     val startValue = if (LocalInspectionMode.current) 0F else 1F
     val floatAnimValues = (0 until NUM_OF_LINES).map { remember { Animatable(startValue) } }
     LaunchedEffect(floatAnimValues) {
@@ -59,7 +58,6 @@ fun DoLoadingWheel(
         }
     }
 
-    // Specifies the rotation animation of the entire Canvas composable
     val rotationAnim by infiniteTransition.animateFloat(
         initialValue = 0F,
         targetValue = 360F,
@@ -69,7 +67,6 @@ fun DoLoadingWheel(
         label = "wheel rotation animation",
     )
 
-    // Specifies the color animation for the base-to-progress line color change
     val baseLineColor = MaterialTheme.colorScheme.onBackground
     val progressLineColor = MaterialTheme.colorScheme.inversePrimary
     val colorAnimValues = (0 until NUM_OF_LINES).map { index ->
@@ -89,7 +86,6 @@ fun DoLoadingWheel(
         )
     }
 
-    // Draws out the LoadingWheel Canvas composable and sets the animations
     Canvas(
         modifier = modifier
             .size(48.dp)
@@ -102,7 +98,6 @@ fun DoLoadingWheel(
             rotate(degrees = index * 30f) {
                 drawLine(
                     color = colorAnimValues[index].value,
-                    // Animates the initially drawn 1 pixel alpha from 0 to 1
                     alpha = if (floatAnimValues[index].value < 1f) 1f else 0f,
                     strokeWidth = 4F,
                     cap = StrokeCap.Round,
