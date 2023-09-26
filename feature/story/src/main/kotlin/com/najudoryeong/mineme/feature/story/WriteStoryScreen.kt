@@ -40,6 +40,7 @@ import com.najudoryeong.mineme.core.designsystem.component.AnimatedScreen
 import com.najudoryeong.mineme.core.designsystem.component.CustomBottomButton
 import com.najudoryeong.mineme.core.designsystem.component.DateDialog
 import com.najudoryeong.mineme.core.designsystem.component.DynamicAsyncImage
+import com.najudoryeong.mineme.core.designsystem.component.Indicator
 import com.najudoryeong.mineme.core.designsystem.component.LocationDropdownMenu
 import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
 import com.najudoryeong.mineme.core.ui.R.string
@@ -253,6 +254,17 @@ fun ImageSlider(
                 contentDescription = null,
                 modifier = Modifier.aspectRatio(1f)
             )
+        }
+
+        Row(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            repeat(images.size) { index ->
+                Indicator(isSelected = index == pagerState.currentPage)
+            }
         }
     }
 }
