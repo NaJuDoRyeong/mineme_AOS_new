@@ -14,7 +14,13 @@ class WriteStoryViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
-    val selectedDate : MutableStateFlow<LocalDate> = MutableStateFlow(LocalDate.now())
+
+    val selectedDate: MutableStateFlow<LocalDate> = MutableStateFlow(LocalDate.now())
+
     val selectedRegion: MutableStateFlow<String> = MutableStateFlow("선택 안함")
     val selectedCity: MutableStateFlow<String> = MutableStateFlow("선택 안함")
+
+    fun updateDate(year: Int, month: Int, day: Int) {
+        selectedDate.value = LocalDate.of(year, month, day)
+    }
 }
