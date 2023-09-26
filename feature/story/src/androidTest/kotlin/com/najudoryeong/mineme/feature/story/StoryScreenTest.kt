@@ -33,7 +33,7 @@ class StoryScreenTest {
     }
 
     @Test
-    fun circularProgressIndicator_whenRegioncreenIsLoading_exists() {
+    fun circularProgressIndicator_whenRegionScreenIsLoading_exists() {
         composeTestRule.setContent {
             BoxWithConstraints {
                 StoryScreen(
