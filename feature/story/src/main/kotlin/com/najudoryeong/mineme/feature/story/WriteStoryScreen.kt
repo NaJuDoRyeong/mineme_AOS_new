@@ -1,5 +1,9 @@
 package com.najudoryeong.mineme.feature.story
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -19,11 +23,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.najudoryeong.mineme.core.designsystem.component.AnimatedScreen
 import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
 import com.najudoryeong.mineme.core.ui.R.string
+
+
+const val firstScreenRoute = "write_story_first_page"
+const val secondScreenRoute = "write_story_second_page"
 
 @Composable
 internal fun WriteStoryRoute(
@@ -32,37 +43,47 @@ internal fun WriteStoryRoute(
     firstOnBackClick: () -> Unit,
 ) {
     val navController = rememberNavController()
+    val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
 
-    NavHost(navController, startDestination = "write_story_first_page") {
-        composable("write_story_first_page") {
-            WriteStoryFirstPageScreen(
-                viewModel = viewModel,
-                onContinueClicked = { navController.navigate("write_story_second_page") },
-                modifier = modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
-                onBackClick = firstOnBackClick
-            )
+    NavHost(navController, startDestination = firstScreenRoute) {
+        composable(firstScreenRoute) {
+            AnimatedScreen(
+                isVisible = currentRoute == firstScreenRoute
+            ) {
+                WriteStoryFirstPageScreen(
+                    onContinueClicked = { navController.navigate(secondScreenRoute) },
+                    modifier = modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
+                    onBackClick = firstOnBackClick
+                )
+            }
         }
-        composable("write_story_second_page") {
-            WriteStorySecondPageScreen(
-                viewModel = viewModel, modifier = modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
-                onBackClick = navController::popBackStack
-            )
+        composable(secondScreenRoute) {
+            AnimatedScreen(
+                isVisible = currentRoute == secondScreenRoute
+            ) {
+                WriteStorySecondPageScreen(
+                    modifier = modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
+                    onBackClick = navController::popBackStack
+                )
+            }
         }
     }
 }
 
 @Composable
 fun WriteStoryFirstPageScreen(
-    viewModel: WriteStoryViewModel,
     onContinueClicked: () -> Unit,
     modifier: Modifier = Modifier,
     onBackClick: () -> Unit
 ) {
-    Column(modifier = modifier.fillMaxSize()) {
+    Column(
+        modifier = modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Spacer(Modifier.windowInsetsTopHeight(WindowInsets.safeDrawing))
         WriteStoryToolBar(
             onBackClick = onBackClick
@@ -76,17 +97,42 @@ fun WriteStoryFirstPageScreen(
     }
 }
 
+
+@Composable
+fun WriteStorySecondPageScreen(
+    modifier: Modifier = Modifier,
+    onBackClick: () -> Unit
+) {
+
+    Column(
+        modifier = modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Spacer(Modifier.windowInsetsTopHeight(WindowInsets.safeDrawing))
+
+        WriteStoryToolBar(
+            onBackClick = onBackClick
+        )
+
+        Spacer(modifier = Modifier.weight(1f)) // 이 Spacer가 나머지 공간을 모두 차지합니다.
+
+        Text(text = "second")
+    }
+
+}
+
+
 @Composable
 fun WriteStoryToolBar(
     modifier: Modifier = Modifier,
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
 ) {
     Box(
         modifier = modifier.fillMaxWidth(),
         contentAlignment = Alignment.CenterStart
     ) {
         Text(
-            text = "스토리 작성",
+            text = stringResource(id = R.string.writeStory),
             modifier = Modifier.align(Alignment.Center)
         )
 
@@ -99,26 +145,4 @@ fun WriteStoryToolBar(
             )
         }
     }
-}
-
-
-@Composable
-fun WriteStorySecondPageScreen(
-    viewModel: WriteStoryViewModel,
-    modifier: Modifier = Modifier,
-    onBackClick: () -> Unit
-) {
-
-    Column(modifier = modifier.fillMaxSize()) {
-        Spacer(Modifier.windowInsetsTopHeight(WindowInsets.safeDrawing))
-
-        WriteStoryToolBar(
-            onBackClick = onBackClick
-        )
-
-        Spacer(modifier = Modifier.weight(1f)) // 이 Spacer가 나머지 공간을 모두 차지합니다.
-
-        Text(text = "second")
-    }
-
 }

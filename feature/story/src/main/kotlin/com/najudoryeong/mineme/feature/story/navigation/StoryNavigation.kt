@@ -37,6 +37,7 @@ fun NavGraphBuilder.writeStoryScreen(
     composable(
         route = storyWriteRoute,
     ) {
+
         WriteStoryRoute(
             firstOnBackClick = onBackClick,
         )
