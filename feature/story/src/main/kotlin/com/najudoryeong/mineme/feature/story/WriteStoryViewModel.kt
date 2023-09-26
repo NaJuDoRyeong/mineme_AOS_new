@@ -1,5 +1,6 @@
 package com.najudoryeong.mineme.feature.story
 
+import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -24,6 +25,8 @@ class WriteStoryViewModel @Inject constructor(
 
     val selectedDate: MutableStateFlow<LocalDate> = MutableStateFlow(LocalDate.now())
 
+    val selectedImage: MutableStateFlow<Uri?> = MutableStateFlow(null)
+
     init {
         viewModelScope.launch {
             selectedRegion.collect { region ->
@@ -44,6 +47,10 @@ class WriteStoryViewModel @Inject constructor(
 
     fun updateCity(newCity: String) {
         selectedCity.value = newCity
+    }
+
+    fun updateImage(newUri : Uri) {
+        selectedImage.value = newUri
     }
 }
 

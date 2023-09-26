@@ -1,5 +1,6 @@
 package com.najudoryeong.mineme.feature.story.navigation
 
+import android.net.Uri
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions

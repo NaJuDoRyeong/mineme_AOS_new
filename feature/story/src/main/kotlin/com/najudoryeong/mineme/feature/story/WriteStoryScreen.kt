@@ -1,6 +1,8 @@
 package com.najudoryeong.mineme.feature.story
 
-import androidx.compose.foundation.layout.Arrangement
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,7 +21,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -70,6 +71,7 @@ internal fun WriteStoryRoute(
                     allCities = allCities,
                     updateRegion = viewModel::updateRegion,
                     updateCity = viewModel::updateCity,
+                    updateImage = viewModel::updateImage,
                 )
             }
         }
@@ -95,7 +97,16 @@ fun WriteStoryFirstPageScreen(
     allCities: List<String>,
     updateRegion: (String) -> Unit,
     updateCity: (String) -> Unit,
+    updateImage: (Uri) -> Unit,
 ) {
+
+    val imagePicker =
+        rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent()) { uri: Uri? ->
+            if (uri != null) {
+                updateImage(uri)
+                onContinueClicked()
+            }
+        }
 
     Column(
         modifier = modifier.fillMaxSize(),
@@ -158,8 +169,9 @@ fun WriteStoryFirstPageScreen(
 
         CustomBottomButton(
             textRes = R.string.choosePicture,
-            enabled = true,
-            onClick = onContinueClicked
+            onClick = {
+                imagePicker.launch("image/*")
+            }
         )
     }
 }
