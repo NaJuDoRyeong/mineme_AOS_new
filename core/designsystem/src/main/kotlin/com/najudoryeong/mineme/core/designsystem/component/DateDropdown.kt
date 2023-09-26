@@ -20,7 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Dropdown(
+fun DateDropdown(
     modifier : Modifier = Modifier,
     text : String,
 ) {

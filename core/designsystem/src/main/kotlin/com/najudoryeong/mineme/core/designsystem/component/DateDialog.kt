@@ -44,18 +44,18 @@ fun DateDialog(
         horizontalArrangement = Arrangement.Center,
         modifier = modifier
             .clickable { showDialog = true }
-            .padding(top = 16.dp)
+            .padding(top = 4.dp)
     ) {
 
-        Dropdown(modifier = Modifier.weight(1f), text = "$selectedYear")
+        DateDropdown(modifier = Modifier.weight(1f), text = "$selectedYear")
 
         Spacer(modifier = Modifier.width(4.dp))
 
-        Dropdown(modifier = Modifier.weight(1f), text = "$selectedMonth")
+        DateDropdown(modifier = Modifier.weight(1f), text = "$selectedMonth")
 
         Spacer(modifier = Modifier.width(4.dp))
 
-        Dropdown(modifier = Modifier.weight(1f), text = "$selectedDay")
+        DateDropdown(modifier = Modifier.weight(1f), text = "$selectedDay")
     }
 
 

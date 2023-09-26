@@ -11,11 +11,13 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -85,16 +87,41 @@ fun WriteStoryFirstPageScreen(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+        Spacer(Modifier.windowInsetsTopHeight(WindowInsets.safeDrawing))
+
         WriteStoryToolBar(
             onBackClick = onBackClick
         )
 
+        Text(
+            modifier = Modifier
+                .padding(top = 16.dp)
+                .fillMaxWidth(),
+            text = stringResource(
+                R.string.day_pick_title,
+            ),
+            style = MaterialTheme.typography.bodyMedium,
+            textAlign = TextAlign.Start
+        )
         DateDialog(
             selectedYear = selectedDate.year,
             selectedMonth = selectedDate.monthValue,
             selectedDay = selectedDate.dayOfMonth,
             updateDate = updateDate
         )
+
+        Text(
+            modifier = Modifier
+                .padding(top = 16.dp)
+                .fillMaxWidth(),
+            text = stringResource(
+                R.string.region_city_pick_title,
+            ),
+            style = MaterialTheme.typography.bodyMedium,
+            textAlign = TextAlign.Start
+        )
+
 
         Spacer(modifier = Modifier.weight(1f))
 
