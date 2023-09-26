@@ -3,6 +3,7 @@ package com.najudoryeong.mineme.feature.story
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.width
@@ -53,6 +55,8 @@ internal fun WriteStoryRoute(
     val selectedDate = viewModel.selectedDate.collectAsStateWithLifecycle().value
     val allRegions = viewModel.allRegions.collectAsStateWithLifecycle().value
     val allCities = viewModel.allCities.collectAsStateWithLifecycle().value
+    val selectedRegion = viewModel.selectedRegion.collectAsStateWithLifecycle().value
+    val selectedCity = viewModel.selectedCity.collectAsStateWithLifecycle().value
 
     NavHost(navController, startDestination = firstScreenRoute) {
         composable(firstScreenRoute) {
@@ -80,7 +84,10 @@ internal fun WriteStoryRoute(
                 modifier = modifier
                     .fillMaxSize()
                     .padding(16.dp),
-                onBackClick = navController::popBackStack
+                onBackClick = navController::popBackStack,
+                selectedDate = selectedDate,
+                selectedRegion = selectedRegion,
+                selectedCity = selectedCity
             )
         }
     }
@@ -179,7 +186,10 @@ fun WriteStoryFirstPageScreen(
 @Composable
 fun WriteStorySecondPageScreen(
     modifier: Modifier = Modifier,
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    selectedDate: LocalDate,
+    selectedRegion: String,
+    selectedCity: String
 ) {
 
     Column(
@@ -192,9 +202,25 @@ fun WriteStorySecondPageScreen(
             onBackClick = onBackClick
         )
 
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = "${selectedDate.year} ${selectedDate.monthValue} ${selectedDate.dayOfMonth}",
+                style = MaterialTheme.typography.titleMedium
+            )
+            Text(
+                text = "$selectedRegion ${selectedCity}에서",
+                style = MaterialTheme.typography.titleSmall
+            )
+        }
+
         Spacer(modifier = Modifier.weight(1f)) //나머지 공간
 
-        Text(text = "second")
+        CustomBottomButton(textRes = string.complete)
     }
 
 }

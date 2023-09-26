@@ -1,3 +1,4 @@
 com.najudoryeong.mineme.core.ui
 string back
+string complete
 string next

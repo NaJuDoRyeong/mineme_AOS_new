@@ -2,4 +2,6 @@
 <resources>
     <string name="back">Back</string>
     <string name="next">다음</string>
+    <string name="complete">완료</string>
+
 </resources>
