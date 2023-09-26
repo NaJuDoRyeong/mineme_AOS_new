@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,10 +24,17 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -45,6 +53,7 @@ import com.najudoryeong.mineme.core.designsystem.component.LocationDropdownMenu
 import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
 import com.najudoryeong.mineme.core.ui.R.string
 import java.time.LocalDate
+import java.time.format.TextStyle
 
 
 const val firstScreenRoute = "write_story_first_page"
@@ -200,16 +209,16 @@ fun WriteStorySecondPageScreen(
     selectedCity: String,
     selectedImages: List<Uri>
 ) {
-
     Column(
-        modifier = modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
         Spacer(Modifier.windowInsetsTopHeight(WindowInsets.safeDrawing))
 
-        WriteStoryToolBar(
-            onBackClick = onBackClick
-        )
+        WriteStoryToolBar(onBackClick = onBackClick)
 
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -227,15 +236,25 @@ fun WriteStorySecondPageScreen(
             )
         }
 
+        Spacer(modifier = Modifier.height(16.dp))
+
         if (selectedImages.isNotEmpty()) {
             ImageSlider(images = selectedImages)
         }
 
-        Spacer(modifier = Modifier.weight(1f)) //나머지 공간
+        Spacer(modifier = Modifier.height(16.dp))
+
+        OutlinedTextField(
+            value = "",
+            onValueChange = {},
+            label = { Text(text = stringResource(R.string.story_content_placeholder)) },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
 
         CustomBottomButton(textRes = string.complete)
     }
-
 }
 
 @OptIn(ExperimentalFoundationApi::class)

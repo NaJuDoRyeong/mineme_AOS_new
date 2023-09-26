@@ -7,4 +7,5 @@
     <string name="choosePicture">사진 고르기</string>
     <string name="day_pick_title">언제였나요?</string>
     <string name="region_city_pick_title">어디였나요?</string>
+    <string name="story_content_placeholder">무슨 이야기를 남기고 싶나요?</string>
 </resources>
