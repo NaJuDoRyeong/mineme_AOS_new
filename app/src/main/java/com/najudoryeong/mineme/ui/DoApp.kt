@@ -130,7 +130,9 @@ fun DoApp(
                                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                                     containerColor = Color.Transparent,
                                 ),
-                                onActionClick = {},
+                                onActionClick = {
+                                    appState.navigateToWriteStory()
+                                },
                                 onNavigationClick = {
                                     appState.updateShowCalendar()
                                 },

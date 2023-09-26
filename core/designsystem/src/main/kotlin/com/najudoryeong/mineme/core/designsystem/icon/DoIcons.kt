@@ -1,6 +1,8 @@
 package com.najudoryeong.mineme.core.designsystem.icon
 
 import androidx.annotation.DrawableRes
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.najudoryeong.mineme.core.designsystem.R
 
@@ -30,6 +32,9 @@ object DoIcons {
     val top_story = Icon.DrawableResourceIcon(R.drawable.top_story)
 
     val no_story_inStory = Icon.DrawableResourceIcon(R.drawable.no_story_instory)
+
+
+    val ArrowBack = Icons.Rounded.ArrowBack
 }
 
 sealed interface Icon {
