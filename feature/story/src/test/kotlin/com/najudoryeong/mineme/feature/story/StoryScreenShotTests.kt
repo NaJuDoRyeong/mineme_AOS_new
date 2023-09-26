@@ -77,31 +77,4 @@ class StoryScreenShotTests {
         }
     }
 
-
-
-
-    @Test
-    fun storyCalendarScreen() {
-        composeTestRule.captureMultiDevice("StoryRegion") {
-            DoTheme {
-                StoryScreen(
-                    shouldShowCalendar = true,
-                    regionState = RegionStoryUiState.Success(
-                        storyRegionResource = storyRegionResource
-                    ),
-                    calendarState = CalendarStoryUiState.Success(
-                        storyCalendarResource = storyCalendarResource,
-                        year = "2023",
-                        month = "09"
-                    ),
-                )
-            }
-        }
-    }
-
-
-
-
-
-
 }

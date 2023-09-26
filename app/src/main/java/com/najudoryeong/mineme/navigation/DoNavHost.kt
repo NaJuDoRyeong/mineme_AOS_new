@@ -7,6 +7,7 @@ import com.najudoryeong.mineme.feature.home.navigation.homeNavigationRoute
 import com.najudoryeong.mineme.feature.home.navigation.homeScreen
 import com.najudoryeong.mineme.feature.story.navigation.settingsScreen
 import com.najudoryeong.mineme.feature.story.navigation.storyScreen
+import com.najudoryeong.mineme.feature.story.navigation.writeStoryScreen
 import com.najudoryeong.mineme.ui.DoAppState
 
 @Composable
@@ -27,6 +28,10 @@ fun DoNavHost(
 
         //todo onStoryClick
         storyScreen(onStoryClick = {}, showCalendar = appState.shouldShowCalendar)
+
+        writeStoryScreen(
+            onBackClick = navController::popBackStack
+        )
 
         settingsScreen()
     }

@@ -87,12 +87,16 @@ fun DoApp(
             contentWindowInsets = WindowInsets(0, 0, 0, 0),
             snackbarHost = { SnackbarHost(snackbarHostState) },
             bottomBar = {
-                DoBottomBar(
-                    destinations = appState.topLevelDestinations,
-                    onNavigateToDestination = appState::navigateToTopLevelDestination,
-                    currentDestination = appState.currentDestination,
-                    modifier = Modifier.testTag("DoBottomBar"),
-                )
+                val destination = appState.currentTopLevelDestination
+                if (destination in TopLevelDestination.values()){
+                    DoBottomBar(
+                        destinations = appState.topLevelDestinations,
+                        onNavigateToDestination = appState::navigateToTopLevelDestination,
+                        currentDestination = appState.currentDestination,
+                        modifier = Modifier.testTag("DoBottomBar"),
+                    )
+                }
+
             }
         ) { padding ->
 
@@ -130,7 +134,9 @@ fun DoApp(
                                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                                     containerColor = Color.Transparent,
                                 ),
-                                onActionClick = {},
+                                onActionClick = {
+                                    appState.navigateToWriteStory()
+                                },
                                 onNavigationClick = {
                                     appState.updateShowCalendar()
                                 },
