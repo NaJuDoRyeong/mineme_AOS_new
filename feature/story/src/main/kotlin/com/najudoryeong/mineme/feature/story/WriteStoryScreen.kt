@@ -85,7 +85,6 @@ fun WriteStoryFirstPageScreen(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(Modifier.windowInsetsTopHeight(WindowInsets.safeDrawing))
         WriteStoryToolBar(
             onBackClick = onBackClick
         )

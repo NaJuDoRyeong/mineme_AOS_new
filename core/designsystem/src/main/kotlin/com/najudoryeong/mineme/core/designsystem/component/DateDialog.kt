@@ -1,5 +1,7 @@
 package com.najudoryeong.mineme.core.designsystem.component
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Card
@@ -31,22 +34,30 @@ import androidx.compose.ui.window.Dialog
 
 @Composable
 fun DateDialog(
+    modifier: Modifier = Modifier,
     selectedYear: Int, selectedMonth: Int, selectedDay: Int, updateDate: (Int, Int, Int) -> Unit
 ) {
     var showDialog by rememberSaveable { mutableStateOf(false) }
 
-    Row(verticalAlignment = Alignment.CenterVertically,
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
-        modifier = Modifier
+        modifier = modifier
             .clickable { showDialog = true }
-            .padding(top = 16.dp)) {
-        Text(text = "$selectedYear / $selectedMonth / $selectedDay")
-        Icon(
-            imageVector = Icons.Default.ArrowDropDown,
-            contentDescription = "Dropdown Arrow",
-            modifier = Modifier.padding(start = 8.dp)
-        )
+            .padding(top = 16.dp)
+    ) {
+
+        Dropdown(modifier = Modifier.weight(1f), text = "$selectedYear")
+
+        Spacer(modifier = Modifier.width(4.dp))
+
+        Dropdown(modifier = Modifier.weight(1f), text = "$selectedMonth")
+
+        Spacer(modifier = Modifier.width(4.dp))
+
+        Dropdown(modifier = Modifier.weight(1f), text = "$selectedDay")
     }
+
 
     if (showDialog) {
         Dialog(onDismissRequest = { showDialog = false }) {
@@ -78,9 +89,9 @@ fun DateDialog(
                     val monthPickerState = rememberPickerState()
                     val startIndexMonth = monthList.indexOf(String.format("%02d", selectedMonth))
 
-
+                    val lastDay = getDaysInMonth(selectedYear, selectedMonth)
                     val dayList = remember(selectedYear, selectedMonth) {
-                        (1..getDaysInMonth(selectedYear, selectedMonth)).map {
+                        (1..lastDay).map {
                             String.format(
                                 "%02d",
                                 it
