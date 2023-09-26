@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -238,14 +239,24 @@ fun WriteStorySecondPageScreen(
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ImageSlider(images: List<Uri>) {
-    val pagerState = rememberPagerState(
-    )
-    HorizontalPager(state = pagerState, pageCount = images.size) { page ->
-        val imageUri = images[page]
-        DynamicAsyncImage(imageUrl = imageUri.toString(), contentDescription = null)
+fun ImageSlider(
+    images: List<Uri>,
+    modifier: Modifier = Modifier
+) {
+    val pagerState = rememberPagerState()
+
+    Box(modifier = modifier.padding(top = 16.dp)) {
+        HorizontalPager(state = pagerState, pageCount = images.size) { page ->
+            val imageUri = images[page]
+            DynamicAsyncImage(
+                imageUrl = imageUri.toString(),
+                contentDescription = null,
+                modifier = Modifier.aspectRatio(1f)
+            )
+        }
     }
 }
+
 
 @Composable
 fun WriteStoryToolBar(
