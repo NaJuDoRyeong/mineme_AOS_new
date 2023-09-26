@@ -1,2 +1,3 @@
 com.najudoryeong.mineme.core.ui
 string back
+string next
