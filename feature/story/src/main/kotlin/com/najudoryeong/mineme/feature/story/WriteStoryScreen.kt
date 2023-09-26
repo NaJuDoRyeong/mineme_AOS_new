@@ -26,6 +26,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -46,7 +47,6 @@ import com.najudoryeong.mineme.core.designsystem.component.LocationDropdownMenu
 import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
 import com.najudoryeong.mineme.core.ui.R.string
 import java.time.LocalDate
-import java.time.format.TextStyle
 
 
 const val firstScreenRoute = "write_story_first_page"
@@ -98,6 +98,9 @@ internal fun WriteStoryRoute(
                 selectedRegion = selectedRegion,
                 selectedCity = selectedCity,
                 selectedImages = selectedImages,
+                storyContent = viewModel.storyContent,
+                firstOnBackClick = firstOnBackClick,
+                completeWriteStory = { }
             )
         }
     }
@@ -200,7 +203,11 @@ fun WriteStorySecondPageScreen(
     selectedDate: LocalDate,
     selectedRegion: String,
     selectedCity: String,
-    selectedImages: List<Uri>
+    selectedImages: List<Uri>,
+    completeWriteStory: () -> Unit,
+    firstOnBackClick: () -> Unit,
+    storyContent: MutableState<String>
+
 ) {
     Column(
         modifier = modifier
@@ -235,8 +242,8 @@ fun WriteStorySecondPageScreen(
         }
 
         OutlinedTextField(
-            value = "",
-            onValueChange = {},
+            value = storyContent.value,
+            onValueChange = { newValue -> storyContent.value = newValue},
             label = { Text(text = stringResource(R.string.story_content_placeholder)) },
             modifier = Modifier
                 .fillMaxWidth()
@@ -244,7 +251,12 @@ fun WriteStorySecondPageScreen(
                 .weight(1f)
         )
 
-        CustomBottomButton(textRes = string.complete)
+        CustomBottomButton(textRes = string.complete,
+            onClick = {
+                completeWriteStory()
+                firstOnBackClick()
+            }
+        )
     }
 }
 

@@ -1,6 +1,7 @@
 package com.najudoryeong.mineme.feature.story
 
 import android.net.Uri
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -26,6 +27,7 @@ class WriteStoryViewModel @Inject constructor(
     val selectedDate: MutableStateFlow<LocalDate> = MutableStateFlow(LocalDate.now())
 
     val selectedImage: MutableStateFlow<List<Uri>> = MutableStateFlow(emptyList())
+    val storyContent = mutableStateOf("")
 
     init {
         viewModelScope.launch {
