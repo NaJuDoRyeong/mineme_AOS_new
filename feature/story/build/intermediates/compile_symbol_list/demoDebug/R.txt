@@ -1,3 +1,0 @@
-int string calendar_loading 0x0
-int string region_loading 0x0
-int string story 0x0

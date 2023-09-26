@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="calendar_loading">Loading for calendarStory…</string>
-    <string name="region_loading">Loading for regionStory...</string>
-    <string name="story">Story</string>
-</resources>
