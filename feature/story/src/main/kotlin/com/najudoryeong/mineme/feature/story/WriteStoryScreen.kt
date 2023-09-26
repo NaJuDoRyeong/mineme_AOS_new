@@ -3,6 +3,7 @@ package com.najudoryeong.mineme.feature.story
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,6 +17,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsTopHeight
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -35,6 +38,7 @@ import androidx.navigation.compose.rememberNavController
 import com.najudoryeong.mineme.core.designsystem.component.AnimatedScreen
 import com.najudoryeong.mineme.core.designsystem.component.CustomBottomButton
 import com.najudoryeong.mineme.core.designsystem.component.DateDialog
+import com.najudoryeong.mineme.core.designsystem.component.DynamicAsyncImage
 import com.najudoryeong.mineme.core.designsystem.component.LocationDropdownMenu
 import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
 import com.najudoryeong.mineme.core.ui.R.string
@@ -57,6 +61,7 @@ internal fun WriteStoryRoute(
     val allCities = viewModel.allCities.collectAsStateWithLifecycle().value
     val selectedRegion = viewModel.selectedRegion.collectAsStateWithLifecycle().value
     val selectedCity = viewModel.selectedCity.collectAsStateWithLifecycle().value
+    val selectedImages = viewModel.selectedImage.collectAsStateWithLifecycle().value
 
     NavHost(navController, startDestination = firstScreenRoute) {
         composable(firstScreenRoute) {
@@ -87,7 +92,8 @@ internal fun WriteStoryRoute(
                 onBackClick = navController::popBackStack,
                 selectedDate = selectedDate,
                 selectedRegion = selectedRegion,
-                selectedCity = selectedCity
+                selectedCity = selectedCity,
+                selectedImages = selectedImages,
             )
         }
     }
@@ -107,12 +113,13 @@ fun WriteStoryFirstPageScreen(
     updateImages: (List<Uri>) -> Unit,
 ) {
 
-    val imagePicker = rememberLauncherForActivityResult(contract = ActivityResultContracts.GetMultipleContents()) { uris: List<Uri> ->
-        if (uris.isNotEmpty()) {
-            updateImages(uris)
-            onContinueClicked()
+    val imagePicker =
+        rememberLauncherForActivityResult(contract = ActivityResultContracts.GetMultipleContents()) { uris: List<Uri> ->
+            if (uris.isNotEmpty()) {
+                updateImages(uris)
+                onContinueClicked()
+            }
         }
-    }
 
     Column(
         modifier = modifier.fillMaxSize(),
@@ -188,7 +195,8 @@ fun WriteStorySecondPageScreen(
     onBackClick: () -> Unit,
     selectedDate: LocalDate,
     selectedRegion: String,
-    selectedCity: String
+    selectedCity: String,
+    selectedImages: List<Uri>
 ) {
 
     Column(
@@ -217,6 +225,10 @@ fun WriteStorySecondPageScreen(
             )
         }
 
+        if (selectedImages.isNotEmpty()) {
+            ImageSlider(images = selectedImages)
+        }
+
         Spacer(modifier = Modifier.weight(1f)) //나머지 공간
 
         CustomBottomButton(textRes = string.complete)
@@ -224,6 +236,16 @@ fun WriteStorySecondPageScreen(
 
 }
 
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun ImageSlider(images: List<Uri>) {
+    val pagerState = rememberPagerState(
+    )
+    HorizontalPager(state = pagerState, pageCount = images.size) { page ->
+        val imageUri = images[page]
+        DynamicAsyncImage(imageUrl = imageUri.toString(), contentDescription = null)
+    }
+}
 
 @Composable
 fun WriteStoryToolBar(
