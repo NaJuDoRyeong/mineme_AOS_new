@@ -75,7 +75,7 @@ internal fun WriteStoryRoute(
                     allCities = allCities,
                     updateRegion = viewModel::updateRegion,
                     updateCity = viewModel::updateCity,
-                    updateImage = viewModel::updateImage,
+                    updateImages = viewModel::updateImages,
                 )
             }
         }
@@ -104,16 +104,15 @@ fun WriteStoryFirstPageScreen(
     allCities: List<String>,
     updateRegion: (String) -> Unit,
     updateCity: (String) -> Unit,
-    updateImage: (Uri) -> Unit,
+    updateImages: (List<Uri>) -> Unit,
 ) {
 
-    val imagePicker =
-        rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent()) { uri: Uri? ->
-            if (uri != null) {
-                updateImage(uri)
-                onContinueClicked()
-            }
+    val imagePicker = rememberLauncherForActivityResult(contract = ActivityResultContracts.GetMultipleContents()) { uris: List<Uri> ->
+        if (uris.isNotEmpty()) {
+            updateImages(uris)
+            onContinueClicked()
         }
+    }
 
     Column(
         modifier = modifier.fillMaxSize(),

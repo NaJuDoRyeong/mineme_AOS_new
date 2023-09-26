@@ -25,7 +25,7 @@ class WriteStoryViewModel @Inject constructor(
 
     val selectedDate: MutableStateFlow<LocalDate> = MutableStateFlow(LocalDate.now())
 
-    val selectedImage: MutableStateFlow<Uri?> = MutableStateFlow(null)
+    val selectedImage: MutableStateFlow<List<Uri>?> = MutableStateFlow(null)
 
     init {
         viewModelScope.launch {
@@ -49,8 +49,8 @@ class WriteStoryViewModel @Inject constructor(
         selectedCity.value = newCity
     }
 
-    fun updateImage(newUri : Uri) {
-        selectedImage.value = newUri
+    fun updateImages(newUris : List<Uri>) {
+        selectedImage.value = newUris
     }
 }
 
