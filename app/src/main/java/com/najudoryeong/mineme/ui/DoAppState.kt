@@ -19,6 +19,7 @@ import com.najudoryeong.mineme.feature.home.navigation.homeNavigationRoute
 import com.najudoryeong.mineme.feature.home.navigation.navigateToHome
 import com.najudoryeong.mineme.feature.story.navigation.navigateToSettings
 import com.najudoryeong.mineme.feature.story.navigation.navigateToStory
+import com.najudoryeong.mineme.feature.story.navigation.navigateToWriteStory
 import com.najudoryeong.mineme.feature.story.navigation.settingsNavigationRoute
 import com.najudoryeong.mineme.feature.story.navigation.storyNavigationRoute
 import com.najudoryeong.mineme.navigation.TopLevelDestination
@@ -94,6 +95,10 @@ class DoAppState(
 
     fun updateShowCalendar() {
         shouldShowCalendar.value = !shouldShowCalendar.value
+    }
+
+    fun navigateToWriteStory() {
+        navController.navigateToWriteStory()
     }
 
     /**

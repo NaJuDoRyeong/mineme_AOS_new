@@ -7,7 +7,6 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -26,8 +25,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Card
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -60,6 +57,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.najudoryeong.mineme.core.designsystem.component.DoOverlayLoadingWheel
 import com.najudoryeong.mineme.core.designsystem.component.DynamicAsyncImage
+import com.najudoryeong.mineme.core.designsystem.component.LocationDropdownMenu
 import com.najudoryeong.mineme.core.designsystem.component.Picker
 import com.najudoryeong.mineme.core.designsystem.component.rememberPickerState
 import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
@@ -215,20 +213,20 @@ fun RegionView(
                         .fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    RegionDropdownMenu(
+                    LocationDropdownMenu(
                         modifier = Modifier
                             .width(screenWidth / 2 - 24.dp)
                             .weight(1f)
                             .padding(4.dp),
-                        allRegions = allRegions,
-                        onItemSelected = updateRegion
+                        menuList = allRegions,
+                        onItemSelected = updateRegion,
                     )
-                    CityDropdownMenu(
+                    LocationDropdownMenu(
                         modifier = Modifier
                             .width(screenWidth / 2 - 24.dp)
                             .weight(1f)
                             .padding(4.dp),
-                        allCities = allCities,
+                        menuList = allCities,
                         onItemSelected = updateCity
                     )
                 }
@@ -323,82 +321,6 @@ fun PostItem(
         )
     }
 }
-
-@Composable
-fun RegionDropdownMenu(
-    allRegions: List<String>,
-    onItemSelected: (String) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    var expanded by remember { mutableStateOf(false) }
-    var selectedRegion by remember { mutableStateOf(allRegions.firstOrNull() ?: "") }
-
-    Box(modifier = modifier) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { expanded = true }
-                .border(1.dp, Color.Gray, RoundedCornerShape(8.dp)) // 둥근 테두리 추가
-                .padding(8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(text = selectedRegion)
-            Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = null) // 화살표 아이콘 추가
-        }
-        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-            allRegions.forEach { region ->
-                DropdownMenuItem(onClick = {
-                    selectedRegion = region
-                    expanded = false
-                    onItemSelected(region)
-                }, text = {
-                    Text(text = region)
-                })
-            }
-        }
-    }
-}
-
-@Composable
-fun CityDropdownMenu(
-    allCities: List<String>,
-    onItemSelected: (String) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    var expanded by remember { mutableStateOf(false) }
-    var selectedCity by remember { mutableStateOf(allCities.firstOrNull() ?: "") }
-
-    Box(modifier = modifier) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { expanded = true }
-                .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
-                .padding(8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(text = selectedCity)
-            Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = null)
-        }
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false },
-        ) {
-            allCities.forEach { city ->
-                DropdownMenuItem(onClick = {
-                    selectedCity = city
-                    expanded = false
-                    onItemSelected(city)
-                }, text = {
-                    Text(text = city)
-                })
-            }
-        }
-    }
-}
-
 
 @Composable
 fun MonthlyCalendar(
@@ -671,9 +593,9 @@ fun RegionViewPreview() {
         regionState = sampleRegionState,
         allRegions = listOf("서울", "부산"),
         allCities = listOf("강남구", "해운대구"),
-        updateRegion = { /*TODO*/ },
-        updateCity = { /*TODO*/ },
-        onStoryClick = { /*TODO*/ }
+        updateRegion = {},
+        updateCity = {},
+        onStoryClick = {}
     )
 }
 
