@@ -32,6 +32,7 @@ object DoIcons {
     val top_story = Icon.DrawableResourceIcon(R.drawable.top_story)
 
     val no_story_inStory = Icon.DrawableResourceIcon(R.drawable.no_story_instory)
+    val write_story = Icon.DrawableResourceIcon(R.drawable.writestory)
 
 
     val ArrowBack = Icons.Rounded.ArrowBack

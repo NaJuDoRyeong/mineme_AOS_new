@@ -27,6 +27,7 @@ enum class TopLevelDestination(
         unselectedIcon = DoIcons.Story.resourceId,
         iconTextId = storyR.string.story,
         titleTextId = storyR.string.story,
+        actionIcon = DoIcons.write_story.resourceId
     ),
     settings(
         selectedIcon = DoIcons.OnSettings.resourceId,

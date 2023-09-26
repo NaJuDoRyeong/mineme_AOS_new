@@ -13,3 +13,4 @@ drawable settings
 drawable story
 drawable top_region
 drawable top_story
+drawable writestory

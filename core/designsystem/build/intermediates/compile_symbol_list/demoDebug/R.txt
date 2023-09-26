@@ -12,3 +12,4 @@ int drawable settings 0x0
 int drawable story 0x0
 int drawable top_region 0x0
 int drawable top_story 0x0
+int drawable writestory 0x0
