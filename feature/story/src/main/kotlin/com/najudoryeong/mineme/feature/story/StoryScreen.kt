@@ -222,7 +222,7 @@ fun RegionView(
                             .weight(1f)
                             .padding(4.dp),
                         menuList = allRegions,
-                        onItemSelected = updateRegion
+                        onItemSelected = updateRegion,
                     )
                     LocationDropdownMenu(
                         modifier = Modifier

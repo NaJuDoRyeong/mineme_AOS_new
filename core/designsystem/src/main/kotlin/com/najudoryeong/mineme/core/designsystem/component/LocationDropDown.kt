@@ -31,7 +31,8 @@ fun LocationDropdownMenu(
     modifier: Modifier = Modifier
 ) {
     var expanded by remember { mutableStateOf(false) }
-    var selectedRegion by remember { mutableStateOf(menuList.firstOrNull() ?: "") }
+    var selectedLocation by remember(menuList) { mutableStateOf(menuList.firstOrNull() ?: "") }
+
 
     Box(modifier = modifier) {
         Row(
@@ -43,17 +44,17 @@ fun LocationDropdownMenu(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(text = selectedRegion)
+            Text(text = selectedLocation)
             Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = null) // 화살표 아이콘 추가
         }
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-            menuList.forEach { region ->
+            menuList.forEach { location ->
                 DropdownMenuItem(onClick = {
-                    selectedRegion = region
+                    selectedLocation = location
                     expanded = false
-                    onItemSelected(region)
+                    onItemSelected(location)
                 }, text = {
-                    Text(text = region)
+                    Text(text = location)
                 })
             }
         }
