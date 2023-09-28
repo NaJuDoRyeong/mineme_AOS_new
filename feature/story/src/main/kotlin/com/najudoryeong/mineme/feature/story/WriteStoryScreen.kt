@@ -42,6 +42,7 @@ import com.najudoryeong.mineme.core.designsystem.component.AnimatedScreen
 import com.najudoryeong.mineme.core.designsystem.component.CustomBottomButton
 import com.najudoryeong.mineme.core.designsystem.component.DateDialog
 import com.najudoryeong.mineme.core.designsystem.component.DynamicAsyncImage
+import com.najudoryeong.mineme.core.designsystem.component.ImageSlider
 import com.najudoryeong.mineme.core.designsystem.component.Indicator
 import com.najudoryeong.mineme.core.designsystem.component.LocationDropdownMenu
 import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
@@ -257,37 +258,6 @@ fun WriteStorySecondPageScreen(
                 firstOnBackClick()
             }
         )
-    }
-}
-
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-fun ImageSlider(
-    images: List<Uri>,
-    modifier: Modifier = Modifier
-) {
-    val pagerState = rememberPagerState()
-
-    Box(modifier = modifier.padding(top = 16.dp)) {
-        HorizontalPager(state = pagerState, pageCount = images.size) { page ->
-            val imageUri = images[page]
-            DynamicAsyncImage(
-                imageUrl = imageUri.toString(),
-                contentDescription = null,
-                modifier = Modifier.aspectRatio(1f)
-            )
-        }
-
-        Row(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(4.dp)
-        ) {
-            repeat(images.size) { index ->
-                Indicator(isSelected = index == pagerState.currentPage)
-            }
-        }
     }
 }
 
