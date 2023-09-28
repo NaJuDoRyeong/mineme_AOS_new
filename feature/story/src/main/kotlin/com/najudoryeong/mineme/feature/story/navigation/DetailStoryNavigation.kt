@@ -22,8 +22,8 @@ internal class StoryArgs(val storyId: String) {
             this(URLDecoder.decode(checkNotNull(savedStateHandle[storyArg]), URL_CHARACTER_ENCODING))
 }
 
-fun NavController.navigateToDetailStory(storyId: String) {
-    val encodedId = URLEncoder.encode(storyId, URL_CHARACTER_ENCODING)
+fun NavController.navigateToDetailStory(storyId: Int) {
+    val encodedId = URLEncoder.encode(storyId.toString(), URL_CHARACTER_ENCODING)
     this.navigate("story_route/$encodedId") {
         launchSingleTop = true
     }
@@ -31,7 +31,7 @@ fun NavController.navigateToDetailStory(storyId: String) {
 
 fun NavGraphBuilder.detailStoryScreen(
     onBackClick: () -> Unit,
-    onTopicClick: (String) -> Unit,
+    onStoryClick: (Int) -> Unit,
 ) {
     composable(
         route = "story_route/{$storyArg}",
@@ -39,6 +39,7 @@ fun NavGraphBuilder.detailStoryScreen(
             navArgument(storyArg) { type = NavType.StringType },
         ),
     ) {
-        DetailStoryRoute(onBackClick = onBackClick)
+        DetailStoryRoute(onBackClick = onBackClick,
+            )
     }
 }

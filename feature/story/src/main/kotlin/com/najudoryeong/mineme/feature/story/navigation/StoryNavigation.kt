@@ -1,6 +1,5 @@
 package com.najudoryeong.mineme.feature.story.navigation
 
-import android.net.Uri
 import androidx.annotation.VisibleForTesting
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -36,6 +35,7 @@ fun NavController.navigateToWriteStory(navOptions: NavOptions? = null) {
 
 fun NavGraphBuilder.writeStoryScreen(
     onBackClick: () -> Unit,
+    nestedGraphs: () -> Unit,
 ) {
     composable(
         route = storyWriteRoute,
@@ -45,6 +45,8 @@ fun NavGraphBuilder.writeStoryScreen(
             firstOnBackClick = onBackClick,
         )
     }
+
+    nestedGraphs()
 }
 
 

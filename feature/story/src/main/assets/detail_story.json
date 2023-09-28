@@ -1,23 +1,20 @@
 {
-  "success": true,
-  "data": {
-    "stories": [
-      {
-        "region": "경남",
-        "city": "창원시",
-        "isAnniversary": "y",
-        "anniversary": {
-          "type": "type",
-          "day": 200
-        },
-        "date": "2022-10-01",
-        "images": [
-          "https://picsum.photos/200/300"
-        ],
-        "postId": 577,
-        "content": "contents",
-        "author": "가나다"
-      }
-    ]
-  }
+  "stories": [
+    {
+      "region": "경남",
+      "city": "창원시",
+      "isAnniversary": "y",
+      "anniversary": {
+        "type": "type",
+        "day": 200
+      },
+      "date": "2022-10-01",
+      "images": [
+        "https://picsum.photos/200/300"
+      ],
+      "postId": 577,
+      "content": "contents",
+      "author": "가나다"
+    }
+  ]
 }
