@@ -1,5 +1,6 @@
 package com.najudoryeong.mineme.feature.story
 
+import android.net.Uri
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -7,11 +8,17 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,6 +30,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.najudoryeong.mineme.core.designsystem.component.DoOverlayLoadingWheel
+import com.najudoryeong.mineme.core.designsystem.component.ImageSlider
+import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
 
 
 @Composable
@@ -51,13 +60,22 @@ fun DetailStoryScreen(
 
     Box(modifier = modifier.fillMaxSize()) {
 
+
         LazyColumn(modifier = Modifier.fillMaxSize()) {
+
+            item {
+                Spacer(Modifier.windowInsetsTopHeight(WindowInsets.safeDrawing))
+
+                DetailStoryToolBar(
+                    onBackClick = onBackClick
+                )
+            }
             when (detailStoryUiState) {
                 DetailStoryUiState.Loading, DetailStoryUiState.Error -> Unit
                 is DetailStoryUiState.Success -> {
                     items(detailStoryUiState.detailStoryResource.stories) { story ->
                         DetailStoryItem(
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier.fillMaxWidth().padding(16.dp),
                             location = "${story.region}  ${story.city}",
                             date = story.date,
                             images = story.images,
@@ -118,9 +136,43 @@ fun DetailStoryItem(
             style = MaterialTheme.typography.bodySmall
         )
 
+        ImageSlider(images = images.map { Uri.parse(it) })
 
+        Text(
+            text = content,
+            style = MaterialTheme.typography.bodySmall
+        )
 
-
+        Text(
+            text = author,
+            style = MaterialTheme.typography.labelSmall
+        )
     }
 
+}
+
+
+@Composable
+fun DetailStoryToolBar(
+    modifier: Modifier = Modifier,
+    onBackClick: () -> Unit,
+) {
+    Box(
+        modifier = modifier.fillMaxWidth(),
+        contentAlignment = Alignment.CenterStart
+    ) {
+        Text(
+            text = stringResource(id = R.string.story),
+            modifier = Modifier.align(Alignment.Center),
+        )
+
+        IconButton(onClick = { onBackClick() }) {
+            Icon(
+                imageVector = DoIcons.ArrowBack,
+                contentDescription = stringResource(
+                    id = com.najudoryeong.mineme.core.ui.R.string.back,
+                ),
+            )
+        }
+    }
 }
