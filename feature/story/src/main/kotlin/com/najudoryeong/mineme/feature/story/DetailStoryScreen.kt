@@ -6,10 +6,12 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -23,9 +25,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -75,7 +82,9 @@ fun DetailStoryScreen(
                 is DetailStoryUiState.Success -> {
                     items(detailStoryUiState.detailStoryResource.stories) { story ->
                         DetailStoryItem(
-                            modifier = Modifier.fillMaxWidth().padding(16.dp),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp),
                             location = "${story.region}  ${story.city}",
                             date = story.date,
                             images = story.images,
@@ -121,9 +130,10 @@ fun DetailStoryItem(
     content: String,
     author: String
 ) {
+    var isContentExpanded by remember { mutableStateOf(false) }
 
     Column(
-        modifier = modifier
+        modifier = modifier.fillMaxHeight()
     ) {
 
         Text(
@@ -140,15 +150,21 @@ fun DetailStoryItem(
 
         Text(
             text = content,
-            style = MaterialTheme.typography.bodySmall
+            style = MaterialTheme.typography.bodySmall,
+            maxLines = if (isContentExpanded) Int.MAX_VALUE else 3,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.clickable { isContentExpanded = !isContentExpanded }
         )
+
+        Spacer(modifier = Modifier.weight(1f)) // 이 부분을 추가하여 author를 아래로 밀어냅니다.
 
         Text(
+            modifier = Modifier.fillMaxWidth(),
             text = author,
-            style = MaterialTheme.typography.labelSmall
+            style = MaterialTheme.typography.labelSmall,
+            textAlign = TextAlign.End
         )
     }
-
 }
 
 

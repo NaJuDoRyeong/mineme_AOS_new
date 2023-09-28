@@ -13,7 +13,7 @@ data class NetworkDetailStory(
     val region: String,
     val city: String,
     val isAnniversary: String,
-    val anniversary: NetworkAnniversary?,
+    val anniversary: NetworkAnniversary = NetworkAnniversary(),
     val date: String,
     val images: List<String>,
     val postId: Int,
@@ -23,6 +23,6 @@ data class NetworkDetailStory(
 
 @Serializable
 data class NetworkAnniversary(
-    val type: String,
-    val day: Int
+    val type: String = "",
+    val day: Int = 0
 )
