@@ -9,9 +9,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 internal fun DetailStoryRoute(
-    onBackClick: () -> Unit,
-    onTopicClick: (String) -> Unit,
     modifier: Modifier = Modifier,
+    onBackClick: () -> Unit = {},
     viewModel: DetailStoryViewModel = hiltViewModel(),
 ) {
 

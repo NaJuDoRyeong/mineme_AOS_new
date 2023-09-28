@@ -5,6 +5,7 @@ import com.najudoryeong.mineme.core.network.JvmUnitTestFakeAssetManager
 import com.najudoryeong.mineme.core.network.model.NetworkChangeList
 import com.najudoryeong.mineme.core.network.Dispatcher
 import com.najudoryeong.mineme.core.network.DoDispatchers
+import com.najudoryeong.mineme.core.network.model.NetworkDetailStoryResource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -27,6 +28,7 @@ class FakeDoNetworkDataSource @Inject constructor(
         private const val HOME_ASSET = "home.json"
         private const val StoryRegion_ASSET = "story_region.json"
         private const val StoryCalendar_ASSET = "story_calendar.json"
+        private const val DetailStory_ASSET = "detail_story.json"
     }
 
 
@@ -52,8 +54,11 @@ class FakeDoNetworkDataSource @Inject constructor(
             assets.open(StoryCalendar_ASSET).use(networkJson::decodeFromStream)
         }
 
-
-
+    @OptIn(ExperimentalSerializationApi::class)
+    override suspend fun getDetailStory(storyId: Int): NetworkDetailStoryResource =
+        withContext(ioDispatcher) {
+            assets.open(DetailStory_ASSET).use(networkJson::decodeFromStream)
+        }
 }
 
 /**

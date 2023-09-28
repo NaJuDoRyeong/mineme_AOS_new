@@ -4,11 +4,10 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavOptions
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.najudoryeong.mineme.feature.story.WriteStoryRoute
+import com.najudoryeong.mineme.feature.story.DetailStoryRoute
 import java.net.URLDecoder
 import java.net.URLEncoder
 
@@ -16,7 +15,7 @@ import java.net.URLEncoder
 private val URL_CHARACTER_ENCODING = Charsets.UTF_8.name()
 
 @VisibleForTesting
-internal const val storyArg = "topicId"
+internal const val storyArg = "storyId"
 
 internal class StoryArgs(val storyId: String) {
     constructor(savedStateHandle: SavedStateHandle) :
@@ -40,6 +39,6 @@ fun NavGraphBuilder.detailStoryScreen(
             navArgument(storyArg) { type = NavType.StringType },
         ),
     ) {
-        TopicRoute(onBackClick = onBackClick, onTopicClick = onTopicClick)
+        DetailStoryRoute(onBackClick = onBackClick)
     }
 }
