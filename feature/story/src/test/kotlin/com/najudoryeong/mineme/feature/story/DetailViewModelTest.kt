@@ -56,22 +56,21 @@ class DetailViewModelTest {
         collectJob1.cancel()
     }
 
-
+    private val sampleDetailStoryResource = DetailStoryResource(
+        stories = listOf(
+            DetailStory(
+                region = "서울",
+                city = "강남구",
+                isAnniversary = "y",
+                anniversary = Anniversary(type = "type1", day = 100),
+                date = "2022-10-01",
+                images = listOf("https://sample.com/image1.jpg"),
+                postId = 1,
+                content = "샘플 내용입니다.",
+                author = "홍길동"
+            ),
+        )
+    )
 
 }
 
-val sampleDetailStoryResource = DetailStoryResource(
-    stories = listOf(
-        DetailStory(
-            region = "서울",
-            city = "강남구",
-            isAnniversary = "y",
-            anniversary = Anniversary(type = "type1", day = 100),
-            date = "2022-10-01",
-            images = listOf("https://sample.com/image1.jpg"),
-            postId = 1,
-            content = "샘플 내용입니다.",
-            author = "홍길동"
-        ),
-    )
-)
