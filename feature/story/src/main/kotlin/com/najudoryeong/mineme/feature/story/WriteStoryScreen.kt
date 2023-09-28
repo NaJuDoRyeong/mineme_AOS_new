@@ -108,16 +108,16 @@ internal fun WriteStoryRoute(
 
 @Composable
 fun WriteStoryFirstPageScreen(
-    onContinueClicked: () -> Unit,
     modifier: Modifier = Modifier,
-    onBackClick: () -> Unit,
+    onContinueClicked: () -> Unit = {},
+    onBackClick: () -> Unit = {},
     selectedDate: LocalDate,
-    updateDate: (Int, Int, Int) -> Unit,
-    allRegions: List<String>,
-    allCities: List<String>,
-    updateRegion: (String) -> Unit,
-    updateCity: (String) -> Unit,
-    updateImages: (List<Uri>) -> Unit,
+    updateDate: (Int, Int, Int) -> Unit = {_,_,_ ->  },
+    allRegions: List<String> = emptyList(),
+    allCities: List<String> = emptyList(),
+    updateRegion: (String) -> Unit = {},
+    updateCity: (String) -> Unit = {},
+    updateImages: (List<Uri>) -> Unit = {},
 ) {
 
     val imagePicker =
@@ -199,13 +199,13 @@ fun WriteStoryFirstPageScreen(
 @Composable
 fun WriteStorySecondPageScreen(
     modifier: Modifier = Modifier,
-    onBackClick: () -> Unit,
+    onBackClick: () -> Unit = {},
     selectedDate: LocalDate,
     selectedRegion: String,
     selectedCity: String,
     selectedImages: List<Uri>,
-    completeWriteStory: () -> Unit,
-    firstOnBackClick: () -> Unit,
+    completeWriteStory: () -> Unit = {},
+    firstOnBackClick: () -> Unit = {},
     storyContent: MutableState<String>
 
 ) {
@@ -243,7 +243,7 @@ fun WriteStorySecondPageScreen(
 
         OutlinedTextField(
             value = storyContent.value,
-            onValueChange = { newValue -> storyContent.value = newValue},
+            onValueChange = { newValue -> storyContent.value = newValue },
             label = { Text(text = stringResource(R.string.story_content_placeholder)) },
             modifier = Modifier
                 .fillMaxWidth()
