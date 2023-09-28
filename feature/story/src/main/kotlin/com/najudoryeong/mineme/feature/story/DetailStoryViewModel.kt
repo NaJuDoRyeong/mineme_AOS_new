@@ -29,11 +29,7 @@ class DetailStoryViewModel @Inject constructor(
     val detailStoryUiState: StateFlow<DetailStoryUiState> =
         detailStoryResourceRepository.getDetailStory(
             storyArgs.storyId.toInt()
-        ).map { detailStoryResource ->
-            DetailStoryUiState.Success(
-                detailStoryResource
-            )
-        }.stateIn(
+        ).map(DetailStoryUiState::Success).stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = DetailStoryUiState.Loading,
@@ -44,7 +40,7 @@ class DetailStoryViewModel @Inject constructor(
 
 sealed interface DetailStoryUiState {
 
-    data class Success(val news: DetailStoryResource) : DetailStoryUiState
+    data class Success(val detailStoryResource: DetailStoryResource) : DetailStoryUiState
 
     object Error : DetailStoryUiState
 

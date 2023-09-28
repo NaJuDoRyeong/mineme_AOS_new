@@ -1,6 +1,5 @@
 package com.najudoryeong.mineme.feature.story.navigation
 
-import androidx.annotation.VisibleForTesting
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -19,13 +18,16 @@ fun NavController.navigateToStory(navOptions: NavOptions? = null) {
 
 fun NavGraphBuilder.storyScreen(
     onStoryClick: (Int) -> Unit,
-    showCalendar: MutableStateFlow<Boolean>
+    showCalendar: MutableStateFlow<Boolean>,
+    nestedGraphs : () -> Unit
 ) {
     composable(
         route = storyNavigationRoute,
     ) {
         StoryRoute(onStoryClick = onStoryClick, showCalendar = showCalendar)
     }
+
+    nestedGraphs()
 }
 
 
@@ -35,7 +37,6 @@ fun NavController.navigateToWriteStory(navOptions: NavOptions? = null) {
 
 fun NavGraphBuilder.writeStoryScreen(
     onBackClick: () -> Unit,
-    nestedGraphs: () -> Unit,
 ) {
     composable(
         route = storyWriteRoute,
@@ -46,7 +47,6 @@ fun NavGraphBuilder.writeStoryScreen(
         )
     }
 
-    nestedGraphs()
 }
 
 

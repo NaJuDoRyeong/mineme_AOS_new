@@ -130,8 +130,6 @@ internal fun HomeScreen(
                 )
             }
         }
-
-
     }
 }
 

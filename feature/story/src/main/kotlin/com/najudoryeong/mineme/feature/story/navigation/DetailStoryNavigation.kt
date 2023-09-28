@@ -19,7 +19,12 @@ internal const val storyArg = "storyId"
 
 internal class StoryArgs(val storyId: String) {
     constructor(savedStateHandle: SavedStateHandle) :
-            this(URLDecoder.decode(checkNotNull(savedStateHandle[storyArg]), URL_CHARACTER_ENCODING))
+            this(
+                URLDecoder.decode(
+                    checkNotNull(savedStateHandle[storyArg]),
+                    URL_CHARACTER_ENCODING
+                )
+            )
 }
 
 fun NavController.navigateToDetailStory(storyId: Int) {
@@ -31,7 +36,6 @@ fun NavController.navigateToDetailStory(storyId: Int) {
 
 fun NavGraphBuilder.detailStoryScreen(
     onBackClick: () -> Unit,
-    onStoryClick: (Int) -> Unit,
 ) {
     composable(
         route = "story_route/{$storyArg}",
@@ -39,7 +43,9 @@ fun NavGraphBuilder.detailStoryScreen(
             navArgument(storyArg) { type = NavType.StringType },
         ),
     ) {
-        DetailStoryRoute(onBackClick = onBackClick,
-            )
+        DetailStoryRoute(
+            onBackClick = onBackClick,
+        )
     }
 }
+
