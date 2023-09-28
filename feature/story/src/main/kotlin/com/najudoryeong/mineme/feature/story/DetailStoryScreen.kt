@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsTopHeight
@@ -37,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.najudoryeong.mineme.core.designsystem.component.DoOverlayLoadingWheel
+import com.najudoryeong.mineme.core.designsystem.component.DottedLine
 import com.najudoryeong.mineme.core.designsystem.component.ImageSlider
 import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
 
@@ -153,10 +155,10 @@ fun DetailStoryItem(
             style = MaterialTheme.typography.bodySmall,
             maxLines = if (isContentExpanded) Int.MAX_VALUE else 3,
             overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.clickable { isContentExpanded = !isContentExpanded }
+            modifier = Modifier.clickable { isContentExpanded = !isContentExpanded }.padding(top = 4.dp)
         )
 
-        Spacer(modifier = Modifier.weight(1f)) // 이 부분을 추가하여 author를 아래로 밀어냅니다.
+        Spacer(modifier = Modifier.height(32.dp))
 
         Text(
             modifier = Modifier.fillMaxWidth(),
@@ -164,6 +166,8 @@ fun DetailStoryItem(
             style = MaterialTheme.typography.labelSmall,
             textAlign = TextAlign.End
         )
+
+        DottedLine(modifier = Modifier.padding(vertical = 16.dp))
     }
 }
 

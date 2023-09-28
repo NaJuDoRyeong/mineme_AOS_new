@@ -99,7 +99,7 @@ internal fun HomeScreen(
                             )
                         }
 
-                        DottedLine(Modifier.padding(16.dp))
+                        DottedLine(Modifier.padding(vertical = 16.dp, horizontal = 32.dp))
 
                         CurrentStory(newStory = homeState.homeMainResource.newStory)
 

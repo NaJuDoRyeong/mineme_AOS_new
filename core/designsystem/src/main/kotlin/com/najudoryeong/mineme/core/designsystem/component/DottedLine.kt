@@ -12,9 +12,9 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun DottedLine(modifier: Modifier) {
+fun DottedLine(modifier: Modifier = Modifier) {
     val pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f)
-    Canvas(modifier.fillMaxWidth().height(1.dp).padding(horizontal = 32.dp)) {
+    Canvas(modifier.fillMaxWidth().height(1.dp)) {
         drawLine(
             color = Color(0xFFD9D9D9),
             start = Offset(0f, 0f),
