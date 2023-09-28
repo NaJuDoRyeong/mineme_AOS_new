@@ -1,5 +1,6 @@
 package com.najudoryeong.mineme.feature.story
 
+import android.net.Uri
 import androidx.lifecycle.SavedStateHandle
 import com.najudoryeong.mineme.core.testing.repository.TestUserDataRepository
 import com.najudoryeong.mineme.core.testing.util.MainDispatcherRule
@@ -9,13 +10,13 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import java.time.LocalDate
 
 class WriteViewModelTest {
 
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
 
-    private val userDataRepository = TestUserDataRepository()
 
     private val savedStateHandle = SavedStateHandle()
     private lateinit var viewModel: WriteStoryViewModel
@@ -38,5 +39,28 @@ class WriteViewModelTest {
     }
 
 
+    @Test
+    fun testUpdateDate() = runTest {
+        val year = 2023
+        val month = 9
+        val day = 28
+        viewModel.updateDate(year, month, day)
+        assertEquals(LocalDate.of(year, month, day), viewModel.selectedDate.first())
+    }
+
+    @Test
+    fun testUpdateRegion() = runTest {
+        val newRegion = "부산광역시"
+        viewModel.updateRegion(newRegion)
+        assertEquals(newRegion, viewModel.selectedRegion.first())
+    }
+
+    @Test
+    fun testUpdateCity() = runTest {
+        val newCity = "해운대구"
+        viewModel.updateCity(newCity)
+        assertEquals(newCity, viewModel.selectedCity.first())
+    }
 
 }
+
