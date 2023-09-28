@@ -69,34 +69,35 @@ fun DetailStoryScreen(
 
     Box(modifier = modifier.fillMaxSize()) {
 
+        Column {
+            Spacer(Modifier.windowInsetsTopHeight(WindowInsets.safeDrawing))
+            DetailStoryToolBar(onBackClick = onBackClick)
 
-        LazyColumn(modifier = Modifier.fillMaxSize()) {
+            LazyColumn(modifier = Modifier.fillMaxSize()) {
 
-            item {
-                Spacer(Modifier.windowInsetsTopHeight(WindowInsets.safeDrawing))
-
-                DetailStoryToolBar(
-                    onBackClick = onBackClick
-                )
-            }
-            when (detailStoryUiState) {
-                DetailStoryUiState.Loading, DetailStoryUiState.Error -> Unit
-                is DetailStoryUiState.Success -> {
-                    items(detailStoryUiState.detailStoryResource.stories) { story ->
-                        DetailStoryItem(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp),
-                            location = "${story.region}  ${story.city}",
-                            date = story.date,
-                            images = story.images,
-                            content = story.content,
-                            author = story.author,
-                        )
+                when (detailStoryUiState) {
+                    DetailStoryUiState.Loading, DetailStoryUiState.Error -> Unit
+                    is DetailStoryUiState.Success -> {
+                        items(detailStoryUiState.detailStoryResource.stories) { story ->
+                            DetailStoryItem(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
+                                location = "${story.region}  ${story.city}",
+                                date = story.date,
+                                images = story.images,
+                                content = story.content,
+                                author = story.author,
+                            )
+                        }
                     }
                 }
             }
+
         }
+
+
+
 
         AnimatedVisibility(
             visible = isDetailLoading,
@@ -122,6 +123,7 @@ fun DetailStoryScreen(
         }
     }
 }
+
 
 @Composable
 fun DetailStoryItem(
@@ -155,7 +157,9 @@ fun DetailStoryItem(
             style = MaterialTheme.typography.bodySmall,
             maxLines = if (isContentExpanded) Int.MAX_VALUE else 3,
             overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.clickable { isContentExpanded = !isContentExpanded }.padding(top = 4.dp)
+            modifier = Modifier
+                .clickable { isContentExpanded = !isContentExpanded }
+                .padding(top = 4.dp)
         )
 
         Spacer(modifier = Modifier.height(32.dp))
