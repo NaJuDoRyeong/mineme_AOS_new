@@ -43,7 +43,6 @@ class WriteStoryScreenShotTests {
 
     @Test
     fun writeStorySecondPageScreen() {
-
         val mockUris = listOf(
             Uri.parse("https://example.com/image1.jpg"),
             Uri.parse("https://example.com/image2.jpg")

@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.najudoryeong.mineme.feature.home.navigation.homeNavigationRoute
 import com.najudoryeong.mineme.feature.home.navigation.homeScreen
+import com.najudoryeong.mineme.feature.story.navigation.navigateToDetailStory
 import com.najudoryeong.mineme.feature.story.navigation.settingsScreen
 import com.najudoryeong.mineme.feature.story.navigation.storyScreen
 import com.najudoryeong.mineme.feature.story.navigation.writeStoryScreen
@@ -27,7 +28,8 @@ fun DoNavHost(
         homeScreen()
 
         //todo onStoryClick
-        storyScreen(onStoryClick = {}, showCalendar = appState.shouldShowCalendar)
+        storyScreen(onStoryClick = navController::navigateToDetailStory
+            , showCalendar = appState.shouldShowCalendar)
 
         writeStoryScreen(
             onBackClick = navController::popBackStack

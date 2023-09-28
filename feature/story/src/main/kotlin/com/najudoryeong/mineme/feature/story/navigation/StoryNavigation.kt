@@ -1,6 +1,7 @@
 package com.najudoryeong.mineme.feature.story.navigation
 
 import android.net.Uri
+import androidx.annotation.VisibleForTesting
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 const val storyNavigationRoute = "story_route"
 const val storyWriteRoute = "story_write_route"
+
 
 fun NavController.navigateToStory(navOptions: NavOptions? = null) {
     this.navigate(storyNavigationRoute, navOptions)
@@ -44,3 +46,5 @@ fun NavGraphBuilder.writeStoryScreen(
         )
     }
 }
+
+
