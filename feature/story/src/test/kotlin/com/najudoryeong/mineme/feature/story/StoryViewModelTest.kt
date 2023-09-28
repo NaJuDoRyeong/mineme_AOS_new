@@ -80,12 +80,12 @@ class StoryViewModelTest {
                 posts = listOf(
                     Post(
                         date = "2022-10-01",
-                        thumbnail = "https://picsum.photos/200/300",
+                        thumbnail = "https://picsum.photos/1000/1000",
                         postId = 577
                     ),
                     Post(
                         date = "2022-10-02",
-                        thumbnail = "https://picsum.photos/200/300",
+                        thumbnail = "https://picsum.photos/1000/1000",
                         postId = 578
                     )
                 )
@@ -96,12 +96,12 @@ class StoryViewModelTest {
                 posts = listOf(
                     Post(
                         date = "2022-10-03",
-                        thumbnail = "https://picsum.photos/200/300",
+                        thumbnail = "https://picsum.photos/1000/1000",
                         postId = 579
                     ),
                     Post(
                         date = "2022-10-04",
-                        thumbnail = "https://picsum.photos/200/300",
+                        thumbnail = "https://picsum.photos/1000/1000",
                         postId = 580
                     )
                 )

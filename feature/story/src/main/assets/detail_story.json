@@ -10,8 +10,8 @@
       },
       "date": "2022-10-01",
       "images": [
-        "https://picsum.photos/200/300",
-        "https://picsum.photos/200/304"
+        "https://picsum.photos/1000/1000",
+        "https://picsum.photos/1000/1000"
       ],
       "postId": 577,
       "content": "contents",
@@ -23,9 +23,9 @@
       "isAnniversary": "n",
       "date": "2022-09-15",
       "images": [
-        "https://picsum.photos/200/301",
-        "https://picsum.photos/200/302",
-        "https://picsum.photos/200/303"
+        "https://picsum.photos/1001/1000",
+        "https://picsum.photos/1001/1001",
+        "https://picsum.photos/1001/1000"
       ],
       "postId": 578,
       "content": "이것은 조금 더 긴 내용입니다. 여러 줄로 구성되어 있어서 화면에 어떻게 표시되는지 확인할 수 있습니다.",
@@ -41,9 +41,9 @@
       },
       "date": "2022-08-20",
       "images": [
-        "https://picsum.photos/200/309",
-        "https://picsum.photos/200/305",
-        "https://picsum.photos/200/301"
+        "https://picsum.photos/1000/1000",
+        "https://picsum.photos/1000/1000",
+        "https://picsum.photos/1000/1000"
       ],
       "postId": 586,
       "content": "짧은 내용",
@@ -59,7 +59,7 @@
       },
       "date": "2022-07-10",
       "images": [
-        "https://picsum.photos/200/310"
+        "https://picsum.photos/1000/1000"
       ],
       "postId": 587,
       "content": "이것은 매우 긴 내용입니다. 여러 줄로 구성되어 있어서 화면에 어떻게 표시되는지 확인할 수 있습니다. 이렇게 긴 내용을 통해 스크롤이나 확장 기능이 잘 동작하는지 확인할 수 있습니다.",

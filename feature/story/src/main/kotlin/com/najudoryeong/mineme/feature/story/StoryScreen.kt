@@ -582,8 +582,8 @@ fun roundedIrregularShape(): Shape {
 @Composable
 fun RegionViewPreview() {
     val samplePosts = listOf(
-        Post("2022-10-01", "https://picsum.photos/200/300", 577),
-        Post("2022-10-02", "https://picsum.photos/200/300", 578)
+        Post("2022-10-01", "https://picsum.photos/1000/1000", 577),
+        Post("2022-10-02", "https://picsum.photos/1000/1000", 578)
     )
     val sampleStoryWithRegion = StoryWithRegion("서울", "강남구", samplePosts)
     val sampleRegionState =
