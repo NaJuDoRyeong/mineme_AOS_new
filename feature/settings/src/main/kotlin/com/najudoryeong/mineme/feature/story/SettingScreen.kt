@@ -30,15 +30,13 @@ import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
 import com.najudoryeong.mineme.feature.settings.R
 
 @Composable
-internal fun SettingsRoute(
-    modifier: Modifier = Modifier,
-) {
+internal fun SettingsRoute() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "settings_main") {
-        composable("settings_main") {
+    NavHost(navController = navController, startDestination = SETTINGS_MAIN_ROUTE) {
+        composable(SETTINGS_MAIN_ROUTE) {
             SettingsScreen(navController = navController)
         }
-        composable("account") {
+        composable(SETTINGS_ACCOUNT_ROUTE) {
             AccountScreen(onBackClick = { navController.popBackStack() })
         }
     }
@@ -61,7 +59,7 @@ internal fun SettingsScreen(
         SettingsItem(
             iconRes = DoIcons.setting_default.resourceId,
             descriptionRes = R.string.Account,
-            navigateTo = {navController.navigate("account") }
+            navigateTo = { navController.navigate(SETTINGS_ACCOUNT_ROUTE) }
         )
 
         SettingsItem(
@@ -117,4 +115,8 @@ fun SettingsItem(
     }
     Separator()
 }
+
+
+const val SETTINGS_MAIN_ROUTE = "settings_main"
+const val SETTINGS_ACCOUNT_ROUTE = "settings_account"
 
