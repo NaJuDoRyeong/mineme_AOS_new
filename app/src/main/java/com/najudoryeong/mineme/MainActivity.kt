@@ -75,10 +75,7 @@ class MainActivity : ComponentActivity() {
                 disableDynamicTheming = false,
             ) {
                 when (uiState) {
-                    MainActivityUiState.Loading -> {
-                        // 로딩 화면이 필요하다면 이곳에 작성합니다.
-                    }
-
+                    MainActivityUiState.Loading -> Unit
                     is MainActivityUiState.Success -> {
                         Log.d("jwtcheck", (uiState as MainActivityUiState.Success).userData.jwt)
                         if ((uiState as MainActivityUiState.Success).userData.jwt.isEmpty()) {
