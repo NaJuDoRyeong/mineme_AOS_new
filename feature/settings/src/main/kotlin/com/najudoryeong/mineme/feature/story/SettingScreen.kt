@@ -77,8 +77,8 @@ internal fun SettingsRoute(
 @Composable
 fun AccountScreen(
     modifier: Modifier = Modifier,
-    onBackClick: () -> Unit,
-    @StringRes titleRes: Int,
+    onBackClick: () -> Unit = {},
+    @StringRes titleRes: Int = R.string.Account,
     accountState: AccountUiState
 ) {
 
@@ -221,7 +221,7 @@ internal fun SubAccountManagement(
 internal fun SettingsScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
-    @StringRes titleRes: Int
+    @StringRes titleRes: Int = R.string.settings
 ) {
     Column(
         modifier.fillMaxSize(),
