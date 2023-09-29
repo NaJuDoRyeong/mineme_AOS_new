@@ -21,4 +21,40 @@ import org.robolectric.annotation.GraphicsMode
 import org.robolectric.annotation.LooperMode
 
 
+@RunWith(RobolectricTestRunner::class)
+@GraphicsMode(GraphicsMode.Mode.NATIVE)
+@Config(application = HiltTestApplication::class, sdk = [33])
+@LooperMode(LooperMode.Mode.PAUSED)
+class SettingsScreenShotTests {
 
+    @get:Rule
+    val composeTestRule = createAndroidComposeRule<ComponentActivity>()
+
+
+    @Test
+    fun settingMainScreen() {
+        composeTestRule.captureMultiDevice("setting_main") {
+            DoTheme {
+                SettingsScreen(
+                    navController = NavController(LocalContext.current),
+                )
+            }
+        }
+    }
+
+    @Test
+    fun accountScreen() {
+        composeTestRule.captureMultiDevice("setting_account") {
+            DoTheme {
+                AccountScreen(
+                    accountState = AccountUiState.Success(
+                        Code(
+                            "test_myCode",
+                            "test_mineCode"
+                        )
+                    )
+                )
+            }
+        }
+    }
+}
