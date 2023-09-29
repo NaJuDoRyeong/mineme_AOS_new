@@ -10,13 +10,15 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
-    userDataRepository: UserDataRepository,
+    private val userDataRepository: UserDataRepository,
 ) : ViewModel() {
+
     val uiState: StateFlow<MainActivityUiState> = userDataRepository.userData.map {
         MainActivityUiState.Success(it)
     }.stateIn(
@@ -24,5 +26,12 @@ class MainActivityViewModel @Inject constructor(
         initialValue = MainActivityUiState.Loading,
         started = SharingStarted.WhileSubscribed(5_000),
     )
+
+    fun updateJWT(jwt: String) {
+        viewModelScope.launch {
+            userDataRepository.setJwt(jwt)
+        }
+    }
+
 }
 

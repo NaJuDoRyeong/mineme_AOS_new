@@ -19,6 +19,7 @@ import com.najudoryeong.mineme.core.data.util.NetworkMonitor
 import com.najudoryeong.mineme.core.designsystem.theme.DoTheme
 import com.najudoryeong.mineme.core.ui.MainActivityUiState
 import com.najudoryeong.mineme.ui.DoApp
+import com.najudoryeong.mineme.ui.SignUpApp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
@@ -73,14 +74,18 @@ class MainActivity : ComponentActivity() {
                 androidTheme = false,
                 disableDynamicTheming = false,
             ) {
-                when(uiState){
+                when (uiState) {
                     MainActivityUiState.Loading -> {
                         // 로딩 화면이 필요하다면 이곳에 작성합니다.
                     }
+
                     is MainActivityUiState.Success -> {
                         Log.d("jwtcheck", (uiState as MainActivityUiState.Success).userData.jwt)
                         if ((uiState as MainActivityUiState.Success).userData.jwt.isEmpty()) {
-
+                            SignUpApp(
+                                networkMonitor = networkMonitor,
+                                viewModel::updateJWT
+                                )
                         } else {
                             DoApp(
                                 networkMonitor = networkMonitor,
