@@ -25,6 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.najudoryeong.mineme.core.designsystem.component.DottedLine
+import com.najudoryeong.mineme.core.designsystem.component.Separator
 import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
 import com.najudoryeong.mineme.feature.settings.R
 
@@ -99,5 +100,6 @@ fun SettingsItem(
         Spacer(modifier = Modifier.width(16.dp))
         Text(text = stringResource(id = descriptionRes))
     }
+    Separator()
 }
 
