@@ -16,6 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.najudoryeong.mineme.core.data.util.NetworkMonitor
 import com.najudoryeong.mineme.core.designsystem.theme.DoTheme
+import com.najudoryeong.mineme.core.ui.MainActivityUiState
 import com.najudoryeong.mineme.ui.DoApp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect

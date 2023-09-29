@@ -36,6 +36,11 @@ object DoIcons {
 
 
     val ArrowBack = Icons.Rounded.ArrowBack
+
+    // settings
+    val setting_default = Icon.DrawableResourceIcon(R.drawable.setting_default)
+    val setting_notification = Icon.DrawableResourceIcon(R.drawable.setting_notification)
+    val setting_security = Icon.DrawableResourceIcon(R.drawable.setting_security)
 }
 
 sealed interface Icon {

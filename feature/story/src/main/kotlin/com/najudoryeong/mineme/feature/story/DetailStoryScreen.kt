@@ -41,6 +41,7 @@ import com.najudoryeong.mineme.core.designsystem.component.DoOverlayLoadingWheel
 import com.najudoryeong.mineme.core.designsystem.component.DottedLine
 import com.najudoryeong.mineme.core.designsystem.component.ImageSlider
 import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
+import com.najudoryeong.mineme.core.ui.DetailStoryUiState
 
 
 @Composable
@@ -95,9 +96,6 @@ fun DetailStoryScreen(
             }
 
         }
-
-
-
 
         AnimatedVisibility(
             visible = isDetailLoading,

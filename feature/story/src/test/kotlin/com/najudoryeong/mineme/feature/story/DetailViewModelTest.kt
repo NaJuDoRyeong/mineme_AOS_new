@@ -7,6 +7,7 @@ import com.najudoryeong.mineme.core.model.data.DetailStory
 import com.najudoryeong.mineme.core.model.data.DetailStoryResource
 import com.najudoryeong.mineme.core.testing.repository.TestDetailStoryResourceRepository
 import com.najudoryeong.mineme.core.testing.util.MainDispatcherRule
+import com.najudoryeong.mineme.core.ui.DetailStoryUiState
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest

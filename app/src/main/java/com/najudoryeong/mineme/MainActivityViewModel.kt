@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.najudoryeong.mineme.core.data.repository.UserDataRepository
 import com.najudoryeong.mineme.core.model.data.UserData
+import com.najudoryeong.mineme.core.ui.MainActivityUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -25,7 +26,3 @@ class MainActivityViewModel @Inject constructor(
     )
 }
 
-sealed interface MainActivityUiState {
-    data object Loading : MainActivityUiState
-    data class Success(val userData: UserData) : MainActivityUiState
-}

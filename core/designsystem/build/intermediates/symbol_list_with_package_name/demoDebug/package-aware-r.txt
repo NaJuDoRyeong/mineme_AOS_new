@@ -9,6 +9,9 @@ drawable no_story_instory
 drawable onhome
 drawable onsettings
 drawable onstory
+drawable setting_default
+drawable setting_notification
+drawable setting_security
 drawable settings
 drawable story
 drawable top_region

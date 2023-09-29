@@ -4,6 +4,7 @@ import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFact
 import com.najudoryeong.mineme.core.model.data.HomeMainResource
 import com.najudoryeong.mineme.core.network.BuildConfig
 import com.najudoryeong.mineme.core.network.DoNetworkDataSource
+import com.najudoryeong.mineme.core.network.model.NetworkCode
 import com.najudoryeong.mineme.core.network.model.NetworkDetailStoryResource
 import com.najudoryeong.mineme.core.network.model.NetworkHomeMainResource
 import com.najudoryeong.mineme.core.network.model.NetworkStoryCalendarResource
@@ -46,6 +47,11 @@ private interface RetrofitDoNetworkApi {
     ): NetworkResponse<NetworkDetailStoryResource>
 
 
+    @GET("api/v1/settings/code")
+    suspend fun getCode(
+        @Header("Authorization") token: String,
+    ): NetworkResponse<NetworkCode>
+
 }
 
 private const val DO_BASE_URL = BuildConfig.BACKEND_URL
@@ -85,5 +91,9 @@ class RetrofitDoNetwork @Inject constructor(
 
     override suspend fun getDetailStory(storyId: Int): NetworkDetailStoryResource =
         networkApi.getDetailStory(token = "jwt", storyId = storyId).data
+
+    override suspend fun getCode(): NetworkCode =
+        networkApi.getCode(token = "jwt").data
+
 
 }

@@ -8,6 +8,9 @@ int drawable no_story_instory 0x0
 int drawable onhome 0x0
 int drawable onsettings 0x0
 int drawable onstory 0x0
+int drawable setting_default 0x0
+int drawable setting_notification 0x0
+int drawable setting_security 0x0
 int drawable settings 0x0
 int drawable story 0x0
 int drawable top_region 0x0

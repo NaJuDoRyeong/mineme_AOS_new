@@ -4,8 +4,10 @@ import com.najudoryeong.mineme.core.data.repository.DetailStoryResourceRepositor
 import com.najudoryeong.mineme.core.data.repository.HomeResourceRepository
 import com.najudoryeong.mineme.core.data.repository.OfflineFirstDetailStoryResourceRepository
 import com.najudoryeong.mineme.core.data.repository.OfflineFirstHomeResourceRepository
+import com.najudoryeong.mineme.core.data.repository.OfflineFirstSettingsResourceRepository
 import com.najudoryeong.mineme.core.data.repository.OfflineFirstStoryResourceRepository
 import com.najudoryeong.mineme.core.data.repository.OfflineFirstUserDataRepository
+import com.najudoryeong.mineme.core.data.repository.SettingsResourceRepository
 import com.najudoryeong.mineme.core.data.repository.StoryResourceRepository
 import com.najudoryeong.mineme.core.data.repository.UserDataRepository
 import com.najudoryeong.mineme.core.data.util.ConnectivityManagerNetworkMonitor
@@ -44,4 +46,8 @@ interface DataModule {
         detailStoryResourceRepository: OfflineFirstDetailStoryResourceRepository
     ): DetailStoryResourceRepository
 
+    @Binds
+    fun bindsSettingsResourceRepository(
+        settingsResourceRepository : OfflineFirstSettingsResourceRepository
+    ) : SettingsResourceRepository
 }

@@ -28,6 +28,7 @@ fun DoNavHost(
 
         homeScreen()
 
+        // Story
         storyScreen(
             onStoryClick = navController::navigateToDetailStory,
             showCalendar = appState.shouldShowCalendar
@@ -36,7 +37,6 @@ fun DoNavHost(
                 onBackClick = navController::popBackStack,
             )
         }
-
         writeStoryScreen(
             onBackClick = navController::popBackStack,
         )

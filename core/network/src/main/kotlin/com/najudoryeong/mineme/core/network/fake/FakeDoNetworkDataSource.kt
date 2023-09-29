@@ -5,6 +5,7 @@ import com.najudoryeong.mineme.core.network.JvmUnitTestFakeAssetManager
 import com.najudoryeong.mineme.core.network.model.NetworkChangeList
 import com.najudoryeong.mineme.core.network.Dispatcher
 import com.najudoryeong.mineme.core.network.DoDispatchers
+import com.najudoryeong.mineme.core.network.model.NetworkCode
 import com.najudoryeong.mineme.core.network.model.NetworkDetailStoryResource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -17,6 +18,8 @@ import com.najudoryeong.mineme.core.network.model.NetworkStoryRegionResource
 import okio.use
 import javax.inject.Inject
 
+
+@OptIn(ExperimentalSerializationApi::class)
 class FakeDoNetworkDataSource @Inject constructor(
     @Dispatcher(DoDispatchers.IO) private val ioDispatcher: CoroutineDispatcher,
     private val networkJson: Json,
@@ -29,23 +32,21 @@ class FakeDoNetworkDataSource @Inject constructor(
         private const val StoryRegion_ASSET = "story_region.json"
         private const val StoryCalendar_ASSET = "story_calendar.json"
         private const val DetailStory_ASSET = "detail_story.json"
+        private const val CODE_ASSET = "code.json"
     }
 
 
     // 애셋을 josn으로 디코딩
-    @OptIn(ExperimentalSerializationApi::class)
     override suspend fun getHomeData(): NetworkHomeMainResource =
         withContext(ioDispatcher) {
             assets.open(HOME_ASSET).use(networkJson::decodeFromStream)
         }
 
-    @OptIn(ExperimentalSerializationApi::class)
     override suspend fun getRegionStory(): NetworkStoryRegionResource =
         withContext(ioDispatcher) {
             assets.open(StoryRegion_ASSET).use(networkJson::decodeFromStream)
         }
 
-    @OptIn(ExperimentalSerializationApi::class)
     override suspend fun getCalendarStory(
         year: String,
         month: String
@@ -54,10 +55,14 @@ class FakeDoNetworkDataSource @Inject constructor(
             assets.open(StoryCalendar_ASSET).use(networkJson::decodeFromStream)
         }
 
-    @OptIn(ExperimentalSerializationApi::class)
     override suspend fun getDetailStory(storyId: Int): NetworkDetailStoryResource =
         withContext(ioDispatcher) {
             assets.open(DetailStory_ASSET).use(networkJson::decodeFromStream)
+        }
+
+    override suspend fun getCode(): NetworkCode =
+        withContext(ioDispatcher) {
+            assets.open(CODE_ASSET).use(networkJson::decodeFromStream)
         }
 }
 
