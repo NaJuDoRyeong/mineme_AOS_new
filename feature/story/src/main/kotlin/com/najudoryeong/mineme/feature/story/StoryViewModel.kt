@@ -8,6 +8,7 @@ import com.najudoryeong.mineme.core.data.repository.UserDataRepository
 import com.najudoryeong.mineme.core.model.data.StoryRegionResource
 import com.najudoryeong.mineme.core.ui.CalendarStoryUiState
 import com.najudoryeong.mineme.core.ui.RegionStoryUiState
+import com.najudoryeong.mineme.feature.story.navigation.StoryArgs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
