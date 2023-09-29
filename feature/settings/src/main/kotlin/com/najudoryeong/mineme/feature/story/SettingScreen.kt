@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -36,16 +37,21 @@ import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
 import com.najudoryeong.mineme.feature.settings.R
 
 @Composable
-internal fun SettingsRoute() {
+internal fun SettingsRoute(
+    modifier : Modifier = Modifier,
+    viewModel: SettingsViewModel = hiltViewModel(),
+    ) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = SETTINGS_MAIN_ROUTE) {
         composable(SETTINGS_MAIN_ROUTE) {
             SettingsScreen(
+                modifier = modifier,
                 titleRes = R.string.settings, navController = navController
             )
         }
         composable(SETTINGS_ACCOUNT_ROUTE) {
             AccountScreen(
+                modifier = modifier,
                 titleRes = R.string.Account,
                 onBackClick = { navController.popBackStack() })
         }
