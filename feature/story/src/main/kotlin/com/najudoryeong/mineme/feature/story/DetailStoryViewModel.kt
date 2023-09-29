@@ -17,6 +17,7 @@ import com.najudoryeong.mineme.core.data.repository.DetailStoryResourceRepositor
 import com.najudoryeong.mineme.core.data.repository.StoryResourceRepository
 import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
 import com.najudoryeong.mineme.core.model.data.DetailStoryResource
+import com.najudoryeong.mineme.core.ui.DetailStoryUiState
 import com.najudoryeong.mineme.feature.story.navigation.StoryArgs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -48,11 +49,4 @@ class DetailStoryViewModel @Inject constructor(
 }
 
 
-sealed interface DetailStoryUiState {
 
-    data class Success(val detailStoryResource: DetailStoryResource) : DetailStoryUiState
-
-    object Error : DetailStoryUiState
-
-    object Loading : DetailStoryUiState
-}
