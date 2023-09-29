@@ -1,6 +1,7 @@
 R_DEF: Internal format may change without notice
 local
 string Account
+string account_loading
 string announcement
 string contact
 string notification
