@@ -1,6 +1,7 @@
 package com.najudoryeong.mineme
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -72,13 +73,24 @@ class MainActivity : ComponentActivity() {
                 androidTheme = false,
                 disableDynamicTheming = false,
             ) {
-                DoApp(
-                    networkMonitor = networkMonitor,
-                    windowSizeClass = calculateWindowSizeClass(this)
-                )
+                when(uiState){
+                    MainActivityUiState.Loading -> {
+                        // 로딩 화면이 필요하다면 이곳에 작성합니다.
+                    }
+                    is MainActivityUiState.Success -> {
+                        Log.d("jwtcheck", (uiState as MainActivityUiState.Success).userData.jwt)
+                        if ((uiState as MainActivityUiState.Success).userData.jwt.isEmpty()) {
+
+                        } else {
+                            DoApp(
+                                networkMonitor = networkMonitor,
+                                windowSizeClass = calculateWindowSizeClass(this@MainActivity)
+                            )
+                        }
+                    }
+                }
             }
         }
-
         super.onCreate(savedInstanceState)
     }
 }
