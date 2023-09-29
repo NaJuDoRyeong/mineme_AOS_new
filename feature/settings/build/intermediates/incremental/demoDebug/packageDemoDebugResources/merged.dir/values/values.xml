@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="Account">계정</string>
+    <string name="announcement">공지사항</string>
+    <string name="contact">문의하기</string>
+    <string name="notification">알림</string>
+    <string name="security">보안</string>
     <string name="settings">Settings</string>
 </resources>

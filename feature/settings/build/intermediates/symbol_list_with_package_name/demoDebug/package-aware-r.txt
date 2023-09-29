@@ -1,2 +1,7 @@
 com.najudoryeong.mineme.feature.settings
+string Account
+string announcement
+string contact
+string notification
+string security
 string settings
