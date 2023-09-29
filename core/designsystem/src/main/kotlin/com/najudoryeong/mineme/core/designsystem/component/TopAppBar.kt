@@ -66,22 +66,24 @@ fun DoTopAppBar(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DoTopAppBar(
-    @StringRes titleRes: Int,
-    actionIcon: Int,
-    actionIconContentDescription: String?,
     modifier: Modifier = Modifier,
+    @StringRes titleRes: Int,
+    actionIcon: Int = -1,
+    actionIconContentDescription: String?,
     colors: TopAppBarColors = TopAppBarDefaults.centerAlignedTopAppBarColors(),
     onActionClick: () -> Unit = {},
 ) {
     CenterAlignedTopAppBar(
         title = { Text(text = stringResource(id = titleRes)) },
         actions = {
-            IconButton(onClick = onActionClick) {
-                Icon(
-                    painter = painterResource(id = actionIcon),
-                    contentDescription = actionIconContentDescription,
-                    tint = MaterialTheme.colorScheme.onSurface,
-                )
+            if (actionIcon != -1) {
+                IconButton(onClick = onActionClick) {
+                    Icon(
+                        painter = painterResource(id = actionIcon),
+                        contentDescription = actionIconContentDescription,
+                        tint = MaterialTheme.colorScheme.onSurface,
+                    )
+                }
             }
         },
         colors = colors,
