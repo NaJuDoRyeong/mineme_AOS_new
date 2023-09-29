@@ -3,14 +3,12 @@ package com.najudoryeong.mineme.feature.story
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -113,7 +111,7 @@ fun WriteStoryFirstPageScreen(
     onContinueClicked: () -> Unit = {},
     onBackClick: () -> Unit = {},
     selectedDate: LocalDate,
-    updateDate: (Int, Int, Int) -> Unit = {_,_,_ ->  },
+    updateDate: (Int, Int, Int) -> Unit = { _, _, _ -> },
     allRegions: List<String> = emptyList(),
     allCities: List<String> = emptyList(),
     updateRegion: (String) -> Unit = {},
@@ -190,9 +188,7 @@ fun WriteStoryFirstPageScreen(
 
         CustomBottomButton(
             textRes = R.string.choosePicture,
-            onClick = {
-                imagePicker.launch("image/*")
-            }
+            onClick = { imagePicker.launch("image/*") }
         )
     }
 }
@@ -252,7 +248,8 @@ fun WriteStorySecondPageScreen(
                 .weight(1f)
         )
 
-        CustomBottomButton(textRes = string.complete,
+        CustomBottomButton(
+            textRes = string.complete,
             onClick = {
                 completeWriteStory()
                 firstOnBackClick()

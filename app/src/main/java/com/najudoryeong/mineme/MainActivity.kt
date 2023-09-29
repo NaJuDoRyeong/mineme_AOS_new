@@ -82,10 +82,7 @@ class MainActivity : ComponentActivity() {
                     is MainActivityUiState.Success -> {
                         Log.d("jwtcheck", (uiState as MainActivityUiState.Success).userData.jwt)
                         if ((uiState as MainActivityUiState.Success).userData.jwt.isEmpty()) {
-                            SignUpApp(
-                                networkMonitor = networkMonitor,
-                                viewModel::updateJWT
-                                )
+                            SignUpApp(updateJwt = viewModel::updateJWT)
                         } else {
                             DoApp(
                                 networkMonitor = networkMonitor,
