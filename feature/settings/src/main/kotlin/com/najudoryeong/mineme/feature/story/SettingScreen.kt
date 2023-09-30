@@ -67,7 +67,6 @@ internal fun SettingsRoute(
             AccountScreen(
                 modifier = modifier,
                 titleRes = R.string.Account,
-                onBackClick = { navController.popBackStack() },
                 accountState = accountState
             )
         }
@@ -77,24 +76,14 @@ internal fun SettingsRoute(
 @Composable
 fun AccountScreen(
     modifier: Modifier = Modifier,
-    onBackClick: () -> Unit = {},
     @StringRes titleRes: Int = R.string.Account,
     accountState: AccountUiState
 ) {
 
     val isAccountLoading = accountState is AccountUiState.Loading
-
     Column(
         modifier = modifier.fillMaxSize(),
     ) {
-
-        Spacer(Modifier.windowInsetsTopHeight(WindowInsets.safeDrawing))
-
-        SettingsToolBar(
-            titleRes = titleRes,
-            onBackClick = onBackClick
-        )
-
         when (accountState) {
             AccountUiState.Loading -> Unit
             is AccountUiState.Success -> {
@@ -228,11 +217,6 @@ internal fun SettingsScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        DoTopAppBar(
-            titleRes = titleRes,
-            actionIconContentDescription = null,
-        )
-
         SettingsItem(
             iconRes = DoIcons.setting_default.resourceId,
             descriptionRes = R.string.Account,
@@ -294,31 +278,6 @@ fun SettingsItem(
 }
 
 
-@Composable
-fun SettingsToolBar(
-    modifier: Modifier = Modifier,
-    onBackClick: () -> Unit = {},
-    @StringRes titleRes: Int,
-) {
-    Box(
-        modifier = modifier.fillMaxWidth(),
-        contentAlignment = Alignment.CenterStart
-    ) {
-        Text(
-            text = stringResource(id = titleRes),
-            modifier = Modifier.align(Alignment.Center),
-        )
-
-        IconButton(onClick = { onBackClick() }) {
-            Icon(
-                imageVector = DoIcons.ArrowBack,
-                contentDescription = stringResource(
-                    id = com.najudoryeong.mineme.core.ui.R.string.back,
-                ),
-            )
-        }
-    }
-}
 
 
 const val SETTINGS_MAIN_ROUTE = "settings_main"

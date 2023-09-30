@@ -33,5 +33,13 @@ class MainActivityViewModel @Inject constructor(
         }
     }
 
+    // test용도
+    fun setTestJwt(jwt: String = "test") {
+        viewModelScope.launch {
+            userDataRepository.setJwt(jwt)
+        }
+    }
+
+
 }
 

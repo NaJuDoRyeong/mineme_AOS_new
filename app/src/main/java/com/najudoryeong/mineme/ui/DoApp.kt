@@ -140,8 +140,7 @@ fun DoApp(
                                     },
                                 )
                             }
-
-                            TopLevelDestination.Home -> {
+                            else -> {
                                 DoTopAppBar(
                                     titleRes = destination.titleTextId,
                                     actionIcon = destination.actionIcon,
@@ -156,15 +155,7 @@ fun DoApp(
                                     }
                                 )
                             }
-
-
-                            else -> {
-
-                            }
                         }
-
-
-
                     }
 
                     DoNavHost(appState = appState, onShowSnackbar = { message, action ->
