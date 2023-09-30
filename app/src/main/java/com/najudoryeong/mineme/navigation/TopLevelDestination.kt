@@ -1,5 +1,6 @@
 package com.najudoryeong.mineme.navigation
 
+import androidx.compose.material.icons.Icons
 import com.najudoryeong.mineme.R
 import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
 import com.najudoryeong.mineme.core.designsystem.icon.Icon
@@ -29,7 +30,7 @@ enum class TopLevelDestination(
         titleTextId = storyR.string.story,
         actionIcon = DoIcons.write_story.resourceId
     ),
-    settings(
+    Settings(
         selectedIcon = DoIcons.OnSettings.resourceId,
         unselectedIcon = DoIcons.settings.resourceId,
         iconTextId = settingsR.string.settings,

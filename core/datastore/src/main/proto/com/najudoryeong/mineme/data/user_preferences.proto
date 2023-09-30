@@ -9,4 +9,5 @@ message UserPreferences {
     DarkThemeConfigProto dark_theme_config = 1;
     bool should_hide_onboarding = 2;
     bool use_dynamic_color = 3;
+    string jwt_token = 4;
 }

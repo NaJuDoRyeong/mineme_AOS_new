@@ -47,4 +47,8 @@ class FakeUserDataRepository @Inject constructor(
     override suspend fun setShouldHideOnboarding(shouldHideOnboarding: Boolean) {
         DoPreferencesDataSource.setShouldHideOnboarding(shouldHideOnboarding)
     }
+
+    override suspend fun setJwt(jwt: String) {
+        DoPreferencesDataSource.setJwt(jwt)
+    }
 }

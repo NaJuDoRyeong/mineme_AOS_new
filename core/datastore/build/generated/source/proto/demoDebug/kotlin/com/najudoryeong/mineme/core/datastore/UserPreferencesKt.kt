@@ -84,6 +84,23 @@ public object UserPreferencesKt {
     public fun clearUseDynamicColor() {
       _builder.clearUseDynamicColor()
     }
+
+    /**
+     * `string jwt_token = 4;`
+     */
+    public var jwtToken: kotlin.String
+      @JvmName("getJwtToken")
+      get() = _builder.getJwtToken()
+      @JvmName("setJwtToken")
+      set(value) {
+        _builder.setJwtToken(value)
+      }
+    /**
+     * `string jwt_token = 4;`
+     */
+    public fun clearJwtToken() {
+      _builder.clearJwtToken()
+    }
   }
 }
 public inline fun com.najudoryeong.mineme.core.datastore.UserPreferences.copy(block: com.najudoryeong.mineme.core.datastore.UserPreferencesKt.Dsl.() -> kotlin.Unit): com.najudoryeong.mineme.core.datastore.UserPreferences =

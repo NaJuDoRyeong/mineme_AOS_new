@@ -35,7 +35,6 @@ class FakeDoNetworkDataSource @Inject constructor(
         private const val CODE_ASSET = "code.json"
     }
 
-
     // 애셋을 josn으로 디코딩
     override suspend fun getHomeData(): NetworkHomeMainResource =
         withContext(ioDispatcher) {

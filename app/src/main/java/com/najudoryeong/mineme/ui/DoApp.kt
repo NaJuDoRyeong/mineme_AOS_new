@@ -44,7 +44,6 @@ import com.najudoryeong.mineme.core.designsystem.component.DoNavigationBar
 import com.najudoryeong.mineme.core.designsystem.component.DoNavigationBarItem
 import com.najudoryeong.mineme.core.designsystem.component.DoTopAppBar
 import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
-import com.najudoryeong.mineme.core.designsystem.theme.DoTheme
 import com.najudoryeong.mineme.navigation.DoNavHost
 import com.najudoryeong.mineme.navigation.TopLevelDestination
 
@@ -141,8 +140,7 @@ fun DoApp(
                                     },
                                 )
                             }
-
-                            TopLevelDestination.Home -> {
+                            else -> {
                                 DoTopAppBar(
                                     titleRes = destination.titleTextId,
                                     actionIcon = destination.actionIcon,
@@ -157,15 +155,7 @@ fun DoApp(
                                     }
                                 )
                             }
-
-
-                            else -> {
-
-                            }
                         }
-
-
-
                     }
 
                     DoNavHost(appState = appState, onShowSnackbar = { message, action ->

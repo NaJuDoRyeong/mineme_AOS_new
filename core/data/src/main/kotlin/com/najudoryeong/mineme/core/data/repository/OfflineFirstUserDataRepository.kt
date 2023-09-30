@@ -24,4 +24,8 @@ class OfflineFirstUserDataRepository @Inject constructor(
         doPreferencesDataSource.setShouldHideOnboarding(shouldHideOnboarding)
     }
 
+    override suspend fun setJwt(jwt: String) {
+        doPreferencesDataSource.setJwt(jwt)
+    }
+
 }

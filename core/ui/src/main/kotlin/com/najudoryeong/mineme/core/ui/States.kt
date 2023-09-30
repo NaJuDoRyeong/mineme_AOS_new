@@ -11,6 +11,7 @@ import com.najudoryeong.mineme.core.model.data.UserData
 sealed interface MainActivityUiState {
     data object Loading : MainActivityUiState
     data class Success(val userData: UserData) : MainActivityUiState
+
 }
 
 sealed interface HomeUiState {
