@@ -13,7 +13,7 @@ val emptyUserData = UserData(
     darkThemeConfig = DarkThemeConfig.FOLLOW_SYSTEM,
     useDynamicColor = false,
     shouldHideOnboarding = false,
-    jwt = ""
+    jwt = "test"
 )
 
 class TestUserDataRepository : UserDataRepository {
@@ -27,7 +27,6 @@ class TestUserDataRepository : UserDataRepository {
 
     // null 값이 아닌 데이터만 필터링하여 전달
     override val userData: Flow<UserData> = _userData.filterNotNull()
-
 
     override suspend fun setDarkThemeConfig(darkThemeConfig: DarkThemeConfig) {
         currentUserData.let { current ->
@@ -54,7 +53,7 @@ class TestUserDataRepository : UserDataRepository {
     }
 
 
-    fun setUserData(userData: UserData) {
+    fun sendUserData(userData: UserData) {
         _userData.tryEmit(userData)
     }
 

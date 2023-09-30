@@ -77,7 +77,6 @@ class MainActivity : ComponentActivity() {
                 when (uiState) {
                     MainActivityUiState.Loading -> Unit
                     is MainActivityUiState.Success -> {
-                        Log.d("jwtcheck", (uiState as MainActivityUiState.Success).userData.jwt)
                         if ((uiState as MainActivityUiState.Success).userData.jwt.isEmpty()) {
                             SignUpApp(updateJwt = viewModel::updateJWT)
                         } else {

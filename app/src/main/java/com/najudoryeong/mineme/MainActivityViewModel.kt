@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class MainActivityViewModel @Inject constructor(
+open class MainActivityViewModel @Inject constructor(
     private val userDataRepository: UserDataRepository,
 ) : ViewModel() {
 
@@ -32,14 +32,6 @@ class MainActivityViewModel @Inject constructor(
             userDataRepository.setJwt(jwt)
         }
     }
-
-    // test용도
-    fun setTestJwt(jwt: String = "test") {
-        viewModelScope.launch {
-            userDataRepository.setJwt(jwt)
-        }
-    }
-
 
 }
 
