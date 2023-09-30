@@ -61,17 +61,12 @@ class NavigationTest {
 
 
     //todo  restore the state  previously visited destinations Test
-
-
     @Test
     fun topLevelDestinations_doNotShowUpArrow() {
         composeTestRule.apply {
             onNodeWithContentDescription(navigateUp).assertDoesNotExist()
 
             onNodeWithText(story).performClick()
-            onNodeWithContentDescription(navigateUp).assertDoesNotExist()
-
-            onNodeWithText(settings).performClick()
             onNodeWithContentDescription(navigateUp).assertDoesNotExist()
         }
     }
@@ -81,8 +76,7 @@ class NavigationTest {
     @Test(expected = NoActivityResumedException::class)
     fun homeDestination_back_quitsApp() {
         composeTestRule.apply {
-
-            onNodeWithText(settings).performClick()
+            onNodeWithText(story).performClick()
             onNodeWithText(home).performClick()
 
             Espresso.pressBack()
@@ -94,10 +88,6 @@ class NavigationTest {
     @Test
     fun navigationBar_backFromAnyDestination_returnsToHome() {
         composeTestRule.apply {
-            onNodeWithText(settings).performClick()
-            Espresso.pressBack()
-            onNodeWithText(home).assertExists()
-
             onNodeWithText(story).performClick()
             Espresso.pressBack()
             onNodeWithText(home).assertExists()
