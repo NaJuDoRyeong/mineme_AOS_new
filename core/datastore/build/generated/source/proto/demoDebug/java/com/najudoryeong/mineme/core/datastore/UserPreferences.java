@@ -12,6 +12,7 @@ public  final class UserPreferences extends
     // @@protoc_insertion_point(message_implements:UserPreferences)
     UserPreferencesOrBuilder {
   private UserPreferences() {
+    jwtToken_ = "";
   }
   public static final int DARK_THEME_CONFIG_FIELD_NUMBER = 1;
   private int darkThemeConfig_;
@@ -105,6 +106,53 @@ public  final class UserPreferences extends
   private void clearUseDynamicColor() {
 
     useDynamicColor_ = false;
+  }
+
+  public static final int JWT_TOKEN_FIELD_NUMBER = 4;
+  private java.lang.String jwtToken_;
+  /**
+   * <code>string jwt_token = 4;</code>
+   * @return The jwtToken.
+   */
+  @java.lang.Override
+  public java.lang.String getJwtToken() {
+    return jwtToken_;
+  }
+  /**
+   * <code>string jwt_token = 4;</code>
+   * @return The bytes for jwtToken.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getJwtTokenBytes() {
+    return com.google.protobuf.ByteString.copyFromUtf8(jwtToken_);
+  }
+  /**
+   * <code>string jwt_token = 4;</code>
+   * @param value The jwtToken to set.
+   */
+  private void setJwtToken(
+      java.lang.String value) {
+    java.lang.Class<?> valueClass = value.getClass();
+  
+    jwtToken_ = value;
+  }
+  /**
+   * <code>string jwt_token = 4;</code>
+   */
+  private void clearJwtToken() {
+
+    jwtToken_ = getDefaultInstance().getJwtToken();
+  }
+  /**
+   * <code>string jwt_token = 4;</code>
+   * @param value The bytes for jwtToken to set.
+   */
+  private void setJwtTokenBytes(
+      com.google.protobuf.ByteString value) {
+    checkByteStringIsUtf8(value);
+    jwtToken_ = value.toStringUtf8();
+
   }
 
   public static com.najudoryeong.mineme.core.datastore.UserPreferences parseFrom(
@@ -306,6 +354,55 @@ public  final class UserPreferences extends
       return this;
     }
 
+    /**
+     * <code>string jwt_token = 4;</code>
+     * @return The jwtToken.
+     */
+    @java.lang.Override
+    public java.lang.String getJwtToken() {
+      return instance.getJwtToken();
+    }
+    /**
+     * <code>string jwt_token = 4;</code>
+     * @return The bytes for jwtToken.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getJwtTokenBytes() {
+      return instance.getJwtTokenBytes();
+    }
+    /**
+     * <code>string jwt_token = 4;</code>
+     * @param value The jwtToken to set.
+     * @return This builder for chaining.
+     */
+    public Builder setJwtToken(
+        java.lang.String value) {
+      copyOnWrite();
+      instance.setJwtToken(value);
+      return this;
+    }
+    /**
+     * <code>string jwt_token = 4;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearJwtToken() {
+      copyOnWrite();
+      instance.clearJwtToken();
+      return this;
+    }
+    /**
+     * <code>string jwt_token = 4;</code>
+     * @param value The bytes for jwtToken to set.
+     * @return This builder for chaining.
+     */
+    public Builder setJwtTokenBytes(
+        com.google.protobuf.ByteString value) {
+      copyOnWrite();
+      instance.setJwtTokenBytes(value);
+      return this;
+    }
+
     // @@protoc_insertion_point(builder_scope:UserPreferences)
   }
   @java.lang.Override
@@ -325,10 +422,11 @@ public  final class UserPreferences extends
             "darkThemeConfig_",
             "shouldHideOnboarding_",
             "useDynamicColor_",
+            "jwtToken_",
           };
           java.lang.String info =
-              "\u0000\u0003\u0000\u0000\u0001\u0003\u0003\u0000\u0000\u0000\u0001\f\u0002\u0007" +
-              "\u0003\u0007";
+              "\u0000\u0004\u0000\u0000\u0001\u0004\u0004\u0000\u0000\u0000\u0001\f\u0002\u0007" +
+              "\u0003\u0007\u0004\u0208";
           return newMessageInfo(DEFAULT_INSTANCE, info, objects);
       }
       // fall through

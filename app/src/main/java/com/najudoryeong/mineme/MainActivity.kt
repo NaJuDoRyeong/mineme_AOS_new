@@ -1,6 +1,7 @@
 package com.najudoryeong.mineme
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -16,7 +17,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.najudoryeong.mineme.core.data.util.NetworkMonitor
 import com.najudoryeong.mineme.core.designsystem.theme.DoTheme
+import com.najudoryeong.mineme.core.ui.MainActivityUiState
 import com.najudoryeong.mineme.ui.DoApp
+import com.najudoryeong.mineme.ui.SignUpApp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
@@ -71,13 +74,21 @@ class MainActivity : ComponentActivity() {
                 androidTheme = false,
                 disableDynamicTheming = false,
             ) {
-                DoApp(
-                    networkMonitor = networkMonitor,
-                    windowSizeClass = calculateWindowSizeClass(this)
-                )
+                when (uiState) {
+                    MainActivityUiState.Loading -> Unit
+                    is MainActivityUiState.Success -> {
+                        if ((uiState as MainActivityUiState.Success).userData.jwt.isEmpty()) {
+                            SignUpApp(updateJwt = viewModel::updateJWT)
+                        } else {
+                            DoApp(
+                                networkMonitor = networkMonitor,
+                                windowSizeClass = calculateWindowSizeClass(this@MainActivity)
+                            )
+                        }
+                    }
+                }
             }
         }
-
         super.onCreate(savedInstanceState)
     }
 }

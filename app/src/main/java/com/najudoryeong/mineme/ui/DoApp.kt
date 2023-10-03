@@ -44,7 +44,6 @@ import com.najudoryeong.mineme.core.designsystem.component.DoNavigationBar
 import com.najudoryeong.mineme.core.designsystem.component.DoNavigationBarItem
 import com.najudoryeong.mineme.core.designsystem.component.DoTopAppBar
 import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
-import com.najudoryeong.mineme.core.designsystem.theme.DoTheme
 import com.najudoryeong.mineme.navigation.DoNavHost
 import com.najudoryeong.mineme.navigation.TopLevelDestination
 
@@ -88,7 +87,7 @@ fun DoApp(
             snackbarHost = { SnackbarHost(snackbarHostState) },
             bottomBar = {
                 val destination = appState.currentTopLevelDestination
-                if (destination in TopLevelDestination.values()){
+                if (destination in TopLevelDestination.values()) {
                     DoBottomBar(
                         destinations = appState.topLevelDestinations,
                         onNavigateToDestination = appState::navigateToTopLevelDestination,
@@ -118,45 +117,45 @@ fun DoApp(
                     val destination = appState.currentTopLevelDestination
 
                     if (destination != null) {
+                        when (destination) {
+                            TopLevelDestination.Story -> {
+                                DoTopAppBar(
+                                    titleRes = destination.titleTextId,
+                                    navigationIcon = if (appState.shouldShowCalendar.collectAsStateWithLifecycle().value) DoIcons.top_story.resourceId else DoIcons.top_region.resourceId,
+                                    navigationIconContentDescription = stringResource(
+                                        id = destination.titleTextId,
+                                    ),
+                                    actionIcon = destination.actionIcon,
+                                    actionIconContentDescription = stringResource(
+                                        id = destination.titleTextId,
+                                    ),
+                                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                                        containerColor = Color.Transparent,
+                                    ),
+                                    onActionClick = {
+                                        appState.navigateToWriteStory()
+                                    },
+                                    onNavigationClick = {
+                                        appState.updateShowCalendar()
+                                    },
+                                )
+                            }
+                            else -> {
+                                DoTopAppBar(
+                                    titleRes = destination.titleTextId,
+                                    actionIcon = destination.actionIcon,
+                                    actionIconContentDescription = stringResource(
+                                        id = destination.titleTextId,
+                                    ),
+                                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                                        containerColor = Color.Transparent,
+                                    ),
+                                    onActionClick = {
 
-                        // story라면
-                        if (destination == TopLevelDestination.Story) {
-                            DoTopAppBar(
-                                titleRes = destination.titleTextId,
-                                navigationIcon = if (appState.shouldShowCalendar.collectAsStateWithLifecycle().value) DoIcons.top_story.resourceId else DoIcons.top_region.resourceId,
-                                navigationIconContentDescription = stringResource(
-                                    id = destination.titleTextId,
-                                ),
-                                actionIcon = destination.actionIcon,
-                                actionIconContentDescription = stringResource(
-                                    id = destination.titleTextId,
-                                ),
-                                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                                    containerColor = Color.Transparent,
-                                ),
-                                onActionClick = {
-                                    appState.navigateToWriteStory()
-                                },
-                                onNavigationClick = {
-                                    appState.updateShowCalendar()
-                                },
-                            )
-                        } else {
-                            DoTopAppBar(
-                                titleRes = destination.titleTextId,
-                                actionIcon = destination.actionIcon,
-                                actionIconContentDescription = stringResource(
-                                    id = destination.titleTextId,
-                                ),
-                                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                                    containerColor = Color.Transparent,
-                                ),
-                                onActionClick = {
-
-                                }
-                            )
+                                    }
+                                )
+                            }
                         }
-
                     }
 
                     DoNavHost(appState = appState, onShowSnackbar = { message, action ->

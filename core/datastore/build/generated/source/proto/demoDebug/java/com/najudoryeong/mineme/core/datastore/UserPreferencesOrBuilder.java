@@ -29,4 +29,16 @@ public interface UserPreferencesOrBuilder extends
    * @return The useDynamicColor.
    */
   boolean getUseDynamicColor();
+
+  /**
+   * <code>string jwt_token = 4;</code>
+   * @return The jwtToken.
+   */
+  java.lang.String getJwtToken();
+  /**
+   * <code>string jwt_token = 4;</code>
+   * @return The bytes for jwtToken.
+   */
+  com.google.protobuf.ByteString
+      getJwtTokenBytes();
 }

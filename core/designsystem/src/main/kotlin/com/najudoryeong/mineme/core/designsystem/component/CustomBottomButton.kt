@@ -16,6 +16,8 @@ fun CustomBottomButton(
     modifier: Modifier = Modifier,
     @StringRes textRes: Int,
     enabled: Boolean = true,
+    containerColor: Color = Color(0xFFFFDB94),
+    disabledContainerColor: Color = Color.White,
     onClick: () -> Unit = {}
 ) {
 
@@ -24,8 +26,8 @@ fun CustomBottomButton(
         modifier = modifier.fillMaxWidth(),
         enabled = enabled,
         colors = ButtonDefaults.buttonColors(
-            containerColor = Color(0xFFFFDB94),
-            disabledContainerColor = Color.White
+            containerColor = containerColor,
+            disabledContainerColor = disabledContainerColor
         )
     ) {
         Text(

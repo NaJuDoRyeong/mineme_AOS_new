@@ -21,12 +21,15 @@ class DoPreferencesDataSource @Inject constructor(
                     DarkThemeConfigProto.DARK_THEME_CONFIG_FOLLOW_SYSTEM,
                     ->
                         DarkThemeConfig.FOLLOW_SYSTEM
+
                     DarkThemeConfigProto.DARK_THEME_CONFIG_LIGHT ->
                         DarkThemeConfig.LIGHT
+
                     DarkThemeConfigProto.DARK_THEME_CONFIG_DARK -> DarkThemeConfig.DARK
                 },
                 useDynamicColor = it.useDynamicColor,
                 shouldHideOnboarding = it.shouldHideOnboarding,
+                jwt = it.jwtToken
             )
         }
 
@@ -36,6 +39,7 @@ class DoPreferencesDataSource @Inject constructor(
                 this.darkThemeConfig = when (darkThemeConfig) {
                     DarkThemeConfig.FOLLOW_SYSTEM ->
                         DarkThemeConfigProto.DARK_THEME_CONFIG_FOLLOW_SYSTEM
+
                     DarkThemeConfig.LIGHT -> DarkThemeConfigProto.DARK_THEME_CONFIG_LIGHT
                     DarkThemeConfig.DARK -> DarkThemeConfigProto.DARK_THEME_CONFIG_DARK
                 }
@@ -50,10 +54,19 @@ class DoPreferencesDataSource @Inject constructor(
             }
         }
     }
+
     suspend fun setShouldHideOnboarding(shouldHideOnboarding: Boolean) {
         userPreferences.updateData {
             it.copy {
                 this.shouldHideOnboarding = shouldHideOnboarding
+            }
+        }
+    }
+
+    suspend fun setJwt(jwt: String) {
+        userPreferences.updateData {
+            it.copy {
+                this.jwtToken = jwt
             }
         }
     }

@@ -10,15 +10,27 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.NoActivityResumedException
+import com.najudoryeong.mineme.core.model.data.DarkThemeConfig
+import com.najudoryeong.mineme.core.model.data.UserData
+import com.najudoryeong.mineme.core.testing.repository.TestUserDataRepository
+import com.najudoryeong.mineme.core.ui.HomeUiState
+import com.najudoryeong.mineme.core.ui.MainActivityUiState
+import com.najudoryeong.mineme.core.ui.RegionStoryUiState
 import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
+import javax.inject.Inject
 import kotlin.properties.ReadOnlyProperty
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 import com.najudoryeong.mineme.feature.home.R as FeatureHomeR
 import com.najudoryeong.mineme.feature.story.R as FeatureStoryR
 import com.najudoryeong.mineme.feature.settings.R as FeatureSettingsR
@@ -37,6 +49,7 @@ class NavigationTest {
     val composeTestRule = createAndroidComposeRule<MainActivity>()
 
 
+
     private fun AndroidComposeTestRule<*, *>.stringResource(@StringRes resId: Int) =
         ReadOnlyProperty<Any?, String> { _, _ -> activity.getString(resId) }
 
@@ -47,10 +60,14 @@ class NavigationTest {
     private val settings by composeTestRule.stringResource(FeatureSettingsR.string.settings)
 
 
-
-
     @Before
-    fun setup() = hiltRule.inject()
+    fun setup() {
+        hiltRule.inject()
+        composeTestRule.apply {
+            val kakaoSignupText = composeTestRule.activity.getString(R.string.kakao_signup)
+            onNodeWithText(kakaoSignupText).performClick()
+        }
+    }
 
     @Test
     fun firstScreen_isHome() {
@@ -58,9 +75,6 @@ class NavigationTest {
             onNodeWithText(home).assertIsSelected()
         }
     }
-
-
-    //todo  restore the state  previously visited destinations Test
 
 
     @Test

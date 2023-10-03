@@ -9,24 +9,24 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.filterNotNull
 
 
-
 val emptyUserData = UserData(
     darkThemeConfig = DarkThemeConfig.FOLLOW_SYSTEM,
     useDynamicColor = false,
     shouldHideOnboarding = false,
+    jwt = "test"
 )
 
 class TestUserDataRepository : UserDataRepository {
 
     // Test를 위한 hot flow
-    private val _userData = MutableSharedFlow<UserData>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+    private val _userData =
+        MutableSharedFlow<UserData>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
 
     // null이면 emptyUserData 넣어줌 / 가장 최신 replayCache
     private val currentUserData get() = _userData.replayCache.firstOrNull() ?: emptyUserData
 
     // null 값이 아닌 데이터만 필터링하여 전달
     override val userData: Flow<UserData> = _userData.filterNotNull()
-
 
     override suspend fun setDarkThemeConfig(darkThemeConfig: DarkThemeConfig) {
         currentUserData.let { current ->
@@ -46,10 +46,14 @@ class TestUserDataRepository : UserDataRepository {
         }
     }
 
-    /**
-     * A test-only API to allow setting of user data directly.
-     */
-    fun setUserData(userData: UserData) {
+    override suspend fun setJwt(jwt: String) {
+        currentUserData.let { current ->
+            _userData.tryEmit(current.copy(jwt = jwt))
+        }
+    }
+
+
+    fun sendUserData(userData: UserData) {
         _userData.tryEmit(userData)
     }
 

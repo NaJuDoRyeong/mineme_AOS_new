@@ -4,6 +4,8 @@ import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFact
 import com.najudoryeong.mineme.core.model.data.HomeMainResource
 import com.najudoryeong.mineme.core.network.BuildConfig
 import com.najudoryeong.mineme.core.network.DoNetworkDataSource
+import com.najudoryeong.mineme.core.network.model.NetworkCode
+import com.najudoryeong.mineme.core.network.model.NetworkDetailStoryResource
 import com.najudoryeong.mineme.core.network.model.NetworkHomeMainResource
 import com.najudoryeong.mineme.core.network.model.NetworkStoryCalendarResource
 import com.najudoryeong.mineme.core.network.model.NetworkStoryRegionResource
@@ -37,6 +39,18 @@ private interface RetrofitDoNetworkApi {
         @Query("year") year: String,
         @Query("month") month: String
     ): NetworkResponse<NetworkStoryCalendarResource>
+
+    @GET("api/v1/stories/{storyId}")
+    suspend fun getDetailStory(
+        @Header("Authorization") token: String,
+        @Path("storyId") storyId: Int,
+    ): NetworkResponse<NetworkDetailStoryResource>
+
+
+    @GET("api/v1/settings/code")
+    suspend fun getCode(
+        @Header("Authorization") token: String,
+    ): NetworkResponse<NetworkCode>
 
 }
 
@@ -74,5 +88,12 @@ class RetrofitDoNetwork @Inject constructor(
         month: String
     ): NetworkStoryCalendarResource =
         networkApi.getCalendarStory(token = "jwt", year = year, month = month).data
+
+    override suspend fun getDetailStory(storyId: Int): NetworkDetailStoryResource =
+        networkApi.getDetailStory(token = "jwt", storyId = storyId).data
+
+    override suspend fun getCode(): NetworkCode =
+        networkApi.getCode(token = "jwt").data
+
 
 }

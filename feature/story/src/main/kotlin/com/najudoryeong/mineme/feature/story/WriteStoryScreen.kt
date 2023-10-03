@@ -3,14 +3,12 @@ package com.najudoryeong.mineme.feature.story
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -42,6 +40,7 @@ import com.najudoryeong.mineme.core.designsystem.component.AnimatedScreen
 import com.najudoryeong.mineme.core.designsystem.component.CustomBottomButton
 import com.najudoryeong.mineme.core.designsystem.component.DateDialog
 import com.najudoryeong.mineme.core.designsystem.component.DynamicAsyncImage
+import com.najudoryeong.mineme.core.designsystem.component.ImageSlider
 import com.najudoryeong.mineme.core.designsystem.component.Indicator
 import com.najudoryeong.mineme.core.designsystem.component.LocationDropdownMenu
 import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
@@ -108,16 +107,16 @@ internal fun WriteStoryRoute(
 
 @Composable
 fun WriteStoryFirstPageScreen(
-    onContinueClicked: () -> Unit,
     modifier: Modifier = Modifier,
-    onBackClick: () -> Unit,
+    onContinueClicked: () -> Unit = {},
+    onBackClick: () -> Unit = {},
     selectedDate: LocalDate,
-    updateDate: (Int, Int, Int) -> Unit,
-    allRegions: List<String>,
-    allCities: List<String>,
-    updateRegion: (String) -> Unit,
-    updateCity: (String) -> Unit,
-    updateImages: (List<Uri>) -> Unit,
+    updateDate: (Int, Int, Int) -> Unit = { _, _, _ -> },
+    allRegions: List<String> = emptyList(),
+    allCities: List<String> = emptyList(),
+    updateRegion: (String) -> Unit = {},
+    updateCity: (String) -> Unit = {},
+    updateImages: (List<Uri>) -> Unit = {},
 ) {
 
     val imagePicker =
@@ -189,9 +188,7 @@ fun WriteStoryFirstPageScreen(
 
         CustomBottomButton(
             textRes = R.string.choosePicture,
-            onClick = {
-                imagePicker.launch("image/*")
-            }
+            onClick = { imagePicker.launch("image/*") }
         )
     }
 }
@@ -199,13 +196,13 @@ fun WriteStoryFirstPageScreen(
 @Composable
 fun WriteStorySecondPageScreen(
     modifier: Modifier = Modifier,
-    onBackClick: () -> Unit,
+    onBackClick: () -> Unit = {},
     selectedDate: LocalDate,
     selectedRegion: String,
     selectedCity: String,
     selectedImages: List<Uri>,
-    completeWriteStory: () -> Unit,
-    firstOnBackClick: () -> Unit,
+    completeWriteStory: () -> Unit = {},
+    firstOnBackClick: () -> Unit = {},
     storyContent: MutableState<String>
 
 ) {
@@ -243,7 +240,7 @@ fun WriteStorySecondPageScreen(
 
         OutlinedTextField(
             value = storyContent.value,
-            onValueChange = { newValue -> storyContent.value = newValue},
+            onValueChange = { newValue -> storyContent.value = newValue },
             label = { Text(text = stringResource(R.string.story_content_placeholder)) },
             modifier = Modifier
                 .fillMaxWidth()
@@ -251,43 +248,13 @@ fun WriteStorySecondPageScreen(
                 .weight(1f)
         )
 
-        CustomBottomButton(textRes = string.complete,
+        CustomBottomButton(
+            textRes = string.complete,
             onClick = {
                 completeWriteStory()
                 firstOnBackClick()
             }
         )
-    }
-}
-
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-fun ImageSlider(
-    images: List<Uri>,
-    modifier: Modifier = Modifier
-) {
-    val pagerState = rememberPagerState()
-
-    Box(modifier = modifier.padding(top = 16.dp)) {
-        HorizontalPager(state = pagerState, pageCount = images.size) { page ->
-            val imageUri = images[page]
-            DynamicAsyncImage(
-                imageUrl = imageUri.toString(),
-                contentDescription = null,
-                modifier = Modifier.aspectRatio(1f)
-            )
-        }
-
-        Row(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(4.dp)
-        ) {
-            repeat(images.size) { index ->
-                Indicator(isSelected = index == pagerState.currentPage)
-            }
-        }
     }
 }
 
