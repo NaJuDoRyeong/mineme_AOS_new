@@ -1,7 +1,7 @@
 
 
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
-import com.najudoryeong.minme.configureJacoco
+import com.najudoryeong.mineme.configureJacoco
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.getByType

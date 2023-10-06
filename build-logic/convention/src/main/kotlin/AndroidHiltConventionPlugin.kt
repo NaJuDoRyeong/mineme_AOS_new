@@ -1,5 +1,5 @@
 
-import com.najudoryeong.minme.libs
+import com.najudoryeong.mineme.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies

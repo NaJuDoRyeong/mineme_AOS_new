@@ -140,6 +140,7 @@ fun DoApp(
                                     },
                                 )
                             }
+
                             else -> {
                                 DoTopAppBar(
                                     titleRes = destination.titleTextId,
@@ -202,7 +203,9 @@ private fun DoBottomBar(
                     )
                 },
                 label = { Text(stringResource(destination.iconTextId)) },
-                modifier = Modifier
+                modifier = Modifier.testTag(
+                    stringResource(id = destination.iconTextId)
+                )
             )
         }
     }

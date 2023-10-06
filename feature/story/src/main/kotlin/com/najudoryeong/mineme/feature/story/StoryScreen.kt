@@ -46,6 +46,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -268,7 +269,8 @@ fun RegionStoriesGrid(
     } else {
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
-            modifier = modifier,
+            modifier = modifier.testTag("story:posts")
+            ,
         ) {
             items(allPosts.size) { index ->
                 val (post, storyWithPost) = allPosts[index]

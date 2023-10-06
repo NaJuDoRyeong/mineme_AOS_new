@@ -91,7 +91,6 @@ internal fun HomeScreen(
                         Row(
                             horizontalArrangement = Arrangement.spacedBy(16.dp),
                             modifier = Modifier
-                                .testTag("Home:Main"),
                         ) {
                             CoupleProfile(
                                 modifier = Modifier,
@@ -280,7 +279,8 @@ fun ProfileImage(
         DynamicAsyncImage(
             modifier = modifier,
             imageUrl = profileImgUrl,
-            contentDescription = null
+            contentDescription = null,
+            completeTag = "CoupleProfile:Image"
         )
     }
 }

@@ -1,5 +1,6 @@
 package com.najudoryeong.mineme
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -37,8 +38,13 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
-
+        super.onCreate(savedInstanceState)
         var uiState: MainActivityUiState by mutableStateOf(MainActivityUiState.Loading)
+
+
+        //detect benchmarking
+        val isBenchmarking = applicationContext.packageName.endsWith(".benchmark")
+        if (isBenchmarking) viewModel.updateJWT("test_jwt")
 
 
         // ui state 수집
@@ -89,7 +95,6 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-        super.onCreate(savedInstanceState)
     }
 }
 

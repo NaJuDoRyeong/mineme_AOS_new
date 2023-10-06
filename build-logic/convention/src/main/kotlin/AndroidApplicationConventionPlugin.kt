@@ -1,8 +1,8 @@
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.variant.ApplicationAndroidComponentsExtension
-import com.najudoryeong.minme.configureGradleManagedDevices
-import com.najudoryeong.minme.configureKotlinAndroid
-import com.najudoryeong.minme.configurePrintApksTask
+import com.najudoryeong.mineme.configureGradleManagedDevices
+import com.najudoryeong.mineme.configureKotlinAndroid
+import com.najudoryeong.mineme.configurePrintApksTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure

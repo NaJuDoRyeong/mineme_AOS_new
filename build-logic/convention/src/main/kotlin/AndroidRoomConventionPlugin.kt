@@ -1,5 +1,5 @@
 import com.google.devtools.ksp.gradle.KspExtension
-import com.najudoryeong.minme.libs
+import com.najudoryeong.mineme.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.InputDirectory

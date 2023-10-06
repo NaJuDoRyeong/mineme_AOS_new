@@ -18,6 +18,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "mineme"
 include(":app")
+include(":benchmarks")
 include(":core:common")
 include(":core:data")
 include(":core:data-test")

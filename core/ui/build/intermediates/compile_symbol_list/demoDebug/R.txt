@@ -1,3 +1,0 @@
-int string back 0x0
-int string complete 0x0
-int string next 0x0
