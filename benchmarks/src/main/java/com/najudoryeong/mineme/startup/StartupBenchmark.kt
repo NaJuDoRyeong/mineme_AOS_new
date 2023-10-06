@@ -1,9 +1,5 @@
 package com.najudoryeong.mineme.startup
 
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
-import android.util.Log
 import androidx.benchmark.macro.BaselineProfileMode
 import androidx.benchmark.macro.CompilationMode
 import androidx.benchmark.macro.StartupMode

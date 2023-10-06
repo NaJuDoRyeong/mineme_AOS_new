@@ -16,7 +16,7 @@ val PACKAGE_NAME = buildString {
     append(BuildConfig.APP_BUILD_TYPE_SUFFIX)
 }
 
-fun UiDevice.flingElementDowUp(element: UiObject2) {
+fun UiDevice.flingElementDownUp(element: UiObject2) {
     // 슬라이드 시 시스템 네비게이션을 트리거하지 않도록 요소의 옆에 마진을 설정
     element.setGestureMargin(displayWidth / 5)
     // 아래로 슬라이드
