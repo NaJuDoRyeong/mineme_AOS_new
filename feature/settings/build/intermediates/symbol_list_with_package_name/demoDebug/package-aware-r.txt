@@ -1,8 +1,0 @@
-com.najudoryeong.mineme.feature.settings
-string Account
-string account_loading
-string announcement
-string contact
-string notification
-string security
-string settings
