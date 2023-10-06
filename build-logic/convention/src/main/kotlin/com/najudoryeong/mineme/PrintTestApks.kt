@@ -14,7 +14,7 @@
  *   limitations under the License.
  */
 
-package com.najudoryeong.minme
+package com.najudoryeong.mineme
 
 import com.android.build.api.artifact.SingleArtifact
 import com.android.build.api.variant.AndroidComponentsExtension

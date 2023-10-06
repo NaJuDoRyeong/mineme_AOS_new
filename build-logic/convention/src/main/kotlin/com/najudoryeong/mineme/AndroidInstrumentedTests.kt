@@ -1,6 +1,6 @@
 
 
-package com.najudoryeong.minme
+package com.najudoryeong.mineme
 
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import org.gradle.api.Project

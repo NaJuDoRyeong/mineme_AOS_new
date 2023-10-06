@@ -1,11 +1,11 @@
 
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.gradle.LibraryExtension
-import com.najudoryeong.minme.configureFlavors
-import com.najudoryeong.minme.configureGradleManagedDevices
-import com.najudoryeong.minme.configureKotlinAndroid
-import com.najudoryeong.minme.configurePrintApksTask
-import com.najudoryeong.minme.disableUnnecessaryAndroidTests
+import com.najudoryeong.mineme.configureFlavors
+import com.najudoryeong.mineme.configureGradleManagedDevices
+import com.najudoryeong.mineme.configureKotlinAndroid
+import com.najudoryeong.mineme.configurePrintApksTask
+import com.najudoryeong.mineme.disableUnnecessaryAndroidTests
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure

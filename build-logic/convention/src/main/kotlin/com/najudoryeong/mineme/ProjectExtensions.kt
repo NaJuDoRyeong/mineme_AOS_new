@@ -1,6 +1,6 @@
 
 
-package com.najudoryeong.minme
+package com.najudoryeong.mineme
 
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog

@@ -1,5 +1,5 @@
 
-import com.najudoryeong.minme.configureKotlinJvm
+import com.najudoryeong.mineme.configureKotlinJvm
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 

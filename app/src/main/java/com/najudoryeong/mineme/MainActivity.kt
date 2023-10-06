@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
-
+        super.onCreate(savedInstanceState)
         var uiState: MainActivityUiState by mutableStateOf(MainActivityUiState.Loading)
 
 
@@ -89,7 +89,6 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-        super.onCreate(savedInstanceState)
     }
 }
 

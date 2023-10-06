@@ -14,7 +14,7 @@
  *   limitations under the License.
  */
 
-package com.najudoryeong.minme
+package com.najudoryeong.mineme
 
 /**
  * This is shared between :app and :benchmarks module to provide configurations type safety.

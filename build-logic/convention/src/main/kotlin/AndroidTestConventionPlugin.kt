@@ -1,7 +1,7 @@
 
 import com.android.build.gradle.TestExtension
-import com.najudoryeong.minme.configureGradleManagedDevices
-import com.najudoryeong.minme.configureKotlinAndroid
+import com.najudoryeong.mineme.configureGradleManagedDevices
+import com.najudoryeong.mineme.configureKotlinAndroid
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure

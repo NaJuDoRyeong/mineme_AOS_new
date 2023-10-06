@@ -1,4 +1,4 @@
-import com.najudoryeong.minme.DoBuildType
+import com.najudoryeong.mineme.DoBuildType
 
 plugins {
     id("mineme.android.application")

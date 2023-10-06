@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.najudoryeong.minme
+package com.najudoryeong.mineme
 
 import com.android.build.api.variant.AndroidComponentsExtension
 import org.gradle.api.Project

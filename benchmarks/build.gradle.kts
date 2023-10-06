@@ -1,44 +1,51 @@
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
+
+import com.najudoryeong.mineme.DoBuildType
+import com.najudoryeong.mineme.configureFlavors
+
 plugins {
-    alias(libs.plugins.android.test)
-    alias(libs.plugins.org.jetbrains.kotlin.android)
+    id("mineme.android.test")
 }
 
 android {
-    namespace = "com.najudoryeong.benchmarks"
-    compileSdk = 33
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+    namespace = "com.najudoryeong.mineme.benchmarks"
 
     defaultConfig {
-        minSdk = 24
-        targetSdk = 33
-
+        minSdk = 28
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "APP_BUILD_TYPE_SUFFIX", "\"\"")
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     buildTypes {
         // This benchmark buildType is used for benchmarking, and should function like your
-        // release build (for example, with minification on). It"s signed with a debug key
+        // release build (for example, with minification on). It's signed with a debug key
         // for easy local/CI testing.
-        create("benchmark1") {
+        create("benchmark") {
+            // Keep the build type debuggable so we can attach a debugger if needed.
             isDebuggable = true
-            signingConfig = getByName("debug").signingConfig
-            matchingFallbacks += listOf("release")
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks.add("release")
+            buildConfigField(
+                "String",
+                "APP_BUILD_TYPE_SUFFIX",
+                "\"${DoBuildType.BENCHMARK.applicationIdSuffix ?: ""}\""
+            )
         }
     }
 
-    flavorDimensions += listOf("contentType")
-    productFlavors {
-        create("demo") { dimension = "contentType" }
-        create("prod") { dimension = "contentType" }
+    // Use the same flavor dimensions as the application to allow generating Baseline Profiles on prod,
+    // which is more close to what will be shipped to users (no fake data), but has ability to run the
+    // benchmarks on demo, so we benchmark on stable data. 
+    configureFlavors(this) { flavor ->
+        buildConfigField(
+            "String",
+            "APP_FLAVOR_SUFFIX",
+            "\"${flavor.applicationIdSuffix ?: ""}\""
+        )
     }
 
     targetProjectPath = ":app"
@@ -46,14 +53,17 @@ android {
 }
 
 dependencies {
-    implementation(libs.junit)
-    implementation(libs.androidx.test.espresso.core)
-    implementation(libs.androidx.test.uiautomator)
     implementation(libs.androidx.benchmark.macro)
+    implementation(libs.androidx.test.core)
+    implementation(libs.androidx.test.espresso.core)
+    implementation(libs.androidx.test.ext)
+    implementation(libs.androidx.test.rules)
+    implementation(libs.androidx.test.runner)
+    implementation(libs.androidx.test.uiautomator)
 }
 
 androidComponents {
-    beforeVariants(selector().all()) {
-        it.enable = it.buildType == "benchmark1"
+    beforeVariants {
+        it.enable = it.buildType == "benchmark"
     }
 }

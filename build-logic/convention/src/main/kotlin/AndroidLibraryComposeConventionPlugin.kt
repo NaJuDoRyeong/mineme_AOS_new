@@ -1,6 +1,6 @@
 
 import com.android.build.gradle.LibraryExtension
-import com.najudoryeong.minme.configureAndroidCompose
+import com.najudoryeong.mineme.configureAndroidCompose
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.getByType

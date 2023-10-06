@@ -1,4 +1,4 @@
-package com.najudoryeong.minme
+package com.najudoryeong.mineme
 
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.ApplicationProductFlavor
