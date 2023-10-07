@@ -218,7 +218,9 @@ fun RegionView(
                         modifier = Modifier
                             .width(screenWidth / 2 - 24.dp)
                             .weight(1f)
-                            .padding(4.dp),
+                            .padding(4.dp)
+                            .testTag("RegionDropDown")
+                        ,
                         menuList = allRegions,
                         onItemSelected = updateRegion,
                     )
