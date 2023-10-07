@@ -35,8 +35,7 @@ class RegionStoryRecompositionBenchmark {
             setupBlock = {
                 pressHome()
                 startActivityAndWait()
-                device.waitForIdle()
-                device.findObject(By.res("Story")).click()
+                goToStory()
             },
         ) {
             storyWaitForPost()

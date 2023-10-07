@@ -1,7 +1,5 @@
 package com.najudoryeong.mineme.core.designsystem.component
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,11 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Card
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -105,28 +99,28 @@ fun DateDialog(
                     Row(modifier = Modifier.fillMaxWidth()) {
                         Row(modifier = Modifier.fillMaxWidth()) {
                             Picker(
-                                state = yearPickerState,
+                                modifier = Modifier.weight(1f),
                                 items = yearList,
+                                state = yearPickerState,
+                                startIndex = startIndexYear,
                                 visibleItemsCount = 3,
-                                modifier = Modifier.weight(1f),
                                 textModifier = Modifier.padding(8.dp),
-                                startIndex = startIndexYear
                             )
                             Picker(
-                                state = monthPickerState,
+                                modifier = Modifier.weight(1f),
                                 items = monthList,
+                                state = monthPickerState,
+                                startIndex = startIndexMonth,
                                 visibleItemsCount = 3,
-                                modifier = Modifier.weight(1f),
                                 textModifier = Modifier.padding(8.dp),
-                                startIndex = startIndexMonth
                             )
                             Picker(
-                                state = dayPickerState,
-                                items = dayList,
-                                visibleItemsCount = 3,
                                 modifier = Modifier.weight(1f),
+                                items = dayList,
+                                state = dayPickerState,
+                                startIndex = startIndexDay,
+                                visibleItemsCount = 3,
                                 textModifier = Modifier.padding(8.dp),
-                                startIndex = startIndexDay
                             )
                         }
                     }

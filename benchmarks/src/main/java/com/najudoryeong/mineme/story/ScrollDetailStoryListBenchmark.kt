@@ -34,8 +34,7 @@ class ScrollDetailStoryListBenchmark {
             setupBlock = {
                 pressHome()
                 startActivityAndWait()
-                device.findObject(By.res("Story")).click()
-                device.waitForIdle()
+                goToStory()
             },
         ) {
             goToDetailStory()

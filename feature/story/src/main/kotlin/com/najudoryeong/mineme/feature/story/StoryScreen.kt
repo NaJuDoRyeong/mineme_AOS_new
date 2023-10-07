@@ -182,7 +182,7 @@ fun CalendarView(
                 stories = calendarState.storyCalendarResource.stories.first().posts,
                 onStoryClicked = onStoryClick,
                 onUpdateDate = onUpdateDate,
-                modifier = modifier
+                modifier = modifier.testTag("Story:CalendarView")
             )
         }
     }
@@ -346,9 +346,7 @@ fun MonthlyCalendar(
         verticalArrangement = Arrangement.Center
     ) {
 
-        YearMonthPicker(
-            selectedYear = year, selectedMonth = month, onYearMonthChanged = onUpdateDate
-        )
+        YearMonthPicker(selectedYear = year, selectedMonth = month, onYearMonthChanged = onUpdateDate)
         WeekdaysRow()
         CalendarRows(storiesMap, daysBefore, daysInMonth, year, month, onStoryClicked)
     }
@@ -364,7 +362,10 @@ fun YearMonthPicker(
         horizontalArrangement = Arrangement.Center,
         modifier = Modifier
             .clickable { showDialog = true }
-            .padding(top = 16.dp)) {
+            .padding(top = 16.dp)
+            .testTag("Story:DatePicker")
+
+    ) {
         Text(text = "$selectedYear / $selectedMonth")
         Icon(
             imageVector = Icons.Default.ArrowDropDown,
@@ -406,12 +407,12 @@ fun YearMonthPicker(
 
                     Row(modifier = Modifier.fillMaxWidth()) {
                         Picker(
-                            state = yearPickerState,
-                            items = yearList,
-                            visibleItemsCount = 3,
                             modifier = Modifier.weight(0.3f),
-                            textModifier = Modifier.padding(8.dp),
-                            startIndex = startIndexYear
+                            items = yearList,
+                            state = yearPickerState,
+                            startIndex = startIndexYear,
+                            visibleItemsCount = 3,
+                            textModifier = Modifier.padding(8.dp)
                         )
                         Picker(
                             state = monthPickerState,
@@ -419,7 +420,8 @@ fun YearMonthPicker(
                             visibleItemsCount = 3,
                             modifier = Modifier.weight(0.7f),
                             textModifier = Modifier.padding(8.dp),
-                            startIndex = startIndexMonth
+                            startIndex = startIndexMonth,
+                            pickerTag ="MonthPicker"
                         )
                     }
                     Row(
