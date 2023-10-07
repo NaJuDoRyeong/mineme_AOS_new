@@ -40,6 +40,7 @@ fun DoTopAppBar(
         navigationIcon = {
             IconButton(onClick = onNavigationClick) {
                 Icon(
+                    modifier = Modifier.testTag("Story:ChangeView"),
                     painter = painterResource(id = navigationIcon),
                     contentDescription = navigationIconContentDescription,
                     tint = Color.Unspecified,

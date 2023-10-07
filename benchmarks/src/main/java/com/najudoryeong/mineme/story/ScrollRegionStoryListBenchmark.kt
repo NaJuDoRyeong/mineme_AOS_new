@@ -30,13 +30,13 @@ class ScrollRegionStoryListBenchmark {
             setupBlock = {
                 pressHome()
                 startActivityAndWait()
-                device.waitForIdle()
                 device.findObject(By.res("Story")).click()
+                device.waitForIdle()
             },
         ) {
             storyWaitForPost()
             repeat(3) {
-                storyScrollPostDownUp()
+                storyScrollPostDownUp("story:posts")
             }
         }
 

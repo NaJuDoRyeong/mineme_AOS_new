@@ -11,23 +11,22 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-private val dropdownRegion = listOf("경남","서울","부산")
 
 @RunWith(AndroidJUnit4::class)
-class RegionStoryRecompositionBenchmark {
+class ScrollDetailStoryListBenchmark {
 
     @get:Rule
     val benchmarkRule = MacrobenchmarkRule()
 
 
     @Test
-    fun benchmarkStateChangeCompilationBaselineProfile() =
-        benchmarkStateChange(CompilationMode.Partial())
+    fun benchmarkStateChangeCompilationBaselineProfile() = benchmarkStateChange(CompilationMode.Partial())
 
 
     private fun benchmarkStateChange(compilationMode: CompilationMode) =
         benchmarkRule.measureRepeated(
             packageName = PACKAGE_NAME,
+            // FrameTimingMetric을 사용하여 프레임 타이밍을 측정
             metrics = listOf(FrameTimingMetric()),
             compilationMode = compilationMode,
             iterations = 10,
@@ -35,13 +34,14 @@ class RegionStoryRecompositionBenchmark {
             setupBlock = {
                 pressHome()
                 startActivityAndWait()
-                device.waitForIdle()
                 device.findObject(By.res("Story")).click()
+                device.waitForIdle()
             },
         ) {
-            storyWaitForPost()
+            goToDetailStory()
             repeat(3) {
-                selectRegionFromDropdown(dropdownRegion[it])
+                storyScrollPostDownUp("detail:posts")
             }
         }
+
 }

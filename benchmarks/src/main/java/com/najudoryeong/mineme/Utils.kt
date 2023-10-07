@@ -24,6 +24,7 @@ fun UiDevice.flingElementDownUp(element: UiObject2) {
     waitForIdle()
     // 위 슬라이드
     element.fling(Direction.UP)
+
 }
 
 

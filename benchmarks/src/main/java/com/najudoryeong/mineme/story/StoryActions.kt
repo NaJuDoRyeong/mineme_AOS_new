@@ -9,8 +9,22 @@ fun MacrobenchmarkScope.storyWaitForPost() {
     device.wait(Until.hasObject(By.text("경남 창원시")), 3_000)
 }
 
-fun MacrobenchmarkScope.storyScrollPostDownUp() {
-    val postList = device.wait(Until.findObject(By.res("story:posts")), 3_000)
+fun MacrobenchmarkScope.goToDetailStory() {
+    val storyView = device.wait(Until.findObject(By.text("경남 창원시")), 3_000)
+    storyView.click()
+    device.waitForIdle()
+}
+
+fun MacrobenchmarkScope.changeStoryView() {
+    val changeButton = device.wait(Until.findObject(By.res("Story:ChangeView")), 3_000)
+    changeButton.click()
+    device.waitForIdle()
+}
+
+
+
+fun MacrobenchmarkScope.storyScrollPostDownUp(listTag : String) {
+    val postList = device.wait(Until.findObject(By.res(listTag)), 3_000)
     device.flingElementDownUp(postList)
 }
 
