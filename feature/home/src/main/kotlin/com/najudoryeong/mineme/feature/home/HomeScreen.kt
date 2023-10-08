@@ -85,7 +85,6 @@ internal fun HomeScreen(
 
             item {
                 when (homeState) {
-                    HomeUiState.Loading -> Unit
                     is HomeUiState.Success -> {
 
                         Row(
@@ -103,6 +102,7 @@ internal fun HomeScreen(
                         CurrentStory(newStory = homeState.homeMainResource.newStory)
 
                     }
+                    else -> Unit
                 }
             }
         }
@@ -266,11 +266,13 @@ fun Profile(
 fun ProfileImage(
     modifier: Modifier = Modifier,
     profileImgUrl: String,
-    defaultIcon: Int
+    defaultIcon: Int,
+    profileTag : String = "CoupleProfile:Image"
+
 ) {
     if (profileImgUrl.isEmpty()) {
         Icon(
-            modifier = modifier,
+            modifier = modifier.testTag(profileTag),
             painter = painterResource(id = defaultIcon),
             contentDescription = null,
             tint = Color.Unspecified
@@ -280,7 +282,7 @@ fun ProfileImage(
             modifier = modifier,
             imageUrl = profileImgUrl,
             contentDescription = null,
-            completeTag = "CoupleProfile:Image"
+            completeTag = profileTag
         )
     }
 }
