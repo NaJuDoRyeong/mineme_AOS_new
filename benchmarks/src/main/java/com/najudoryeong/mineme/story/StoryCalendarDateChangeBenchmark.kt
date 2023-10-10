@@ -19,6 +19,11 @@ class StoryCalendarDateChangeBenchmark {
 
 
     @Test
+    fun benchmarkStateChangeNoCompilation() =
+        benchmarkStateChange(CompilationMode.None())
+
+
+    @Test
     fun benchmarkStateChangeCompilationBaselineProfile() =
         benchmarkStateChange(CompilationMode.Partial())
 

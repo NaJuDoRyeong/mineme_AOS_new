@@ -16,6 +16,11 @@ class ScrollRegionStoryListBenchmark {
     @get:Rule
     val benchmarkRule = MacrobenchmarkRule()
 
+
+    @Test
+    fun benchmarkStateChangeNoCompilation() =
+        benchmarkStateChange(CompilationMode.None())
+
     @Test
     fun benchmarkStateChangeCompilationBaselineProfile() =
         benchmarkStateChange(CompilationMode.Partial())

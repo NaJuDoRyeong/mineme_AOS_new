@@ -12,6 +12,7 @@ android {
     defaultConfig {
         minSdk = 28
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments["androidx.benchmark.suppressErrors"] = "LOW-BATTERY"
 
         buildConfigField("String", "APP_BUILD_TYPE_SUFFIX", "\"\"")
     }
