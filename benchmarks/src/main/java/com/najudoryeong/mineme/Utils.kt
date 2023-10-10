@@ -24,6 +24,7 @@ fun UiDevice.flingElementDownUp(element: UiObject2) {
     waitForIdle()
     // 위 슬라이드
     element.fling(Direction.UP)
+
 }
 
 
@@ -34,7 +35,6 @@ fun UiDevice.waitAndFindObject(selector: BySelector, timeout: Long): UiObject2 {
     if (!wait(Until.hasObject(selector), timeout)) {
         throw AssertionError("Element not found on screen in ${timeout}ms (selector=$selector")
     }
-
     return findObject(selector)
 }
 

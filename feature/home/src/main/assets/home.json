@@ -1,28 +1,28 @@
 {
   "couple": {
     "name": "알콩달콩",
-    "startDate": "2000-10-10",
+    "startDate": "2023-08-10",
     "me": {
-      "profileImage": "https://picsum.photos/1000/1000",
-      "nickname": "이주주원",
-      "description": "나는 주주",
-      "instaId": "id",
-      "birthday": "1998-01-10",
+      "profileImage": "https://picsum.photos/1001/1000",
+      "nickname": "김도우",
+      "description": "쾌남도우",
+      "instaId": "@ddou_03",
+      "birthday": "1999-01-10",
       "gender": "M"
     },
     "mine": {
-      "profileImage": "https://picsum.photos/1000/1000",
-      "nickname": "정금금종",
-      "description": "나는 금졍",
-      "instaId": "id",
-      "birthday": "1998-02-09",
+      "profileImage": "https://picsum.photos/1000/1001",
+      "nickname": "신원지",
+      "description": "애기원지",
+      "instaId": "@bewozi_00z",
+      "birthday": "1999-02-09",
       "gender": "F"
     }
   },
   "newStory": {
-    "postId": 5938,
-    "region": "SL002",
-    "date": "2022-12-25",
+    "postId": 14,
+    "region": "전남",
+    "date": "2023-10-31",
     "thumbnailImage": "https://picsum.photos/1000/1000"
   }
 }

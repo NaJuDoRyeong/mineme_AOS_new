@@ -29,7 +29,12 @@ import androidx.compose.ui.graphics.CompositingStrategy
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.text
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
@@ -44,8 +49,9 @@ fun Picker(
     startIndex: Int = 0,
     visibleItemsCount: Int = 3,
     textModifier: Modifier = Modifier,
-    textStyle: androidx.compose.ui.text.TextStyle = LocalTextStyle.current,
-    dividerColor: Color = LocalContentColor.current
+    textStyle: TextStyle = LocalTextStyle.current,
+    dividerColor: Color = LocalContentColor.current,
+    pickerTag: String = "no"
 ) {
     val visibleItemsMiddle = visibleItemsCount / 2
     val listScrollCount = Integer.MAX_VALUE
@@ -85,14 +91,21 @@ fun Picker(
                 .fadingEdge(fadingEdgeGradient)
         ) {
             items(listScrollCount) { index ->
+                val itemText = items[index % items.size]
                 Text(
-                    text = items[index % items.size],
+                    text = itemText,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     style = textStyle,
                     modifier = Modifier
                         .onSizeChanged { size -> itemHeightPixels.value = size.height }
                         .then(textModifier)
+                        .semantics {
+                            if (itemText == state.selectedItem) {
+                                this.contentDescription = pickerTag
+                                this.text = AnnotatedString(itemText)
+                            }
+                        }
                 )
             }
         }

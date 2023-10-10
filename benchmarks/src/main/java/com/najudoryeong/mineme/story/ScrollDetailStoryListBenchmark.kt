@@ -11,13 +11,20 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+
 @RunWith(AndroidJUnit4::class)
-class ScrollStoryListBenchmark {
+class ScrollDetailStoryListBenchmark {
+
     @get:Rule
     val benchmarkRule = MacrobenchmarkRule()
 
     @Test
+    fun benchmarkStateChangeNoCompilation() =
+        benchmarkStateChange(CompilationMode.None())
+
+    @Test
     fun benchmarkStateChangeCompilationBaselineProfile() = benchmarkStateChange(CompilationMode.Partial())
+
 
     private fun benchmarkStateChange(compilationMode: CompilationMode) =
         benchmarkRule.measureRepeated(
@@ -30,15 +37,13 @@ class ScrollStoryListBenchmark {
             setupBlock = {
                 pressHome()
                 startActivityAndWait()
-                device.waitForIdle()
-                device.findObject(By.res("Story")).click()
+                goToStory()
             },
         ) {
-            storyWaitForPost()
+            goToDetailStory()
             repeat(3) {
-                storyScrollPostDownUp()
+                storyScrollPostDownUp("detail:posts")
             }
         }
-
 
 }
