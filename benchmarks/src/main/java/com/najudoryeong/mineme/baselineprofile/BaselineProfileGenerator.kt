@@ -3,7 +3,6 @@ package com.najudoryeong.mineme.baselineprofile
 import androidx.benchmark.macro.junit4.BaselineProfileRule
 import com.najudoryeong.mineme.PACKAGE_NAME
 import com.najudoryeong.mineme.home.homeYouWaitForContent
-import com.najudoryeong.mineme.settings.goToSettingsScreen
 import com.najudoryeong.mineme.story.goToDetailStory
 import com.najudoryeong.mineme.story.goToStory
 import com.najudoryeong.mineme.story.selectRegionFromDropdown

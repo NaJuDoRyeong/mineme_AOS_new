@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "320875804357",
+    "project_id": "mineme-ab347",
+    "storage_bucket": "mineme-ab347.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:320875804357:android:11077b2d13f3b9743fa2ac",
+        "android_client_info": {
+          "package_name": "com.najudoryeong.mineme"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsXkCawDs6GMNIoOcc0wJ5ZZ0rLrPwpuM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
