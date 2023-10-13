@@ -34,43 +34,28 @@ fun SignUpApp(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(
-            text = stringResource(id = R.string.app_name),
-            style = MaterialTheme.typography.headlineLarge
-        )
+        AppNameText()
         Spacer(modifier = Modifier.height(64.dp))
-        CustomBottomButton(
-            onClick = { updateJwt("random") },
-            textRes = R.string.kakao_signup,
-            containerColor = Color(0xFFFFE55F)
-        )
+        SignUpButton(updateJwt)
     }
 }
 
-/*
-fun kakaoLogin(context: Context, onJwtReceived: (String) -> Unit) {
-    val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
-        if (error == null) {
-            if (token != null) {
-                // 서버에 access 전달
-                val jwt = sendAccessToken(token.accessToken)
-                onJwtReceived(jwt)
-            }
-        } else {
-            // 로그인 실패 처리
-            Log.e("KAKAO LOGIN", "로그인 실패", error)
-        }
-    }
-
-    LoginClient.instance.run {
-        if (isKakaoTalkLoginAvailable(context)) {
-            loginWithKakaoTalk(context, callback = callback)
-        } else {
-            loginWithKakaoAccount(context, callback = callback)
-        }
-    }
+@Composable
+fun AppNameText() {
+    Text(
+        text = stringResource(id = R.string.app_name),
+        style = MaterialTheme.typography.headlineLarge
+    )
 }
-*/
+
+@Composable
+fun SignUpButton(updateJwt: (String) -> Unit) {
+    CustomBottomButton(
+        onClick = { updateJwt("random") },
+        textRes = R.string.kakao_signup,
+        containerColor = Color(0xFFFFE55F)
+    )
+}
 
 @DevicePreviews
 @Composable

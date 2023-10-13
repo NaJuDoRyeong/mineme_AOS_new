@@ -51,40 +51,34 @@ internal fun DetailStoryRoute(
     onBackClick: () -> Unit = {},
     viewModel: DetailStoryViewModel = hiltViewModel(),
 ) {
-
     val detailStoryUiState by viewModel.detailStoryUiState.collectAsStateWithLifecycle()
 
     DetailStoryScreen(
+        modifier = modifier,
         onBackClick = onBackClick,
         detailStoryUiState = detailStoryUiState
     )
 }
-
 @Composable
 fun DetailStoryScreen(
     modifier: Modifier = Modifier,
     detailStoryUiState: DetailStoryUiState,
     onBackClick: () -> Unit,
 ) {
-
     val isDetailLoading = detailStoryUiState is DetailStoryUiState.Loading
 
     Box(modifier = modifier.fillMaxSize()) {
-
         Column {
             Spacer(Modifier.windowInsetsTopHeight(WindowInsets.safeDrawing))
             DetailStoryToolBar(onBackClick = onBackClick)
 
-            LazyColumn(modifier = Modifier.fillMaxSize().testTag("detail:posts")) {
-
+            LazyColumn(modifier = Modifier.testTag("detail:posts").fillMaxSize()) {
                 when (detailStoryUiState) {
                     DetailStoryUiState.Loading, DetailStoryUiState.Error -> Unit
                     is DetailStoryUiState.Success -> {
                         items(detailStoryUiState.detailStoryResource.stories) { story ->
                             DetailStoryItem(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(16.dp),
+                                modifier = Modifier.padding(16.dp).fillMaxWidth(),
                                 location = "${story.region}  ${story.city}",
                                 date = story.date,
                                 images = story.images,
@@ -95,7 +89,6 @@ fun DetailStoryScreen(
                     }
                 }
             }
-
         }
 
         AnimatedVisibility(
@@ -123,7 +116,6 @@ fun DetailStoryScreen(
     }
 }
 
-
 @Composable
 fun DetailStoryItem(
     modifier: Modifier = Modifier,
@@ -134,26 +126,19 @@ fun DetailStoryItem(
     author: String
 ) {
     var isContentExpanded by remember { mutableStateOf(false) }
+    val textStyleBodySmall = MaterialTheme.typography.bodySmall
 
     Column(
         modifier = modifier.fillMaxHeight()
     ) {
-
-        Text(
-            text = location,
-            style = MaterialTheme.typography.titleMedium
-        )
-
-        Text(
-            text = date,
-            style = MaterialTheme.typography.bodySmall
-        )
+        Text(text = location, style = MaterialTheme.typography.titleMedium)
+        Text(text = date, style = textStyleBodySmall)
 
         ImageSlider(images = images.map { Uri.parse(it) })
 
         Text(
             text = content,
-            style = MaterialTheme.typography.bodySmall,
+            style = textStyleBodySmall,
             maxLines = if (isContentExpanded) Int.MAX_VALUE else 3,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier
@@ -166,7 +151,7 @@ fun DetailStoryItem(
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = author,
-            style = MaterialTheme.typography.labelSmall,
+            style = textStyleBodySmall,
             textAlign = TextAlign.End
         )
 

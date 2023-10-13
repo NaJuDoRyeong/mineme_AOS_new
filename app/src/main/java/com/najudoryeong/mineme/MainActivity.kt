@@ -9,6 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -34,46 +35,40 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var networkMonitor: NetworkMonitor
 
-    val viewModel: MainActivityViewModel by viewModels()
+    private val viewModel: MainActivityViewModel by viewModels()
+    private var uiState: MainActivityUiState by mutableStateOf(MainActivityUiState.Loading)
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
-        var uiState: MainActivityUiState by mutableStateOf(MainActivityUiState.Loading)
 
+        setupSplashScreen()
+        setupUiStateObserver()
+        enableEdgeToEdge()
+        setupContent()
+    }
 
-        //detect benchmarking
-        val isBenchmarking = applicationContext.packageName.endsWith(".benchmark")
-        if (isBenchmarking) viewModel.updateJWT("test_jwt")
-
-
-        // ui state 수집
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState
-                    .onEach {
-                        uiState = it
-                    }
-                    .collect()
-            }
-        }
-
-        // uiState에 따른 splash 구현
+    private fun setupSplashScreen() {
+        val splashScreen = installSplashScreen()
         splashScreen.setKeepOnScreenCondition {
             when (uiState) {
                 MainActivityUiState.Loading -> true
                 is MainActivityUiState.Success -> false
             }
         }
+    }
 
+    // If it's benchmarking, update Test JWT
+    private fun setupUiStateObserver() {
+        if (applicationContext.packageName.endsWith(".benchmark")) viewModel.updateJWT("test_jwt")
 
-        // 화면을 전체 화면 모드로 설정하므로 콘텐츠가 화면의 모든 가장자리까지 확장
-        // 이는 상태 표시줄 및 탐색 표시줄과 같은 시스템 UI가 콘텐츠 아래에 나타나도록
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.onEach { uiState = it }.collect()
+            }
+        }
+    }
 
-        // 전체 화면 모드를 활성화
-        enableEdgeToEdge()
-
-
+    private fun setupContent() {
         setContent {
             DoTheme(
                 darkTheme = false,
@@ -82,19 +77,21 @@ class MainActivity : ComponentActivity() {
             ) {
                 when (uiState) {
                     MainActivityUiState.Loading -> Unit
-                    is MainActivityUiState.Success -> {
-                        if ((uiState as MainActivityUiState.Success).userData.jwt.isEmpty()) {
-                            SignUpApp(updateJwt = viewModel::updateJWT)
-                        } else {
-                            DoApp(
-                                networkMonitor = networkMonitor,
-                                windowSizeClass = calculateWindowSizeClass(this@MainActivity)
-                            )
-                        }
-                    }
+                    is MainActivityUiState.Success -> renderMainContent(uiState as MainActivityUiState.Success)
                 }
             }
         }
     }
-}
 
+    @Composable
+    private fun renderMainContent(uiState: MainActivityUiState.Success) {
+        if (uiState.userData.jwt.isEmpty()) {
+            SignUpApp(updateJwt = viewModel::updateJWT)
+        } else {
+            DoApp(
+                networkMonitor = networkMonitor,
+                windowSizeClass = calculateWindowSizeClass(this@MainActivity)
+            )
+        }
+    }
+}

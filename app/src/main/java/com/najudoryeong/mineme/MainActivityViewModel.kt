@@ -1,5 +1,6 @@
 package com.najudoryeong.mineme
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.najudoryeong.mineme.core.data.repository.UserDataRepository
@@ -15,7 +16,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-open class MainActivityViewModel @Inject constructor(
+class MainActivityViewModel @Inject constructor(
     private val userDataRepository: UserDataRepository,
 ) : ViewModel() {
 
@@ -32,6 +33,4 @@ open class MainActivityViewModel @Inject constructor(
             userDataRepository.setJwt(jwt)
         }
     }
-
 }
-

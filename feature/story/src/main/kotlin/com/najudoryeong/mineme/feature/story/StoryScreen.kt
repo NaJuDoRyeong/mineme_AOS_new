@@ -108,14 +108,13 @@ internal fun StoryScreen(
     shouldShowCalendar: Boolean,
     regionState: RegionStoryUiState,
     calendarState: CalendarStoryUiState,
-    onStoryClick: (Int) -> Unit = { _ -> },
-    onUpdateDate: (Int, Int) -> Unit = { _, _ -> },
-    updateRegion: (String) -> Unit = { _ -> },
-    updateCity: (String) -> Unit = { _ -> },
-    allRegions: List<String> = emptyList(),
-    allCities: List<String> = emptyList()
+    onStoryClick: (Int) -> Unit,
+    onUpdateDate: (Int, Int) -> Unit,
+    updateRegion: (String) -> Unit,
+    updateCity: (String) -> Unit,
+    allRegions: List<String>,
+    allCities: List<String>
 ) {
-
     val isRegionLoading = regionState is RegionStoryUiState.Loading
     val isCalendarLoading = calendarState is CalendarStoryUiState.Loading
 
