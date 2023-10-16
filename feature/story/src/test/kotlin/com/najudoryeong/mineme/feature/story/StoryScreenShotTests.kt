@@ -49,9 +49,11 @@ class StoryScreenShotTests {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
     }
 
-    private val storyCalendarResource = StoryCalendarResourcePreviewParameterProvider().values.first()
+    private val storyCalendarResource =
+        StoryCalendarResourcePreviewParameterProvider().values.first()
     private val storyRegionResource = StoryRegionResourcePreviewParameterProvider().values.first()
-    private val storyRegionResourceEmpty = StoryRegionResourcePreviewParameterProvider().values.drop(1).first()
+    private val storyRegionResourceEmpty =
+        StoryRegionResourcePreviewParameterProvider().values.drop(1).first()
 
     @Test
     fun storyRegionScreen() {
