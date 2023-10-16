@@ -77,14 +77,14 @@ class MainActivity : ComponentActivity() {
             ) {
                 when (uiState) {
                     MainActivityUiState.Loading -> Unit
-                    is MainActivityUiState.Success -> renderMainContent(uiState as MainActivityUiState.Success)
+                    is MainActivityUiState.Success -> RenderMainContent(uiState as MainActivityUiState.Success)
                 }
             }
         }
     }
 
     @Composable
-    private fun renderMainContent(uiState: MainActivityUiState.Success) {
+    private fun RenderMainContent(uiState: MainActivityUiState.Success) {
         if (uiState.userData.jwt.isEmpty()) {
             SignUpApp(updateJwt = viewModel::updateJWT)
         } else {

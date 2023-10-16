@@ -39,6 +39,6 @@ include(":feature:home")
 include(":feature:settings")
 include(":feature:story")
 include(":ui-test-hilt-manifest")
-
+include(":lint")
 include(":sync:work")
 include(":sync:sync-test")

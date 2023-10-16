@@ -145,6 +145,7 @@ fun CurrentStory(
     ) {
 
         if (newStory.thumbnailImage == "") {
+
             Text(
                 text = stringResource(R.string.no_story),
                 style = MaterialTheme.typography.titleMedium
