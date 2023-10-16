@@ -57,6 +57,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.najudoryeong.mineme.core.designsystem.component.DoOverlayLoadingWheel
+import com.najudoryeong.mineme.core.designsystem.component.DoTextButton
 import com.najudoryeong.mineme.core.designsystem.component.DynamicAsyncImage
 import com.najudoryeong.mineme.core.designsystem.component.LocationDropdownMenu
 import com.najudoryeong.mineme.core.designsystem.component.Picker
@@ -367,7 +368,7 @@ fun YearMonthPicker(
     ) {
         Text(text = "$selectedYear / $selectedMonth")
         Icon(
-            imageVector = Icons.Default.ArrowDropDown,
+            imageVector = DoIcons.ArrowDown,
             contentDescription = "Dropdown Arrow",
             modifier = Modifier.padding(start = 8.dp)
         )
@@ -430,13 +431,13 @@ fun YearMonthPicker(
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
-                        TextButton(
+                        DoTextButton(
                             onClick = { showDialog = false }, modifier = Modifier.weight(1f)
                         ) {
                             Text("취소")
                         }
                         Spacer(modifier = Modifier.width(8.dp))
-                        TextButton(
+                        DoTextButton(
                             onClick = {
                                 onYearMonthChanged(
                                     yearPickerState.selectedItem.toInt(),
@@ -498,7 +499,7 @@ fun CalendarRows(
                         onStoryClick = onStoryClicked,
                         modifier = modifier
                             .weight(1f)
-                            .size(45.dp)
+                            .size(60.dp)
                             .padding(2.dp)
                     )
                 } else {

@@ -6,7 +6,7 @@ import com.android.tools.lint.detector.api.CURRENT_API
 import com.android.tools.lint.detector.api.Issue
 
 /**
- *  Lint에게 어떤 이슈들을 검출해야 하는지 알려준다.
+ *  Lint에게 어떤 이슈들을 검사해야 하는지 알려준다.
  */
 class DesignSystemIssueRegistry : IssueRegistry() {
 

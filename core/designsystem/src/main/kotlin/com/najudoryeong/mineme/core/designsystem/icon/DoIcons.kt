@@ -2,6 +2,7 @@ package com.najudoryeong.mineme.core.designsystem.icon
 
 import androidx.annotation.DrawableRes
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.najudoryeong.mineme.core.designsystem.R
@@ -36,6 +37,7 @@ object DoIcons {
 
 
     val ArrowBack = Icons.Rounded.ArrowBack
+    val ArrowDown = Icons.Default.ArrowDropDown
 
     // settings
     val setting_default = Icon.DrawableResourceIcon(R.drawable.setting_default)
