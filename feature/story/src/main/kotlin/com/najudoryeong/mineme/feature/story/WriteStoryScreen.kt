@@ -1,3 +1,19 @@
+/*
+ * Copyright 2023 KDW03
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.najudoryeong.mineme.feature.story
 
 import android.net.Uri
@@ -16,8 +32,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsTopHeight
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -39,14 +53,11 @@ import androidx.navigation.compose.rememberNavController
 import com.najudoryeong.mineme.core.designsystem.component.AnimatedScreen
 import com.najudoryeong.mineme.core.designsystem.component.CustomBottomButton
 import com.najudoryeong.mineme.core.designsystem.component.DateDialog
-import com.najudoryeong.mineme.core.designsystem.component.DynamicAsyncImage
 import com.najudoryeong.mineme.core.designsystem.component.ImageSlider
-import com.najudoryeong.mineme.core.designsystem.component.Indicator
 import com.najudoryeong.mineme.core.designsystem.component.LocationDropdownMenu
 import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
 import com.najudoryeong.mineme.core.ui.R.string
 import java.time.LocalDate
-
 
 const val firstScreenRoute = "write_story_first_page"
 const val secondScreenRoute = "write_story_second_page"
@@ -69,7 +80,7 @@ internal fun WriteStoryRoute(
     NavHost(navController, startDestination = firstScreenRoute) {
         composable(firstScreenRoute) {
             AnimatedScreen(
-                isVisible = currentRoute == firstScreenRoute
+                isVisible = currentRoute == firstScreenRoute,
             ) {
                 WriteStoryFirstPageScreen(
                     onContinueClicked = { navController.navigate(secondScreenRoute) },
@@ -99,7 +110,7 @@ internal fun WriteStoryRoute(
                 selectedImages = selectedImages,
                 storyContent = viewModel.storyContent,
                 firstOnBackClick = firstOnBackClick,
-                completeWriteStory = { }
+                completeWriteStory = { },
             )
         }
     }
@@ -118,7 +129,6 @@ fun WriteStoryFirstPageScreen(
     updateCity: (String) -> Unit = {},
     updateImages: (List<Uri>) -> Unit = {},
 ) {
-
     val imagePicker =
         rememberLauncherForActivityResult(contract = ActivityResultContracts.GetMultipleContents()) { uris: List<Uri> ->
             if (uris.isNotEmpty()) {
@@ -129,13 +139,12 @@ fun WriteStoryFirstPageScreen(
 
     Column(
         modifier = modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-
         Spacer(Modifier.windowInsetsTopHeight(WindowInsets.safeDrawing))
 
         WriteStoryToolBar(
-            onBackClick = onBackClick
+            onBackClick = onBackClick,
         )
 
         Text(
@@ -146,13 +155,13 @@ fun WriteStoryFirstPageScreen(
                 R.string.day_pick_title,
             ),
             style = MaterialTheme.typography.bodyMedium,
-            textAlign = TextAlign.Start
+            textAlign = TextAlign.Start,
         )
         DateDialog(
             selectedYear = selectedDate.year,
             selectedMonth = selectedDate.monthValue,
             selectedDay = selectedDate.dayOfMonth,
-            updateDate = updateDate
+            updateDate = updateDate,
         )
 
         Text(
@@ -163,7 +172,7 @@ fun WriteStoryFirstPageScreen(
                 R.string.region_city_pick_title,
             ),
             style = MaterialTheme.typography.bodyMedium,
-            textAlign = TextAlign.Start
+            textAlign = TextAlign.Start,
         )
 
         Row {
@@ -180,7 +189,7 @@ fun WriteStoryFirstPageScreen(
                 modifier = Modifier
                     .weight(0.5f),
                 menuList = allCities,
-                onItemSelected = updateCity
+                onItemSelected = updateCity,
             )
         }
 
@@ -188,7 +197,7 @@ fun WriteStoryFirstPageScreen(
 
         CustomBottomButton(
             textRes = R.string.choosePicture,
-            onClick = { imagePicker.launch("image/*") }
+            onClick = { imagePicker.launch("image/*") },
         )
     }
 }
@@ -203,14 +212,14 @@ fun WriteStorySecondPageScreen(
     selectedImages: List<Uri>,
     completeWriteStory: () -> Unit = {},
     firstOnBackClick: () -> Unit = {},
-    storyContent: MutableState<String>
+    storyContent: MutableState<String>,
 
 ) {
     Column(
         modifier = modifier
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceBetween
+        verticalArrangement = Arrangement.SpaceBetween,
     ) {
         Spacer(Modifier.windowInsetsTopHeight(WindowInsets.safeDrawing))
 
@@ -220,15 +229,15 @@ fun WriteStorySecondPageScreen(
 
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Text(
                 text = "${selectedDate.year} ${selectedDate.monthValue} ${selectedDate.dayOfMonth}",
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
             )
             Text(
                 text = "$selectedRegion ${selectedCity}에서",
-                style = MaterialTheme.typography.titleSmall
+                style = MaterialTheme.typography.titleSmall,
             )
         }
 
@@ -245,7 +254,7 @@ fun WriteStorySecondPageScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 8.dp)
-                .weight(1f)
+                .weight(1f),
         )
 
         CustomBottomButton(
@@ -253,11 +262,10 @@ fun WriteStorySecondPageScreen(
             onClick = {
                 completeWriteStory()
                 firstOnBackClick()
-            }
+            },
         )
     }
 }
-
 
 @Composable
 fun WriteStoryToolBar(
@@ -266,7 +274,7 @@ fun WriteStoryToolBar(
 ) {
     Box(
         modifier = modifier.fillMaxWidth(),
-        contentAlignment = Alignment.CenterStart
+        contentAlignment = Alignment.CenterStart,
     ) {
         Text(
             text = stringResource(id = R.string.writeStory),

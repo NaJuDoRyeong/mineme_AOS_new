@@ -1,3 +1,19 @@
+/*
+ * Copyright 2023 KDW03
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.najudoryeong.mineme.feature.story
 
 import androidx.lifecycle.SavedStateHandle
@@ -30,13 +46,12 @@ class StoryViewModelTest {
     private val savedStateHandle = SavedStateHandle()
     private lateinit var viewModel: StoryViewModel
 
-
     @Before
     fun setup() {
         viewModel = StoryViewModel(
             savedStateHandle = savedStateHandle,
             userDataRepository = userDataRepository,
-            storyResourceRepository = storyResourceRepository
+            storyResourceRepository = storyResourceRepository,
         )
     }
 
@@ -52,7 +67,6 @@ class StoryViewModelTest {
             viewModel.calendarState.value,
         )
     }
-
 
     @Test
     fun regionStateUpdateAfterSelectRegionCity() = runTest {
@@ -71,7 +85,6 @@ class StoryViewModelTest {
         collectJob1.cancel()
     }
 
-
     private val sampleTopics = StoryRegionResource(
         listOf(
             StoryWithRegion(
@@ -81,14 +94,14 @@ class StoryViewModelTest {
                     Post(
                         date = "2022-10-01",
                         thumbnail = "https://picsum.photos/1000/1000",
-                        postId = 577
+                        postId = 577,
                     ),
                     Post(
                         date = "2022-10-02",
                         thumbnail = "https://picsum.photos/1000/1000",
-                        postId = 578
-                    )
-                )
+                        postId = 578,
+                    ),
+                ),
             ),
             StoryWithRegion(
                 region = "서울",
@@ -97,18 +110,15 @@ class StoryViewModelTest {
                     Post(
                         date = "2022-10-03",
                         thumbnail = "https://picsum.photos/1000/1000",
-                        postId = 579
+                        postId = 579,
                     ),
                     Post(
                         date = "2022-10-04",
                         thumbnail = "https://picsum.photos/1000/1000",
-                        postId = 580
-                    )
-                )
-            )
-        )
+                        postId = 580,
+                    ),
+                ),
+            ),
+        ),
     )
-
-
 }
-

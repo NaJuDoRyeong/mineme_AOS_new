@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright $YEAR KDW03
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,3 @@
  * limitations under the License.
  */
 
-package com.najudoryeong.mineme.core.testing.util
-
-import com.najudoryeong.mineme.core.analytics.AnalyticsEvent
-import com.najudoryeong.mineme.core.analytics.AnalyticsHelper
-
-
-class TestAnalyticsHelper : AnalyticsHelper {
-
-    private val events = mutableListOf<AnalyticsEvent>()
-    override fun logEvent(event: AnalyticsEvent) {
-        events.add(event)
-    }
-
-    fun hasLogged(event: AnalyticsEvent) = events.contains(event)
-}

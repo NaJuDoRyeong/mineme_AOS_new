@@ -1,3 +1,19 @@
+/*
+ * Copyright 2023 KDW03
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.najudoryeong.mineme.core.designsystem.component
 
 import androidx.compose.foundation.clickable
@@ -25,11 +41,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 
-
 @Composable
 fun DateDialog(
     modifier: Modifier = Modifier,
-    selectedYear: Int, selectedMonth: Int, selectedDay: Int, updateDate: (Int, Int, Int) -> Unit
+    selectedYear: Int,
+    selectedMonth: Int,
+    selectedDay: Int,
+    updateDate: (Int, Int, Int) -> Unit,
 ) {
     var showDialog by rememberSaveable { mutableStateOf(false) }
 
@@ -38,9 +56,8 @@ fun DateDialog(
         horizontalArrangement = Arrangement.Center,
         modifier = modifier
             .clickable { showDialog = true }
-            .padding(top = 4.dp)
+            .padding(top = 4.dp),
     ) {
-
         DateDropdown(modifier = Modifier.weight(1f), text = "$selectedYear")
 
         Spacer(modifier = Modifier.width(4.dp))
@@ -51,7 +68,6 @@ fun DateDialog(
 
         DateDropdown(modifier = Modifier.weight(1f), text = "$selectedDay")
     }
-
 
     if (showDialog) {
         Dialog(onDismissRequest = { showDialog = false }) {
@@ -66,17 +82,17 @@ fun DateDialog(
                     modifier = Modifier
                         .padding(top = 16.dp)
                         .fillMaxWidth(),
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
                 )
                 Column(
                     Modifier.fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
+                    verticalArrangement = Arrangement.Center,
                 ) {
                     val yearList = remember { (1950..2023).map { it.toString() } }
                     val yearPickerState = rememberPickerState()
                     val startIndexYear = yearList.indexOf(
-                        selectedYear.toString()
+                        selectedYear.toString(),
                     )
 
                     val monthList = remember { (1..12).map { String.format("%02d", it) } }
@@ -88,13 +104,12 @@ fun DateDialog(
                         (1..lastDay).map {
                             String.format(
                                 "%02d",
-                                it
+                                it,
                             )
                         }
                     }
                     val dayPickerState = rememberPickerState()
                     val startIndexDay = dayList.indexOf(String.format("%02d", selectedDay))
-
 
                     Row(modifier = Modifier.fillMaxWidth()) {
                         Row(modifier = Modifier.fillMaxWidth()) {
@@ -132,7 +147,8 @@ fun DateDialog(
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         TextButton(
-                            onClick = { showDialog = false }, modifier = Modifier.weight(1f)
+                            onClick = { showDialog = false },
+                            modifier = Modifier.weight(1f),
                         ) {
                             Text("취소")
                         }
@@ -142,10 +158,11 @@ fun DateDialog(
                                 updateDate(
                                     yearPickerState.selectedItem.toInt(),
                                     monthPickerState.selectedItem.toInt(),
-                                    dayPickerState.selectedItem.toInt()
+                                    dayPickerState.selectedItem.toInt(),
                                 )
                                 showDialog = false
-                            }, modifier = Modifier.weight(1f)
+                            },
+                            modifier = Modifier.weight(1f),
                         ) {
                             Text("확인")
                         }
@@ -155,7 +172,6 @@ fun DateDialog(
         }
     }
 }
-
 
 private fun getDaysInMonth(year: Int, month: Int): Int {
     return when (month) {

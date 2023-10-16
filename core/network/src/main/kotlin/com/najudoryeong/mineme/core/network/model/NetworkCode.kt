@@ -1,9 +1,9 @@
 /*
- * right 2023 The Android Open Source Project
+ * Copyright 2023 KDW03
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a  of the License at
+ * You may obtain a copy of the License at
  *
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -14,14 +14,12 @@
  * limitations under the License.
  */
 
-package com.najudoryeong.mineme.core.analytics
+package com.najudoryeong.mineme.core.network.model
 
-import com.najudoryeong.mineme.core.analytics.AnalyticsEvent
-import com.najudoryeong.mineme.core.analytics.AnalyticsHelper
+import kotlinx.serialization.Serializable
 
-/**
- * Implementation of AnalyticsHelper which does nothing. Useful for tests and previews.
- */
-class NoOpAnalyticsHelper : AnalyticsHelper {
-    override fun logEvent(event: AnalyticsEvent) = Unit
-}
+@Serializable
+data class NetworkCode(
+    val myCode: String,
+    val mineCode: String,
+)

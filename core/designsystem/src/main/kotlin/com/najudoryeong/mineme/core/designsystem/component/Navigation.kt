@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022 KDW03
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,7 +51,7 @@ fun RowScope.DoNavigationBarItem(
             selectedTextColor = DoNavigationDefaults.navigationSelectedItemColor(),
             unselectedTextColor = DoNavigationDefaults.navigationContentColor(),
             indicatorColor = DoNavigationDefaults.navigationIndicatorColor(),
-        )
+        ),
     )
 }
 

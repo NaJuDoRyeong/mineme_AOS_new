@@ -1,3 +1,19 @@
+/*
+ * Copyright 2023 KDW03
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.najudoryeong.mineme.feature.story
 
 import android.net.Uri
@@ -44,19 +60,18 @@ import com.najudoryeong.mineme.core.designsystem.component.ImageSlider
 import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
 import com.najudoryeong.mineme.core.ui.DetailStoryUiState
 
-
 @Composable
 internal fun DetailStoryRoute(
     modifier: Modifier = Modifier,
     onBackClick: () -> Unit = {},
     viewModel: DetailStoryViewModel = hiltViewModel(),
 ) {
-
     val detailStoryUiState by viewModel.detailStoryUiState.collectAsStateWithLifecycle()
 
     DetailStoryScreen(
+        modifier = modifier,
         onBackClick = onBackClick,
-        detailStoryUiState = detailStoryUiState
+        detailStoryUiState = detailStoryUiState,
     )
 }
 
@@ -66,25 +81,20 @@ fun DetailStoryScreen(
     detailStoryUiState: DetailStoryUiState,
     onBackClick: () -> Unit,
 ) {
-
     val isDetailLoading = detailStoryUiState is DetailStoryUiState.Loading
 
     Box(modifier = modifier.fillMaxSize()) {
-
         Column {
             Spacer(Modifier.windowInsetsTopHeight(WindowInsets.safeDrawing))
             DetailStoryToolBar(onBackClick = onBackClick)
 
-            LazyColumn(modifier = Modifier.fillMaxSize().testTag("detail:posts")) {
-
+            LazyColumn(modifier = Modifier.testTag("detail:posts").fillMaxSize()) {
                 when (detailStoryUiState) {
                     DetailStoryUiState.Loading, DetailStoryUiState.Error -> Unit
                     is DetailStoryUiState.Success -> {
                         items(detailStoryUiState.detailStoryResource.stories) { story ->
                             DetailStoryItem(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(16.dp),
+                                modifier = Modifier.padding(16.dp).fillMaxWidth(),
                                 location = "${story.region}  ${story.city}",
                                 date = story.date,
                                 images = story.images,
@@ -95,7 +105,6 @@ fun DetailStoryScreen(
                     }
                 }
             }
-
         }
 
         AnimatedVisibility(
@@ -123,7 +132,6 @@ fun DetailStoryScreen(
     }
 }
 
-
 @Composable
 fun DetailStoryItem(
     modifier: Modifier = Modifier,
@@ -131,34 +139,27 @@ fun DetailStoryItem(
     date: String,
     images: List<String>,
     content: String,
-    author: String
+    author: String,
 ) {
     var isContentExpanded by remember { mutableStateOf(false) }
+    val textStyleBodySmall = MaterialTheme.typography.bodySmall
 
     Column(
-        modifier = modifier.fillMaxHeight()
+        modifier = modifier.fillMaxHeight(),
     ) {
-
-        Text(
-            text = location,
-            style = MaterialTheme.typography.titleMedium
-        )
-
-        Text(
-            text = date,
-            style = MaterialTheme.typography.bodySmall
-        )
+        Text(text = location, style = MaterialTheme.typography.titleMedium)
+        Text(text = date, style = textStyleBodySmall)
 
         ImageSlider(images = images.map { Uri.parse(it) })
 
         Text(
             text = content,
-            style = MaterialTheme.typography.bodySmall,
+            style = textStyleBodySmall,
             maxLines = if (isContentExpanded) Int.MAX_VALUE else 3,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier
                 .clickable { isContentExpanded = !isContentExpanded }
-                .padding(top = 4.dp)
+                .padding(top = 4.dp),
         )
 
         Spacer(modifier = Modifier.height(32.dp))
@@ -166,14 +167,13 @@ fun DetailStoryItem(
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = author,
-            style = MaterialTheme.typography.labelSmall,
-            textAlign = TextAlign.End
+            style = textStyleBodySmall,
+            textAlign = TextAlign.End,
         )
 
         DottedLine(modifier = Modifier.padding(vertical = 16.dp))
     }
 }
-
 
 @Composable
 fun DetailStoryToolBar(
@@ -182,7 +182,7 @@ fun DetailStoryToolBar(
 ) {
     Box(
         modifier = modifier.fillMaxWidth(),
-        contentAlignment = Alignment.CenterStart
+        contentAlignment = Alignment.CenterStart,
     ) {
         Text(
             text = stringResource(id = R.string.story),

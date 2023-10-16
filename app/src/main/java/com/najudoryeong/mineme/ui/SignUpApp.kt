@@ -1,3 +1,19 @@
+/*
+ * Copyright 2023 KDW03
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.najudoryeong.mineme.ui
 
 import androidx.compose.foundation.layout.Arrangement
@@ -18,7 +34,6 @@ import com.najudoryeong.mineme.R
 import com.najudoryeong.mineme.core.designsystem.component.CustomBottomButton
 import com.najudoryeong.mineme.core.ui.DevicePreviews
 
-
 /**
  * todo : backEnd에 AccessToken을 받는 로직이 완성되면 jwt를 받아 저장하는 로직 구현
  */
@@ -32,50 +47,35 @@ fun SignUpApp(
             .fillMaxSize()
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
     ) {
-        Text(
-            text = stringResource(id = R.string.app_name),
-            style = MaterialTheme.typography.headlineLarge
-        )
+        AppNameText()
         Spacer(modifier = Modifier.height(64.dp))
-        CustomBottomButton(
-            onClick = { updateJwt("random") },
-            textRes = R.string.kakao_signup,
-            containerColor = Color(0xFFFFE55F)
-        )
+        SignUpButton(updateJwt)
     }
 }
 
-/*
-fun kakaoLogin(context: Context, onJwtReceived: (String) -> Unit) {
-    val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
-        if (error == null) {
-            if (token != null) {
-                // 서버에 access 전달
-                val jwt = sendAccessToken(token.accessToken)
-                onJwtReceived(jwt)
-            }
-        } else {
-            // 로그인 실패 처리
-            Log.e("KAKAO LOGIN", "로그인 실패", error)
-        }
-    }
-
-    LoginClient.instance.run {
-        if (isKakaoTalkLoginAvailable(context)) {
-            loginWithKakaoTalk(context, callback = callback)
-        } else {
-            loginWithKakaoAccount(context, callback = callback)
-        }
-    }
+@Composable
+fun AppNameText() {
+    Text(
+        text = stringResource(id = R.string.app_name),
+        style = MaterialTheme.typography.headlineLarge,
+    )
 }
-*/
+
+@Composable
+fun SignUpButton(updateJwt: (String) -> Unit) {
+    CustomBottomButton(
+        onClick = { updateJwt("random") },
+        textRes = R.string.kakao_signup,
+        containerColor = Color(0xFFFFE55F),
+    )
+}
 
 @DevicePreviews
 @Composable
 fun SignUpAppPreview() {
     SignUpApp(
-        updateJwt = {}
+        updateJwt = {},
     )
 }
