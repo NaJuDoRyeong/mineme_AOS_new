@@ -1,3 +1,19 @@
+/*
+ * Copyright 2023 KDW03
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.najudoryeong.mineme
 
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
@@ -35,10 +51,8 @@ class DoAppStateTest {
 
     private val networkMonitor = TestNetworkMonitor()
 
-
     // 테스트 대상
     private lateinit var state: DoAppState
-
 
     // AppState currentDestination이 잘 동작하는지
     @Test
@@ -66,7 +80,6 @@ class DoAppStateTest {
         assertEquals("b", currentDestination)
     }
 
-
     // toLevelDestination이 올바른 개수,순서인지
     @Test
     fun doAppState_destinations() = runTest {
@@ -82,7 +95,6 @@ class DoAppStateTest {
         assertTrue(state.topLevelDestinations[1].name.contains("story", true))
         assertTrue(state.topLevelDestinations[2].name.contains("settings", true))
     }
-
 
     @Test
     fun doAppState_showBottomBar_compact() = runTest {
@@ -106,7 +118,7 @@ class DoAppStateTest {
                 navController = NavHostController(LocalContext.current),
                 coroutineScope = backgroundScope,
                 windowSizeClass = WindowSizeClass.calculateFromSize(DpSize(900.dp, 1200.dp)),
-                networkMonitor = networkMonitor
+                networkMonitor = networkMonitor,
             )
         }
 
@@ -120,7 +132,6 @@ class DoAppStateTest {
 
     private fun getCompactWindowClass() = WindowSizeClass.calculateFromSize(DpSize(500.dp, 300.dp))
 }
-
 
 // TestNavHostController 설정
 @Composable

@@ -1,3 +1,19 @@
+/*
+ * Copyright 2023 KDW03
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.najudoryeong.mineme.core.designsystem.component
 
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -29,7 +45,6 @@ import androidx.compose.ui.graphics.CompositingStrategy
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.text
@@ -38,7 +53,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
-
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -51,7 +65,7 @@ fun Picker(
     textModifier: Modifier = Modifier,
     textStyle: TextStyle = LocalTextStyle.current,
     dividerColor: Color = LocalContentColor.current,
-    pickerTag: String = "no"
+    pickerTag: String = "no",
 ) {
     val visibleItemsMiddle = visibleItemsCount / 2
     val listScrollCount = Integer.MAX_VALUE
@@ -69,7 +83,7 @@ fun Picker(
         Brush.verticalGradient(
             0f to Color.Transparent,
             0.5f to Color.Black,
-            1f to Color.Transparent
+            1f to Color.Transparent,
         )
     }
 
@@ -88,7 +102,7 @@ fun Picker(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(itemHeightDp * visibleItemsCount)
-                .fadingEdge(fadingEdgeGradient)
+                .fadingEdge(fadingEdgeGradient),
         ) {
             items(listScrollCount) { index ->
                 val itemText = items[index % items.size]
@@ -105,18 +119,18 @@ fun Picker(
                                 this.contentDescription = pickerTag
                                 this.text = AnnotatedString(itemText)
                             }
-                        }
+                        },
                 )
             }
         }
 
         Divider(
             color = dividerColor,
-            modifier = Modifier.offset(y = itemHeightDp * visibleItemsMiddle)
+            modifier = Modifier.offset(y = itemHeightDp * visibleItemsMiddle),
         )
         Divider(
             color = dividerColor,
-            modifier = Modifier.offset(y = itemHeightDp * (visibleItemsMiddle + 1))
+            modifier = Modifier.offset(y = itemHeightDp * (visibleItemsMiddle + 1)),
         )
     }
 }

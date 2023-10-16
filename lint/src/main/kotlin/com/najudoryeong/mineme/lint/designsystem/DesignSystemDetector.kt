@@ -1,3 +1,19 @@
+/*
+ * Copyright 2023 KDW03
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.najudoryeong.mineme.lint.designsystem
 
 import com.android.tools.lint.client.api.UElementHandler
@@ -14,7 +30,6 @@ import org.jetbrains.uast.UQualifiedReferenceExpression
 
 class DesignSystemDetector : Detector(), Detector.UastScanner {
 
-
     /**
      * 검사하고자 하는 요소
      * UCallExpression: UAST에서 메서드 호출이나 함수 호출을 나타냄
@@ -26,7 +41,6 @@ class DesignSystemDetector : Detector(), Detector.UastScanner {
             UQualifiedReferenceExpression::class.java,
         )
     }
-
 
     /**
      * UCallExpression와 UQualifiedReferenceExpression)에 대해 감지된 요소의 처리 방법을 정의
@@ -60,8 +74,8 @@ class DesignSystemDetector : Detector(), Detector.UastScanner {
             id = "DesignSystem",
             briefDescription = "Design system",
             explanation = "This check highlights calls in code that use Compose Material " +
-                    "composables instead of equivalents from the Mineme design system " +
-                    "module.",
+                "composables instead of equivalents from the Mineme design system " +
+                "module.",
             category = Category.CUSTOM_LINT_CHECKS,
             priority = 7,
             severity = Severity.ERROR,
@@ -70,7 +84,6 @@ class DesignSystemDetector : Detector(), Detector.UastScanner {
                 Scope.JAVA_FILE_SCOPE,
             ),
         )
-
 
         // 권장 이름 Map
         val METHOD_NAMES = mapOf(
@@ -98,7 +111,6 @@ class DesignSystemDetector : Detector(), Detector.UastScanner {
         val RECEIVER_NAMES = mapOf(
             "Icons" to "DoIcons",
         )
-
 
         //  코드 내에서 문제점을 발견할 경우 Lint에 해당 이슈를 보고
         fun reportIssue(

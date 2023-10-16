@@ -1,3 +1,19 @@
+/*
+ * Copyright 2023 KDW03
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.najudoryeong.mineme.feature.story
 
 import androidx.lifecycle.SavedStateHandle
@@ -10,7 +26,14 @@ import com.najudoryeong.mineme.core.model.data.StoryWithRegion
 import com.najudoryeong.mineme.core.ui.CalendarStoryUiState
 import com.najudoryeong.mineme.core.ui.RegionStoryUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import java.time.LocalDate
 import javax.inject.Inject
 
@@ -44,7 +67,7 @@ class StoryViewModel @Inject constructor(
         combine(
             storyResourceRepository.getRegionStory(),
             _searchRegion,
-            _searchCity
+            _searchCity,
         ) { storyRegionResource, regionQuery, cityQuery ->
             updateRegionsAndCities(storyRegionResource, regionQuery)
             filterStories(storyRegionResource, regionQuery, cityQuery)
@@ -93,7 +116,7 @@ class StoryViewModel @Inject constructor(
     private fun filterStories(storyRegionResource: StoryRegionResource, regionQuery: String, cityQuery: String): List<StoryWithRegion> {
         return storyRegionResource.stories.filter {
             (regionQuery == DEFAULT_VALUE || it.region.contains(regionQuery, ignoreCase = true)) &&
-                    (cityQuery == DEFAULT_VALUE || it.city.contains(cityQuery, ignoreCase = true))
+                (cityQuery == DEFAULT_VALUE || it.city.contains(cityQuery, ignoreCase = true))
         }
     }
 }

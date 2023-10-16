@@ -1,3 +1,19 @@
+/*
+ * Copyright 2023 KDW03
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.najudoryeong.mineme.core.designsystem.theme
 
 import android.os.Build
@@ -15,7 +31,6 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-
 
 /**
  * Light default theme color scheme
@@ -165,9 +180,6 @@ val LightAndroidBackgroundTheme = BackgroundTheme(color = DarkGreenGray95)
  */
 val DarkAndroidBackgroundTheme = BackgroundTheme(color = Color.Black)
 
-
-
-
 @Composable
 fun DoTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -175,7 +187,6 @@ fun DoTheme(
     disableDynamicTheming: Boolean = true,
     content: @Composable () -> Unit,
 ) {
-
     val colorScheme = when {
         androidTheme -> if (darkTheme) DarkAndroidColorScheme else LightAndroidColorScheme
         !disableDynamicTheming && supportsDynamicTheming() -> {
@@ -222,7 +233,6 @@ fun DoTheme(
         )
     }
 }
-
 
 @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S)
 fun supportsDynamicTheming() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S

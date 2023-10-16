@@ -1,6 +1,21 @@
+/*
+ * Copyright 2023 KDW03
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.najudoryeong.mineme.ui
 
-import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -35,7 +50,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -50,7 +64,7 @@ import com.najudoryeong.mineme.navigation.TopLevelDestination
 @OptIn(
     ExperimentalComposeUiApi::class,
     ExperimentalLayoutApi::class,
-    ExperimentalMaterial3Api::class
+    ExperimentalMaterial3Api::class,
 )
 @Composable
 fun DoApp(
@@ -59,13 +73,11 @@ fun DoApp(
     appState: DoAppState = rememberDoAppState(
         networkMonitor = networkMonitor,
         windowSizeClass = windowSizeClass,
-    )
+    ),
 ) {
-
     Box(
-        Modifier.fillMaxSize()
+        Modifier.fillMaxSize(),
     ) {
-
         val snackbarHostState = remember { SnackbarHostState() }
         val isOffline by appState.isOffline.collectAsStateWithLifecycle()
 
@@ -95,8 +107,7 @@ fun DoApp(
                         modifier = Modifier.testTag("DoBottomBar"),
                     )
                 }
-
-            }
+            },
         ) { padding ->
 
             Row(
@@ -110,9 +121,7 @@ fun DoApp(
                         ),
                     ),
             ) {
-
-
-                //todo refactor
+                // todo refactor
                 Column(Modifier.fillMaxSize()) {
                     val destination = appState.currentTopLevelDestination
 
@@ -152,8 +161,7 @@ fun DoApp(
                                         containerColor = Color.Transparent,
                                     ),
                                     onActionClick = {
-
-                                    }
+                                    },
                                 )
                             }
                         }
@@ -171,7 +179,6 @@ fun DoApp(
         }
     }
 }
-
 
 @Composable
 private fun DoBottomBar(
@@ -192,20 +199,20 @@ private fun DoBottomBar(
                     Icon(
                         painter = painterResource(id = destination.unselectedIcon),
                         contentDescription = null,
-                        tint = Color.Unspecified
+                        tint = Color.Unspecified,
                     )
                 },
                 selectedIcon = {
                     Icon(
                         painter = painterResource(id = destination.selectedIcon),
                         contentDescription = null,
-                        tint = Color.Unspecified
+                        tint = Color.Unspecified,
                     )
                 },
                 label = { Text(stringResource(destination.iconTextId)) },
                 modifier = Modifier.testTag(
-                    stringResource(id = destination.iconTextId)
-                )
+                    stringResource(id = destination.iconTextId),
+                ),
             )
         }
     }
