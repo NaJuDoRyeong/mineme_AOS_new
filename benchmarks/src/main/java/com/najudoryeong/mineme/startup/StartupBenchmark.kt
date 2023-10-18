@@ -23,7 +23,7 @@ import androidx.benchmark.macro.StartupTimingMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.najudoryeong.mineme.PACKAGE_NAME
-import com.najudoryeong.mineme.home.homeYouWaitForContent
+import com.najudoryeong.mineme.home.homeWaitForContent
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -62,6 +62,6 @@ class StartupBenchmark {
         },
     ) {
         startActivityAndWait()
-        homeYouWaitForContent()
+        homeWaitForContent()
     }
 }

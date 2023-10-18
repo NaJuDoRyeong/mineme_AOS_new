@@ -19,6 +19,7 @@ package com.najudoryeong.mineme.core.network.di
 import android.content.Context
 import coil.ImageLoader
 import coil.decode.SvgDecoder
+import coil.memory.MemoryCache
 import coil.util.DebugLogger
 import com.najudoryeong.mineme.core.network.BuildConfig
 import com.najudoryeong.mineme.core.network.fake.FakeAssetManager
@@ -29,6 +30,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
 import okhttp3.Call
+import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import javax.inject.Singleton
@@ -52,15 +54,18 @@ object NetworkModule {
     @Provides
     @Singleton
     fun okHttpCallFactory(): Call.Factory = OkHttpClient.Builder()
-        .addInterceptor(
+        .dispatcher(
+            Dispatcher().apply {
+                maxRequestsPerHost = 12
+            }
+        ).addInterceptor(
             HttpLoggingInterceptor()
                 .apply {
                     if (BuildConfig.DEBUG) {
                         setLevel(HttpLoggingInterceptor.Level.BODY)
                     }
                 },
-        )
-        .build()
+        ).build()
 
     @Provides
     @Singleton
@@ -71,10 +76,7 @@ object NetworkModule {
         .callFactory(okHttpCallFactory)
         .components {
             add(SvgDecoder.Factory())
-        }
-        // Assume most content images are versioned urls
-        // but some problematic images are fetching each time
-        .respectCacheHeaders(false)
+        }.respectCacheHeaders(false)
         .apply {
             if (BuildConfig.DEBUG) {
                 logger(DebugLogger())
@@ -82,3 +84,4 @@ object NetworkModule {
         }
         .build()
 }
+

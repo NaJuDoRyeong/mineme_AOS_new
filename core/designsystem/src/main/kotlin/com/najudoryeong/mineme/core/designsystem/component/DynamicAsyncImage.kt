@@ -38,7 +38,6 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import com.najudoryeong.mineme.core.designsystem.R
-import com.najudoryeong.mineme.core.designsystem.theme.LocalTintTheme
 
 @Composable
 fun DynamicAsyncImage(
@@ -48,7 +47,6 @@ fun DynamicAsyncImage(
     placeholder: Painter = painterResource(R.drawable.appmainimage),
     completeTag: String = "Not_Yet",
 ) {
-    val iconTint = LocalTintTheme.current.iconTint
     var isLoading by remember { mutableStateOf(true) }
     var isError by remember { mutableStateOf(false) }
     val imageLoader = rememberAsyncImagePainter(
