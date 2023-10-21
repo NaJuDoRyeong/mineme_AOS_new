@@ -15,7 +15,7 @@
      limitations under the License.
 -->
 <resources>
-    <string name="app_name">mineme</string>
+    <string name="app_name">Mineme</string>
     <string name="not_connected">네트워크에 연결되지 않았습니다</string>
     <string name="kakao_signup">카카오 계정으로 시작</string>
 </resources>

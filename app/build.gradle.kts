@@ -41,6 +41,7 @@ android {
     buildTypes {
         debug {
             applicationIdSuffix = DoBuildType.DEBUG.applicationIdSuffix
+            manifestPlaceholders["appName"] = "Mineme (Debug)"
         }
         val release by getting {
             isMinifyEnabled = true
@@ -50,6 +51,7 @@ android {
             // who clones the code to sign and run the release variant, use the debug signing key.
             // TODO: Abstract the signing configuration to a separate file to avoid hardcoding this.
             signingConfig = signingConfigs.getByName("debug")
+            manifestPlaceholders["appName"] = "Mineme"
         }
         create("benchmark") {
             // Enable all the optimizations from release build through initWith(release).
@@ -61,6 +63,7 @@ android {
             proguardFiles("benchmark-rules.pro")
             isMinifyEnabled = true
             applicationIdSuffix = DoBuildType.BENCHMARK.applicationIdSuffix
+            manifestPlaceholders["appName"] = "Mineme (Benchmark)"
         }
     }
 
@@ -75,6 +78,8 @@ android {
             isIncludeAndroidResources = true
         }
     }
+
+
 }
 dependencies {
 
