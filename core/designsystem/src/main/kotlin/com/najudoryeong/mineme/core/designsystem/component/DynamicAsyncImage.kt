@@ -44,7 +44,7 @@ fun DynamicAsyncImage(
     imageUrl: String,
     contentDescription: String?,
     modifier: Modifier = Modifier,
-    placeholder: Painter = painterResource(R.drawable.appmainimage),
+    placeholder: Painter = painterResource(R.drawable.app_main_image),
     completeTag: String = "Not_Yet",
 ) {
     var isLoading by remember { mutableStateOf(true) }
