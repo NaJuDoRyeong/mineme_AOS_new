@@ -17,6 +17,8 @@
 package com.najudoryeong.mineme.core.designsystem.component
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -31,6 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 
 /**
 왼쪽 Navigation 있는 TopAppBar
@@ -51,7 +54,7 @@ fun DoTopAppBar(
     CenterAlignedTopAppBar(
         title = { Text(text = stringResource(id = titleRes)) },
         navigationIcon = {
-            IconButton(onClick = onNavigationClick) {
+            IconButton(modifier = Modifier.size(60.dp),onClick = onNavigationClick) {
                 Icon(
                     modifier = Modifier.testTag("Story:ChangeView"),
                     painter = painterResource(id = navigationIcon),

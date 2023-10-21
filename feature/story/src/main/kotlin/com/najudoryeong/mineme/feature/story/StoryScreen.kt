@@ -43,6 +43,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -82,7 +83,9 @@ import com.najudoryeong.mineme.core.model.data.StoryWithRegion
 import com.najudoryeong.mineme.core.ui.CalendarStoryUiState
 import com.najudoryeong.mineme.core.ui.DevicePreviews
 import com.najudoryeong.mineme.core.ui.RegionStoryUiState
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.withContext
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
@@ -259,16 +262,23 @@ fun RegionStoriesGrid(
     stories: List<StoryWithRegion>,
     onStoryClick: (Int) -> Unit,
 ) {
+
+    val allPosts = remember { mutableStateOf(emptyList<Pair<Post, StoryWithRegion>>()) }
+
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     val imageSize = (screenWidth - 48.dp) / 2
 
-    val allPosts = stories.flatMap { story ->
-        story.posts.map { post ->
-            Pair(post, story)
+    LaunchedEffect(stories) {
+        withContext(Dispatchers.Default) {
+            stories.flatMap { story ->
+                story.posts.map { post -> Pair(post, story) }
+            }
+        }.also {
+            allPosts.value = it
         }
     }
 
-    if (allPosts.isEmpty()) {
+    if (allPosts.value.isEmpty()) {
         Box(
             modifier = modifier.fillMaxSize(),
             contentAlignment = Alignment.Center,
@@ -283,8 +293,8 @@ fun RegionStoriesGrid(
             columns = GridCells.Fixed(2),
             modifier = modifier.testTag("story:posts"),
         ) {
-            items(allPosts.size) { index ->
-                val (post, storyWithPost) = allPosts[index]
+            items(allPosts.value.size) { index ->
+                val (post, storyWithPost) = allPosts.value[index]
                 PostItem(
                     imgModifier = Modifier.size(imageSize),
                     post = post,
@@ -344,7 +354,16 @@ fun MonthlyCalendar(
     month: Int,
     onUpdateDate: (Int, Int) -> Unit,
 ) {
-    val storiesMap = stories.associateBy { LocalDate.parse(it.date) }
+    val storiesMap = remember { mutableStateOf(mapOf<LocalDate, Post>()) }
+
+    LaunchedEffect(stories) {
+        withContext(Dispatchers.Default) {
+            stories.associateBy { LocalDate.parse(it.date) }
+        }.also {
+            storiesMap.value = it
+        }
+    }
+
     val daysInMonth = YearMonth.of(year, month).lengthOfMonth()
     val firstDayOfMonth = LocalDate.of(year, month, 1)
     val daysBefore = firstDayOfMonth.dayOfWeek.value % DAYS_IN_WEEK
@@ -354,9 +373,13 @@ fun MonthlyCalendar(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        YearMonthPicker(selectedYear = year, selectedMonth = month, onYearMonthChanged = onUpdateDate)
+        YearMonthPicker(
+            selectedYear = year,
+            selectedMonth = month,
+            onYearMonthChanged = onUpdateDate,
+        )
         WeekdaysRow()
-        CalendarRows(storiesMap, daysBefore, daysInMonth, year, month, onStoryClicked)
+        CalendarRows(storiesMap.value, daysBefore, daysInMonth, year, month, onStoryClicked)
     }
 }
 
@@ -376,8 +399,11 @@ fun YearMonthPicker(
             .padding(top = 16.dp)
             .testTag("Story:DatePicker"),
 
-    ) {
-        Text(text = "$selectedYear / $selectedMonth")
+        ) {
+        Text(
+            text = "$selectedYear / $selectedMonth",
+            style = MaterialTheme.typography.titleLarge,
+        )
         Icon(
             imageVector = DoIcons.ArrowDown,
             contentDescription = "Dropdown Arrow",
@@ -405,13 +431,10 @@ fun YearMonthPicker(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
                 ) {
-                    val yearList = remember { (2018..2050).map { it.toString() } }
                     val yearPickerState = rememberPickerState()
                     val startIndexYear = yearList.indexOf(
                         selectedYear.toString(),
                     )
-
-                    val monthList = remember { (1..12).map { String.format("%02d", it) } }
                     val monthPickerState = rememberPickerState()
                     val startIndexMonth = monthList.indexOf(String.format("%02d", selectedMonth))
 
@@ -473,14 +496,14 @@ fun WeekdaysRow(modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(32.dp),
+            .padding(top = 32.dp, bottom = 16.dp),
     ) {
         DayOfWeek.values().forEach { dayOfWeek ->
             Text(
                 modifier = Modifier.weight(1f),
                 text = daysInKorean[dayOfWeek.ordinal],
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.titleSmall,
+                style = MaterialTheme.typography.labelLarge,
             )
         }
     }
@@ -571,7 +594,6 @@ fun roundedIrregularShape(): Shape {
         ): Outline {
             return Outline.Generic(
                 Path().apply {
-                    // Adjusting the path to fit the given size
                     val scaleX = size.width / 46f
                     val scaleY = size.height / 48f
 
@@ -629,3 +651,9 @@ fun RegionViewPreview() {
 }
 
 const val DAYS_IN_WEEK = 7
+const val START_YEAR = 2018
+const val END_YEAR = 2050
+const val TOTAL_MONTHS = 12
+
+val yearList = (START_YEAR..END_YEAR).map { it.toString() }
+val monthList = (1..TOTAL_MONTHS).map { String.format("%02d", it) }
