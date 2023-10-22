@@ -19,7 +19,6 @@ package com.najudoryeong.mineme.core.network.di
 import android.content.Context
 import coil.ImageLoader
 import coil.decode.SvgDecoder
-import coil.memory.MemoryCache
 import coil.util.DebugLogger
 import com.najudoryeong.mineme.core.network.BuildConfig
 import com.najudoryeong.mineme.core.network.fake.FakeAssetManager
@@ -57,7 +56,7 @@ object NetworkModule {
         .dispatcher(
             Dispatcher().apply {
                 maxRequestsPerHost = 12
-            }
+            },
         ).addInterceptor(
             HttpLoggingInterceptor()
                 .apply {
@@ -84,4 +83,3 @@ object NetworkModule {
         }
         .build()
 }
-

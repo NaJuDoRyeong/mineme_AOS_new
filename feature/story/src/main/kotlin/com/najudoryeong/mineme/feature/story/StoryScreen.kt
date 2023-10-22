@@ -262,7 +262,6 @@ fun RegionStoriesGrid(
     stories: List<StoryWithRegion>,
     onStoryClick: (Int) -> Unit,
 ) {
-
     val allPosts = remember { mutableStateOf(emptyList<Pair<Post, StoryWithRegion>>()) }
 
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
@@ -399,7 +398,7 @@ fun YearMonthPicker(
             .padding(top = 16.dp)
             .testTag("Story:DatePicker"),
 
-        ) {
+    ) {
         Text(
             text = "$selectedYear / $selectedMonth",
             style = MaterialTheme.typography.titleLarge,
