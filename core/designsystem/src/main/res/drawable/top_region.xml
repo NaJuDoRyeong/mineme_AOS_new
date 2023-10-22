@@ -14,9 +14,8 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<vector android:autoMirrored="true" android:height="45dp"
-    android:viewportHeight="38" android:viewportWidth="65"
-    android:width="76.97369dp" xmlns:android="http://schemas.android.com/apk/res/android">
+<vector android:height="60dp" android:viewportHeight="38"
+    android:viewportWidth="65" android:width="102.63158dp" xmlns:android="http://schemas.android.com/apk/res/android">
     <path android:fillColor="#F9F9F9"
         android:pathData="M0.5,10C0.5,4.753 4.753,0.5 10,0.5H32.5H55C60.247,0.5 64.5,4.753 64.5,10V28C64.5,33.247 60.247,37.5 55,37.5H10C4.753,37.5 0.5,33.247 0.5,28V10Z"
         android:strokeColor="#F9F9F9" android:strokeWidth="1"/>

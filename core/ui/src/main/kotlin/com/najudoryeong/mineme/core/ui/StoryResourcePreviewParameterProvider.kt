@@ -39,13 +39,13 @@ class StoryRegionResourcePreviewParameterProvider : PreviewParameterProvider<Sto
 object PreviewParameterDataStory {
     val postSample1 = Post(
         date = "2023-09-24",
-        thumbnail = "https://picsum.photos/1000/1000",
+        thumbnail = "https://picsum.photos/300/300",
         postId = 577,
     )
 
     val postSample2 = Post(
         date = "2023-9-24",
-        thumbnail = "https://picsum.photos/1000/1000",
+        thumbnail = "https://picsum.photos/300/300",
         postId = 578,
     )
 

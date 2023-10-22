@@ -42,7 +42,6 @@ class ScrollRegionStoryListBenchmark {
     private fun benchmarkStateChange(compilationMode: CompilationMode) =
         benchmarkRule.measureRepeated(
             packageName = PACKAGE_NAME,
-            // FrameTimingMetric을 사용하여 프레임 타이밍을 측정
             metrics = listOf(FrameTimingMetric()),
             compilationMode = compilationMode,
             iterations = 10,
