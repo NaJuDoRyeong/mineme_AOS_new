@@ -16,13 +16,7 @@
 
 package com.najudoryeong.mineme.core.designsystem.icon
 
-import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import androidx.annotation.DrawableRes
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -31,17 +25,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
-import androidx.core.graphics.drawable.toBitmap
-import androidx.core.graphics.drawable.toIcon
 import com.najudoryeong.mineme.core.designsystem.R
-import com.najudoryeong.mineme.core.designsystem.theme.LocalTintTheme
 
 object DoIcons {
 
@@ -80,24 +66,89 @@ object DoIcons {
 
 
 @Composable
-fun OnHomeImage() {
+fun OnHomeIcon() {
     Box(
         contentAlignment = Alignment.Center,
     ) {
 
         Icon(
             painter = painterResource(R.drawable.onhome_custom_part1), contentDescription = null,
-            tint = MaterialTheme.colorScheme.surfaceTint,
+            tint = MaterialTheme.colorScheme.tertiary,
         )
         Icon(
             painter = painterResource(R.drawable.onhome_custom_part2), contentDescription = null,
-            tint = Color.White,
+            tint = MaterialTheme.colorScheme.secondary,
         )
         Icon(
             painter = painterResource(R.drawable.onhome_custom_part3), contentDescription = null,
+            tint = MaterialTheme.colorScheme.surfaceVariant
         )
     }
 }
+
+
+@Composable
+fun OnStoryIcon() {
+    Box(
+        contentAlignment = Alignment.Center,
+    ) {
+
+        Icon(
+            painter = painterResource(R.drawable.onstory_custom_part1), contentDescription = null,
+            tint = MaterialTheme.colorScheme.tertiary,
+        )
+
+        Icon(
+            painter = painterResource(R.drawable.onstory_custom_part2), contentDescription = null,
+            tint = MaterialTheme.colorScheme.secondary,
+        )
+
+        Icon(
+            painter = painterResource(R.drawable.onstory_custom_part3), contentDescription = null,
+            tint = MaterialTheme.colorScheme.secondary,
+        )
+
+        Icon(
+            painter = painterResource(R.drawable.onstory_custom_part4), contentDescription = null,
+            tint = MaterialTheme.colorScheme.surfaceVariant,
+        )
+
+        Icon(
+            painter = painterResource(R.drawable.onstory_custom_part5), contentDescription = null,
+            tint = MaterialTheme.colorScheme.surfaceVariant,
+        )
+    }
+}
+
+@Composable
+fun OnSettingsIcon() {
+    Box(
+        contentAlignment = Alignment.Center,
+    ) {
+
+        Icon(
+            painter = painterResource(R.drawable.onsettings_custom_part1), contentDescription = null,
+            tint = MaterialTheme.colorScheme.tertiary,
+        )
+        Icon(
+            painter = painterResource(R.drawable.onsettings_custom_part2), contentDescription = null,
+            tint = MaterialTheme.colorScheme.secondary,
+        )
+        Icon(
+            painter = painterResource(R.drawable.onsettings_custom_part3), contentDescription = null,
+            tint = MaterialTheme.colorScheme.surfaceVariant,
+        )
+        Icon(
+            painter = painterResource(R.drawable.onsettings_custom_part4), contentDescription = null,
+            tint = MaterialTheme.colorScheme.surfaceVariant,
+        )
+
+    }
+}
+
+
+
+
 
 
 sealed interface Icon {

@@ -61,7 +61,6 @@ import com.najudoryeong.mineme.core.designsystem.component.DoNavigationBar
 import com.najudoryeong.mineme.core.designsystem.component.DoNavigationBarItem
 import com.najudoryeong.mineme.core.designsystem.component.DoTopAppBar
 import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
-import com.najudoryeong.mineme.core.designsystem.icon.OnHomeImage
 import com.najudoryeong.mineme.navigation.DoNavHost
 import com.najudoryeong.mineme.navigation.TopLevelDestination
 
@@ -213,12 +212,7 @@ private fun DoBottomBar(
                         contentDescription = null,
                     )
                 },
-                selectedIcon = {
-                    Icon(
-                        painter = painterResource(id = destination.selectedIcon),
-                        contentDescription = null,
-                    )
-                },
+                selectedIcon = destination.selectedIcon,
                 label = { Text(stringResource(destination.iconTextId)) },
                 modifier = Modifier.testTag(
                     stringResource(id = destination.iconTextId),

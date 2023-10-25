@@ -568,7 +568,7 @@ fun CalendarItem(
         ),
         contentAlignment = Alignment.Center,
     ) {
-        Text(text = "$day", style = MaterialTheme.typography.bodyMedium, color = Color.White)
+        Text(text = "$day", style = MaterialTheme.typography.bodyMedium)
         post?.let {
             DynamicAsyncImage(
                 it.thumbnail,
