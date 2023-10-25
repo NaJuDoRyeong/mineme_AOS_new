@@ -561,7 +561,7 @@ fun CalendarItem(
     Box(
         modifier = modifier.background(
             brush = Brush.radialGradient(
-                colors = listOf(Color(0xFFD9D9D9), Color(0xFFD9D9D9)),
+                colors = listOf(MaterialTheme.colorScheme.tertiaryContainer, MaterialTheme.colorScheme.tertiaryContainer),
                 radius = radiusPx,
             ),
             shape = roundedIrregularShape(),
