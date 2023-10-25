@@ -58,7 +58,6 @@ fun DoTopAppBar(
                     modifier = Modifier.testTag("Story:ChangeView"),
                     painter = painterResource(id = navigationIcon),
                     contentDescription = navigationIconContentDescription,
-                    tint = Color.Unspecified,
                 )
             }
         },
