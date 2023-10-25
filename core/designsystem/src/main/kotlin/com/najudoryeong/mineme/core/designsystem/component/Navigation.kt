@@ -76,5 +76,5 @@ object DoNavigationDefaults {
     fun navigationSelectedItemColor() = MaterialTheme.colorScheme.onPrimaryContainer
 
     @Composable
-    fun navigationIndicatorColor() = Color.White
+    fun navigationIndicatorColor() = MaterialTheme.colorScheme.onPrimary
 }

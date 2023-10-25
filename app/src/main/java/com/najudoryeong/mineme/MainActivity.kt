@@ -104,11 +104,9 @@ class MainActivity : ComponentActivity() {
                     ) { darkTheme },
                 )
             }
-
             DoTheme(
                 darkTheme = darkTheme,
-                androidTheme = false,
-                disableDynamicTheming = false,
+                disableDynamicTheming = shouldDisableDynamicTheming(uiState),
             ) {
                 when (uiState) {
                     MainActivityUiState.Loading -> Unit
@@ -130,7 +128,16 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    // uiState가 Loading 상태일 때는 시스템 설정, Success 상태일 때는 사용자의 설정 (uiState.userData.darkThemeConfig)에 따라 다크 테마를 사용 결정
+
+    @Composable
+    private fun shouldDisableDynamicTheming(
+        uiState: MainActivityUiState,
+    ): Boolean = when (uiState) {
+        MainActivityUiState.Loading -> false
+        is MainActivityUiState.Success -> !uiState.userData.useDynamicColor
+    }
+
+
     @Composable
     private fun shouldUseDarkTheme(
         uiState: MainActivityUiState,

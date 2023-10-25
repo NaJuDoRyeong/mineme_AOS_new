@@ -16,12 +16,32 @@
 
 package com.najudoryeong.mineme.core.designsystem.icon
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+import androidx.core.graphics.drawable.toBitmap
+import androidx.core.graphics.drawable.toIcon
 import com.najudoryeong.mineme.core.designsystem.R
+import com.najudoryeong.mineme.core.designsystem.theme.LocalTintTheme
 
 object DoIcons {
 
@@ -32,6 +52,7 @@ object DoIcons {
     val OnStory = Icon.DrawableResourceIcon(R.drawable.onstory)
     val settings = Icon.DrawableResourceIcon(R.drawable.settings)
     val OnSettings = Icon.DrawableResourceIcon(R.drawable.onsettings)
+
 
     /** Home **/
     // Profile Img
@@ -56,6 +77,28 @@ object DoIcons {
     val setting_notification = Icon.DrawableResourceIcon(R.drawable.setting_notification)
     val setting_security = Icon.DrawableResourceIcon(R.drawable.setting_security)
 }
+
+
+@Composable
+fun OnHomeImage() {
+    Box(
+        contentAlignment = Alignment.Center,
+    ) {
+
+        Icon(
+            painter = painterResource(R.drawable.onhome_custom_part1), contentDescription = null,
+            tint = MaterialTheme.colorScheme.surfaceTint,
+        )
+        Icon(
+            painter = painterResource(R.drawable.onhome_custom_part2), contentDescription = null,
+            tint = Color.White,
+        )
+        Icon(
+            painter = painterResource(R.drawable.onhome_custom_part3), contentDescription = null,
+        )
+    }
+}
+
 
 sealed interface Icon {
     data class ImageVectorIcon(val imageVector: ImageVector) : Icon

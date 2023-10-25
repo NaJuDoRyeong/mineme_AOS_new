@@ -83,3 +83,13 @@ internal val Teal30 = Color(0xFF214D56)
 internal val Teal40 = Color(0xFF3A656F)
 internal val Teal80 = Color(0xFFA2CED9)
 internal val Teal90 = Color(0xFFBEEAF6)
+
+/** BottomIcon **/
+internal val PeachCream = Color(0xFFFFDB94)
+internal val SkyBlue = Color(0xFF8BD0F6)
+internal val DarkCharcoal = Color(0xFF191919)
+
+internal val DarkCoral = Color(0xFF8A65)
+internal val DeepSkyBlue = Color(0xFF1565C0)
+internal val LighterCharcoal = Color(0xFF2E2E2E)
+
