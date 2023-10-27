@@ -109,7 +109,7 @@ internal fun HomeScreen(
 
                         CurrentStory(newStory = homeState.homeMainResource.newStory)
                     }
-                    else -> Unit
+                    HomeUiState.Loading -> Unit
                 }
             }
         }
