@@ -27,8 +27,6 @@ fun DoBackground(
         tonalElevation = if (tonalElevation == Dp.Unspecified) 0.dp else tonalElevation,
         modifier = modifier.fillMaxSize(),
     ) {
-
-        // ocalAbsoluteTonalElevation: 음영을 위한 절대적인 높이 값을 설정합니다. 0.dp로 초기화
         CompositionLocalProvider(LocalAbsoluteTonalElevation provides 0.dp) {
             content()
         }

@@ -90,8 +90,7 @@ class MainActivity : ComponentActivity() {
     private fun setupContent() {
         setContent {
             val darkTheme = shouldUseDarkTheme(uiState)
-
-
+            val disableDynamicTheming = shouldDisableDynamicTheming(uiState)
             LaunchedEffect(darkTheme) {
                 enableEdgeToEdge(
                     statusBarStyle = SystemBarStyle.auto(
@@ -106,7 +105,7 @@ class MainActivity : ComponentActivity() {
             }
             DoTheme(
                 darkTheme = darkTheme,
-                disableDynamicTheming = shouldDisableDynamicTheming(uiState),
+                disableDynamicTheming = disableDynamicTheming,
             ) {
                 when (uiState) {
                     MainActivityUiState.Loading -> Unit

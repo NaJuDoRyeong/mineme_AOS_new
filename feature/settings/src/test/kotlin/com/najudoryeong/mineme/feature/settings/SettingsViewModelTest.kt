@@ -17,10 +17,14 @@
 package com.najudoryeong.mineme.feature.settings
 
 import com.najudoryeong.mineme.core.model.data.Code
+import com.najudoryeong.mineme.core.model.data.DarkThemeConfig
 import com.najudoryeong.mineme.core.testing.repository.TestSettingsResourceRepository
+import com.najudoryeong.mineme.core.testing.repository.TestUserDataRepository
 import com.najudoryeong.mineme.core.testing.util.MainDispatcherRule
 import com.najudoryeong.mineme.core.ui.AccountUiState
+import com.najudoryeong.mineme.feature.story.SettingsUiState
 import com.najudoryeong.mineme.feature.story.SettingsViewModel
+import com.najudoryeong.mineme.feature.story.UserEditableSettings
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -37,22 +41,20 @@ class SettingsViewModelTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     private val settingsResourceRepository = TestSettingsResourceRepository()
-
+    private val userDataRepository = TestUserDataRepository()
     private lateinit var viewModel: SettingsViewModel
 
     @Before
     fun setup() {
         viewModel = SettingsViewModel(
             settingsResourceRepository = settingsResourceRepository,
+            userDataRepository = userDataRepository,
         )
     }
 
     @Test
     fun stateIsInitiallyLoading() = runTest {
-        assertEquals(
-            AccountUiState.Loading,
-            viewModel.accountState.value,
-        )
+        assertEquals(AccountUiState.Loading, viewModel.accountState.value,)
     }
 
     @Test
@@ -67,6 +69,27 @@ class SettingsViewModelTest {
 
         collectJob1.cancel()
     }
+
+    @Test
+    fun stateIsSuccessAfterUserDataLoaded() = runTest {
+        val collectJob =
+            launch(UnconfinedTestDispatcher()) { viewModel.settingsUiState.collect() }
+        userDataRepository.setDarkThemeConfig(DarkThemeConfig.DARK)
+        assertEquals(
+            SettingsUiState.Success(
+                UserEditableSettings(
+                    darkThemeConfig = DarkThemeConfig.DARK,
+                    useDynamicColor = false,
+                ),
+            ),
+            viewModel.settingsUiState.value,
+        )
+
+        collectJob.cancel()
+    }
+
+
+
 
     private val sampleCode = Code(
         myCode = "test_my_code",

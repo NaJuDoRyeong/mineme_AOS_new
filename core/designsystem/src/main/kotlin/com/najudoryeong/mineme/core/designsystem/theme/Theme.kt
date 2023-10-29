@@ -112,21 +112,13 @@ fun DoTheme(
     }
 
 
-    // Background theme
     val defaultBackgroundTheme = BackgroundTheme(
         color = colorScheme.surface,
         tonalElevation = 2.dp,
     )
 
-    // todo recfactor
-    val tintTheme = when {
-        !disableDynamicTheming && supportsDynamicTheming() -> TintTheme(colorScheme.primary)
-        else -> TintTheme()
-    }
-
     CompositionLocalProvider(
         LocalBackgroundTheme provides defaultBackgroundTheme,
-        LocalTintTheme provides tintTheme,
     ) {
         MaterialTheme(
             colorScheme = colorScheme,
