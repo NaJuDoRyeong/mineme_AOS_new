@@ -16,14 +16,18 @@
 
 package com.najudoryeong.mineme
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -33,6 +37,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.najudoryeong.mineme.core.data.util.NetworkMonitor
 import com.najudoryeong.mineme.core.designsystem.theme.DoTheme
+import com.najudoryeong.mineme.core.model.data.DarkThemeConfig
 import com.najudoryeong.mineme.core.ui.MainActivityUiState
 import com.najudoryeong.mineme.ui.DoApp
 import com.najudoryeong.mineme.ui.SignUpApp
@@ -84,10 +89,23 @@ class MainActivity : ComponentActivity() {
 
     private fun setupContent() {
         setContent {
+            val darkTheme = shouldUseDarkTheme(uiState)
+            val disableDynamicTheming = shouldDisableDynamicTheming(uiState)
+            LaunchedEffect(darkTheme) {
+                enableEdgeToEdge(
+                    statusBarStyle = SystemBarStyle.auto(
+                        Color.TRANSPARENT,
+                        Color.TRANSPARENT,
+                    ) { darkTheme },
+                    navigationBarStyle = SystemBarStyle.auto(
+                        lightScrim,
+                        darkScrim,
+                    ) { darkTheme },
+                )
+            }
             DoTheme(
-                darkTheme = false,
-                androidTheme = false,
-                disableDynamicTheming = false,
+                darkTheme = darkTheme,
+                disableDynamicTheming = disableDynamicTheming,
             ) {
                 when (uiState) {
                     MainActivityUiState.Loading -> Unit
@@ -108,4 +126,27 @@ class MainActivity : ComponentActivity() {
             )
         }
     }
+
+    @Composable
+    private fun shouldDisableDynamicTheming(
+        uiState: MainActivityUiState,
+    ): Boolean = when (uiState) {
+        MainActivityUiState.Loading -> false
+        is MainActivityUiState.Success -> !uiState.userData.useDynamicColor
+    }
+
+    @Composable
+    private fun shouldUseDarkTheme(
+        uiState: MainActivityUiState,
+    ): Boolean = when (uiState) {
+        MainActivityUiState.Loading -> isSystemInDarkTheme()
+        is MainActivityUiState.Success -> when (uiState.userData.darkThemeConfig) {
+            DarkThemeConfig.FOLLOW_SYSTEM -> isSystemInDarkTheme()
+            DarkThemeConfig.LIGHT -> false
+            DarkThemeConfig.DARK -> true
+        }
+    }
 }
+
+private val lightScrim = Color.argb(0xe6, 0xFF, 0xFF, 0xFF)
+private val darkScrim = Color.argb(0x80, 0x1b, 0x1b, 0x1b)

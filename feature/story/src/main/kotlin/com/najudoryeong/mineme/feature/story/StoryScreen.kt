@@ -54,7 +54,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
@@ -561,14 +560,14 @@ fun CalendarItem(
     Box(
         modifier = modifier.background(
             brush = Brush.radialGradient(
-                colors = listOf(Color(0xFFD9D9D9), Color(0xFFD9D9D9)),
+                colors = listOf(MaterialTheme.colorScheme.tertiaryContainer, MaterialTheme.colorScheme.tertiaryContainer),
                 radius = radiusPx,
             ),
             shape = roundedIrregularShape(),
         ),
         contentAlignment = Alignment.Center,
     ) {
-        Text(text = "$day", style = MaterialTheme.typography.bodyMedium, color = Color.White)
+        Text(text = "$day", style = MaterialTheme.typography.bodyMedium)
         post?.let {
             DynamicAsyncImage(
                 it.thumbnail,

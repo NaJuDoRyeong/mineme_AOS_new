@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2023 KDW03
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:autoMirrored="true"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path android:fillColor="#191919" android:pathData="M15.333,10.75C15.91,10.75 16.474,10.579 16.954,10.258C17.434,9.938 17.807,9.482 18.028,8.949C18.249,8.416 18.307,7.83 18.194,7.264C18.081,6.698 17.804,6.179 17.396,5.771C16.988,5.363 16.468,5.085 15.902,4.973C15.337,4.86 14.75,4.918 14.217,5.139C13.684,5.359 13.229,5.733 12.908,6.213C12.588,6.692 12.417,7.256 12.417,7.833C12.417,8.607 12.724,9.349 13.271,9.896C13.818,10.443 14.56,10.75 15.333,10.75ZM15.333,6.583C15.581,6.583 15.822,6.656 16.028,6.794C16.233,6.931 16.394,7.126 16.488,7.355C16.583,7.583 16.608,7.835 16.559,8.077C16.511,8.32 16.392,8.542 16.217,8.717C16.042,8.892 15.82,9.011 15.577,9.059C15.335,9.107 15.083,9.083 14.855,8.988C14.627,8.893 14.431,8.733 14.294,8.528C14.157,8.322 14.083,8.08 14.083,7.833C14.083,7.502 14.215,7.184 14.45,6.949C14.684,6.715 15.002,6.583 15.333,6.583Z"/>
+</vector>

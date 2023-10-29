@@ -30,6 +30,7 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
@@ -54,6 +55,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import com.najudoryeong.mineme.core.data.util.NetworkMonitor
+import com.najudoryeong.mineme.core.designsystem.component.DoBackground
 import com.najudoryeong.mineme.core.designsystem.component.DoNavigationBar
 import com.najudoryeong.mineme.core.designsystem.component.DoNavigationBarItem
 import com.najudoryeong.mineme.core.designsystem.component.DoTopAppBar
@@ -75,105 +77,112 @@ fun DoApp(
         windowSizeClass = windowSizeClass,
     ),
 ) {
-    Box(
-        Modifier.fillMaxSize(),
-    ) {
-        val snackbarHostState = remember { SnackbarHostState() }
-        val isOffline by appState.isOffline.collectAsStateWithLifecycle()
+    DoBackground {
+        Box(
+            Modifier.fillMaxSize(),
+        ) {
+            val snackbarHostState = remember { SnackbarHostState() }
+            val isOffline by appState.isOffline.collectAsStateWithLifecycle()
 
-        val notConnectedMessage = stringResource(com.najudoryeong.mineme.R.string.not_connected)
-        LaunchedEffect(isOffline) {
-            if (isOffline) {
-                snackbarHostState.showSnackbar(
-                    message = notConnectedMessage,
-                    duration = SnackbarDuration.Indefinite,
-                )
-            }
-        }
-
-        Scaffold(
-            modifier = Modifier.semantics {
-                testTagsAsResourceId = true
-            },
-            contentWindowInsets = WindowInsets(0, 0, 0, 0),
-            snackbarHost = { SnackbarHost(snackbarHostState) },
-            bottomBar = {
-                val destination = appState.currentTopLevelDestination
-                if (destination in TopLevelDestination.values()) {
-                    DoBottomBar(
-                        destinations = appState.topLevelDestinations,
-                        onNavigateToDestination = appState::navigateToTopLevelDestination,
-                        currentDestination = appState.currentDestination,
-                        modifier = Modifier.testTag("DoBottomBar"),
+            val notConnectedMessage = stringResource(com.najudoryeong.mineme.R.string.not_connected)
+            LaunchedEffect(isOffline) {
+                if (isOffline) {
+                    snackbarHostState.showSnackbar(
+                        message = notConnectedMessage,
+                        duration = SnackbarDuration.Indefinite,
                     )
                 }
-            },
-        ) { padding ->
+            }
 
-            Row(
-                Modifier
-                    .fillMaxSize()
-                    .padding(padding)
-                    .consumeWindowInsets(padding)
-                    .windowInsetsPadding(
-                        WindowInsets.safeDrawing.only(
-                            WindowInsetsSides.Horizontal,
-                        ),
-                    ),
-            ) {
-                // todo refactor
-                Column(Modifier.fillMaxSize()) {
+            Scaffold(
+                modifier = Modifier.semantics {
+                    testTagsAsResourceId = true
+                },
+                containerColor = Color.Transparent,
+                contentColor = MaterialTheme.colorScheme.onBackground,
+                contentWindowInsets = WindowInsets(0, 0, 0, 0),
+                snackbarHost = { SnackbarHost(snackbarHostState) },
+                bottomBar = {
                     val destination = appState.currentTopLevelDestination
+                    if (destination in TopLevelDestination.values()) {
+                        DoBottomBar(
+                            destinations = appState.topLevelDestinations,
+                            onNavigateToDestination = appState::navigateToTopLevelDestination,
+                            currentDestination = appState.currentDestination,
+                            modifier = Modifier.testTag("DoBottomBar"),
+                        )
+                    }
+                },
+            ) { padding ->
 
-                    if (destination != null) {
-                        when (destination) {
-                            TopLevelDestination.Story -> {
-                                DoTopAppBar(
-                                    titleRes = destination.titleTextId,
-                                    navigationIcon = if (appState.shouldShowCalendar.collectAsStateWithLifecycle().value) DoIcons.top_story.resourceId else DoIcons.top_region.resourceId,
-                                    navigationIconContentDescription = stringResource(
-                                        id = destination.titleTextId,
-                                    ),
-                                    actionIcon = destination.actionIcon,
-                                    actionIconContentDescription = stringResource(
-                                        id = destination.titleTextId,
-                                    ),
-                                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                                        containerColor = Color.Transparent,
-                                    ),
-                                    onActionClick = {
-                                        appState.navigateToWriteStory()
-                                    },
-                                    onNavigationClick = {
-                                        appState.updateShowCalendar()
-                                    },
-                                )
-                            }
+                Row(
+                    Modifier
+                        .fillMaxSize()
+                        .padding(padding)
+                        .consumeWindowInsets(padding)
+                        .windowInsetsPadding(
+                            WindowInsets.safeDrawing.only(
+                                WindowInsetsSides.Horizontal,
+                            ),
+                        ),
+                ) {
+                    // todo refactor
+                    Column(Modifier.fillMaxSize()) {
+                        val destination = appState.currentTopLevelDestination
 
-                            else -> {
-                                DoTopAppBar(
-                                    titleRes = destination.titleTextId,
-                                    actionIcon = destination.actionIcon,
-                                    actionIconContentDescription = stringResource(
-                                        id = destination.titleTextId,
-                                    ),
-                                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                                        containerColor = Color.Transparent,
-                                    ),
-                                    onActionClick = {
-                                    },
-                                )
+                        if (destination != null) {
+                            when (destination) {
+                                TopLevelDestination.Story -> {
+                                    DoTopAppBar(
+                                        titleRes = destination.titleTextId,
+                                        navigationIcon = if (appState.shouldShowCalendar.collectAsStateWithLifecycle().value) DoIcons.top_story.resourceId else DoIcons.top_region.resourceId,
+                                        navigationIconContentDescription = stringResource(
+                                            id = destination.titleTextId,
+                                        ),
+                                        actionIcon = destination.actionIcon,
+                                        actionIconContentDescription = stringResource(
+                                            id = destination.titleTextId,
+                                        ),
+                                        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                                            containerColor = Color.Transparent,
+                                        ),
+                                        onActionClick = {
+                                            appState.navigateToWriteStory()
+                                        },
+                                        onNavigationClick = {
+                                            appState.updateShowCalendar()
+                                        },
+                                    )
+                                }
+
+                                else -> {
+                                    DoTopAppBar(
+                                        titleRes = destination.titleTextId,
+                                        actionIcon = destination.actionIcon,
+                                        actionIconContentDescription = stringResource(
+                                            id = destination.titleTextId,
+                                        ),
+                                        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                                            containerColor = Color.Transparent,
+                                        ),
+                                        onActionClick = {
+                                        },
+                                    )
+                                }
                             }
                         }
-                    }
 
-                    DoNavHost(appState = appState, onShowSnackbar = { message, action ->
-                        snackbarHostState.showSnackbar(
-                            message = message,
-                            actionLabel = action,
-                            duration = SnackbarDuration.Short,
-                        ) == SnackbarResult.ActionPerformed
-                    })
+                        DoNavHost(
+                            appState = appState,
+                            onShowSnackbar = { message, action ->
+                                snackbarHostState.showSnackbar(
+                                    message = message,
+                                    actionLabel = action,
+                                    duration = SnackbarDuration.Short,
+                                ) == SnackbarResult.ActionPerformed
+                            },
+                        )
+                    }
                 }
             }
         }
@@ -199,16 +208,9 @@ private fun DoBottomBar(
                     Icon(
                         painter = painterResource(id = destination.unselectedIcon),
                         contentDescription = null,
-                        tint = Color.Unspecified,
                     )
                 },
-                selectedIcon = {
-                    Icon(
-                        painter = painterResource(id = destination.selectedIcon),
-                        contentDescription = null,
-                        tint = Color.Unspecified,
-                    )
-                },
+                selectedIcon = destination.selectedIcon,
                 label = { Text(stringResource(destination.iconTextId)) },
                 modifier = Modifier.testTag(
                     stringResource(id = destination.iconTextId),
