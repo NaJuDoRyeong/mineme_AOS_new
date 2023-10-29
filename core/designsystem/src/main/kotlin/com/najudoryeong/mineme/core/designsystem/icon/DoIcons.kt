@@ -39,7 +39,6 @@ object DoIcons {
     val settings = Icon.DrawableResourceIcon(R.drawable.settings)
     val OnSettings = Icon.DrawableResourceIcon(R.drawable.onsettings)
 
-
     /** Home **/
     // Profile Img
     val default_me = Icon.DrawableResourceIcon(R.drawable.default_me)
@@ -64,57 +63,61 @@ object DoIcons {
     val setting_security = Icon.DrawableResourceIcon(R.drawable.setting_security)
 }
 
-
 @Composable
 fun OnHomeIcon() {
     Box(
         contentAlignment = Alignment.Center,
     ) {
-
         Icon(
-            painter = painterResource(R.drawable.onhome_custom_part1), contentDescription = null,
+            painter = painterResource(R.drawable.onhome_custom_part1),
+            contentDescription = null,
             tint = MaterialTheme.colorScheme.tertiary,
         )
         Icon(
-            painter = painterResource(R.drawable.onhome_custom_part2), contentDescription = null,
+            painter = painterResource(R.drawable.onhome_custom_part2),
+            contentDescription = null,
             tint = MaterialTheme.colorScheme.secondary,
         )
         Icon(
-            painter = painterResource(R.drawable.onhome_custom_part3), contentDescription = null,
-            tint = MaterialTheme.colorScheme.surfaceVariant
+            painter = painterResource(R.drawable.onhome_custom_part3),
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.surfaceVariant,
         )
     }
 }
-
 
 @Composable
 fun OnStoryIcon() {
     Box(
         contentAlignment = Alignment.Center,
     ) {
-
         Icon(
-            painter = painterResource(R.drawable.onstory_custom_part1), contentDescription = null,
+            painter = painterResource(R.drawable.onstory_custom_part1),
+            contentDescription = null,
             tint = MaterialTheme.colorScheme.tertiary,
         )
 
         Icon(
-            painter = painterResource(R.drawable.onstory_custom_part2), contentDescription = null,
+            painter = painterResource(R.drawable.onstory_custom_part2),
+            contentDescription = null,
             tint = MaterialTheme.colorScheme.secondary,
         )
 
         Icon(
-            painter = painterResource(R.drawable.onstory_custom_part3), contentDescription = null,
+            painter = painterResource(R.drawable.onstory_custom_part3),
+            contentDescription = null,
             tint = MaterialTheme.colorScheme.secondary,
         )
 
         Icon(
-            painter = painterResource(R.drawable.onstory_custom_part4), contentDescription = null,
+            painter = painterResource(R.drawable.onstory_custom_part4),
+            contentDescription = null,
             tint = MaterialTheme.colorScheme.surfaceVariant,
         )
 
         Icon(
-            painter = painterResource(R.drawable.onstory_custom_part5), contentDescription = null,
+            painter = painterResource(R.drawable.onstory_custom_part5),
+            contentDescription = null,
             tint = MaterialTheme.colorScheme.surfaceVariant,
         )
     }
@@ -125,31 +128,28 @@ fun OnSettingsIcon() {
     Box(
         contentAlignment = Alignment.Center,
     ) {
-
         Icon(
-            painter = painterResource(R.drawable.onsettings_custom_part1), contentDescription = null,
+            painter = painterResource(R.drawable.onsettings_custom_part1),
+            contentDescription = null,
             tint = MaterialTheme.colorScheme.tertiary,
         )
         Icon(
-            painter = painterResource(R.drawable.onsettings_custom_part2), contentDescription = null,
+            painter = painterResource(R.drawable.onsettings_custom_part2),
+            contentDescription = null,
             tint = MaterialTheme.colorScheme.secondary,
         )
         Icon(
-            painter = painterResource(R.drawable.onsettings_custom_part3), contentDescription = null,
+            painter = painterResource(R.drawable.onsettings_custom_part3),
+            contentDescription = null,
             tint = MaterialTheme.colorScheme.surfaceVariant,
         )
         Icon(
-            painter = painterResource(R.drawable.onsettings_custom_part4), contentDescription = null,
+            painter = painterResource(R.drawable.onsettings_custom_part4),
+            contentDescription = null,
             tint = MaterialTheme.colorScheme.surfaceVariant,
         )
-
     }
 }
-
-
-
-
-
 
 sealed interface Icon {
     data class ImageVectorIcon(val imageVector: ImageVector) : Icon

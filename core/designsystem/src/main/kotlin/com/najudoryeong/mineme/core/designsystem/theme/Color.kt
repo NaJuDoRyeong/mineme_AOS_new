@@ -18,7 +18,6 @@ package com.najudoryeong.mineme.core.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 
-
 internal val Blue10 = Color(0xFF001F28)
 internal val Blue20 = Color(0xFF003544)
 internal val Blue30 = Color(0xFF004D61)
@@ -91,4 +90,3 @@ internal val DarkCharcoal = Color(0xFF191919)
 internal val DarkCoral = Color(0xFF8A6565)
 internal val DeepSkyBlue = Color(0xFF1565C0)
 internal val LighterCharcoal = Color(0xFF2E2E2E)
-

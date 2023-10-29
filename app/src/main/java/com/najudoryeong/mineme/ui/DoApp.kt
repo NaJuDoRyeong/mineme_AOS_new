@@ -16,7 +16,6 @@
 
 package com.najudoryeong.mineme.ui
 
-import android.graphics.drawable.BitmapDrawable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -78,7 +77,6 @@ fun DoApp(
         windowSizeClass = windowSizeClass,
     ),
 ) {
-
     DoBackground {
         Box(
             Modifier.fillMaxSize(),

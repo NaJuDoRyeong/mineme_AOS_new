@@ -127,7 +127,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-
     @Composable
     private fun shouldDisableDynamicTheming(
         uiState: MainActivityUiState,
@@ -135,7 +134,6 @@ class MainActivity : ComponentActivity() {
         MainActivityUiState.Loading -> false
         is MainActivityUiState.Success -> !uiState.userData.useDynamicColor
     }
-
 
     @Composable
     private fun shouldUseDarkTheme(

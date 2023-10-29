@@ -17,7 +17,6 @@
 package com.najudoryeong.mineme.core.ui
 
 import com.najudoryeong.mineme.core.model.data.Code
-import com.najudoryeong.mineme.core.model.data.DarkThemeConfig
 import com.najudoryeong.mineme.core.model.data.DetailStoryResource
 import com.najudoryeong.mineme.core.model.data.HomeMainResource
 import com.najudoryeong.mineme.core.model.data.StoryCalendarResource
@@ -66,4 +65,3 @@ sealed interface AccountUiState {
     data object Loading : AccountUiState
     data class Success(val code: Code) : AccountUiState
 }
-

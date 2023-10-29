@@ -65,14 +65,12 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-
     fun updateDynamicColorPreference(useDynamicColor: Boolean) {
         viewModelScope.launch {
             userDataRepository.setDynamicColorPreference(useDynamicColor)
         }
     }
 }
-
 
 sealed interface SettingsUiState {
     data object Loading : SettingsUiState
@@ -83,4 +81,3 @@ data class UserEditableSettings(
     val useDynamicColor: Boolean,
     val darkThemeConfig: DarkThemeConfig,
 )
-

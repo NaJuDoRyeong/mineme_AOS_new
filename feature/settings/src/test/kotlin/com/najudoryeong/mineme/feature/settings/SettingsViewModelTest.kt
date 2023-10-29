@@ -54,7 +54,7 @@ class SettingsViewModelTest {
 
     @Test
     fun stateIsInitiallyLoading() = runTest {
-        assertEquals(AccountUiState.Loading, viewModel.accountState.value,)
+        assertEquals(AccountUiState.Loading, viewModel.accountState.value)
     }
 
     @Test
@@ -87,9 +87,6 @@ class SettingsViewModelTest {
 
         collectJob.cancel()
     }
-
-
-
 
     private val sampleCode = Code(
         myCode = "test_my_code",
