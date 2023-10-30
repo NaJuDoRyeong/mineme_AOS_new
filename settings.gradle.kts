@@ -31,7 +31,6 @@ include(":core:model")
 include(":core:network")
 include(":core:ui")
 include(":core:testing")
-include(":core:analytics")
 include(":core:notifications")
 
 
@@ -39,6 +38,4 @@ include(":feature:home")
 include(":feature:settings")
 include(":feature:story")
 include(":ui-test-hilt-manifest")
-
-include(":sync:work")
-include(":sync:sync-test")
+include(":lint")

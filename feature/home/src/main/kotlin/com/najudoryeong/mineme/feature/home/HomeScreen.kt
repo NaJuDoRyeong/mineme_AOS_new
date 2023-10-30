@@ -1,3 +1,19 @@
+/*
+ * Copyright 2023 KDW03
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.najudoryeong.mineme.feature.home
 
 import androidx.compose.animation.AnimatedVisibility
@@ -51,58 +67,49 @@ import com.najudoryeong.mineme.core.model.data.Person
 import com.najudoryeong.mineme.core.ui.HomeMainResourcePreviewParameterProvider
 import com.najudoryeong.mineme.core.ui.HomeUiState
 
-
 @Composable
 internal fun HomeRoute(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
-
     val homeState by viewModel.homeState.collectAsStateWithLifecycle()
 
     HomeScreen(
         homeState = homeState,
-        modifier = modifier
+        modifier = modifier,
     )
-
 }
 
 @Composable
 internal fun HomeScreen(
     homeState: HomeUiState,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
-
     val isHomeLoading = homeState is HomeUiState.Loading
 
-    //TODO REPORT
-    //ReportDrawnWhen { !isSyncing && !isOnboardingLoading && !isFeedLoading }
-
+    // TODO REPORT
+    // ReportDrawnWhen { !isSyncing && !isOnboardingLoading && !isFeedLoading }
 
     Box(modifier = modifier.fillMaxSize()) {
-
         LazyColumn(modifier = Modifier.fillMaxSize()) {
-
             item {
                 when (homeState) {
-                    HomeUiState.Loading -> Unit
                     is HomeUiState.Success -> {
-
                         Row(
                             horizontalArrangement = Arrangement.spacedBy(16.dp),
-                            modifier = Modifier
+                            modifier = Modifier,
                         ) {
                             CoupleProfile(
                                 modifier = Modifier,
-                                couple = homeState.homeMainResource.couple
+                                couple = homeState.homeMainResource.couple,
                             )
                         }
 
                         DottedLine(Modifier.padding(vertical = 16.dp, horizontal = 32.dp))
 
                         CurrentStory(newStory = homeState.homeMainResource.newStory)
-
                     }
+                    HomeUiState.Loading -> Unit
                 }
             }
         }
@@ -132,22 +139,19 @@ internal fun HomeScreen(
     }
 }
 
-
 @Composable
 fun CurrentStory(
     modifier: Modifier = Modifier,
-    newStory: NewStory
+    newStory: NewStory,
 ) {
-
     Column(
         modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-
         if (newStory.thumbnailImage == "") {
             Text(
                 text = stringResource(R.string.no_story),
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
             )
             Image(
                 modifier = Modifier
@@ -155,11 +159,11 @@ fun CurrentStory(
                     .aspectRatio(1f)
                     .padding(16.dp),
                 painter = painterResource(id = DoIcons.no_story.resourceId),
-                contentDescription = null
+                contentDescription = null,
             )
             Text(
                 text = stringResource(R.string.no_story2),
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.bodyMedium,
             )
         } else {
             Text(text = stringResource(R.string.new_story))
@@ -170,19 +174,17 @@ fun CurrentStory(
                     .padding(16.dp)
                     .clip(RoundedCornerShape(16.dp)),
                 imageUrl = newStory.thumbnailImage,
-                contentDescription = null
+                contentDescription = null,
             )
         }
-
     }
 }
 
 @Composable
 fun CoupleProfile(
     modifier: Modifier,
-    couple: Couple
+    couple: Couple,
 ) {
-
     Row(
         modifier
             .fillMaxWidth()
@@ -191,42 +193,39 @@ fun CoupleProfile(
     ) {
         Profile(
             profileInfo = couple.me,
-            defaultIcon = DoIcons.default_me.resourceId
+            defaultIcon = DoIcons.default_me.resourceId,
         )
 
         Icon(
             modifier = Modifier.padding(top = 80.dp),
             painter = painterResource(id = DoIcons.heart.resourceId),
             contentDescription = null,
-            tint = Color.Unspecified
+            tint = Color.Unspecified,
         )
 
         Profile(
             profileInfo = couple.mine,
-            defaultIcon = DoIcons.default_mine.resourceId
+            defaultIcon = DoIcons.default_mine.resourceId,
         )
     }
-
 }
-
 
 @Composable
 fun Profile(
     profileInfo: Person,
     modifier: Modifier = Modifier,
-    defaultIcon: Int
+    defaultIcon: Int,
 ) {
     Column(
         modifier = modifier.width(80.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-
         ProfileImage(
             modifier = Modifier
                 .clip(CircleShape)
                 .size(80.dp),
             profileImgUrl = profileInfo.profileImage,
-            defaultIcon = defaultIcon
+            defaultIcon = defaultIcon,
         )
 
         Text(
@@ -245,9 +244,8 @@ fun Profile(
             text = description,
             modifier = Modifier.fillMaxWidth(),
             style = MaterialTheme.typography.bodyMedium,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
-
 
         if (profileInfo.instaId.isNotEmpty()) {
             Spacer(modifier = Modifier.height(4.dp))
@@ -255,48 +253,48 @@ fun Profile(
                 text = profileInfo.instaId,
                 modifier = Modifier.fillMaxWidth(),
                 style = MaterialTheme.typography.bodyMedium,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
         }
     }
 }
 
-
 @Composable
 fun ProfileImage(
     modifier: Modifier = Modifier,
     profileImgUrl: String,
-    defaultIcon: Int
+    defaultIcon: Int,
+    profileTag: String = "CoupleProfile:Image",
+
 ) {
     if (profileImgUrl.isEmpty()) {
         Icon(
-            modifier = modifier,
+            modifier = modifier.testTag(profileTag),
             painter = painterResource(id = defaultIcon),
             contentDescription = null,
-            tint = Color.Unspecified
+            tint = Color.Unspecified,
         )
     } else {
         DynamicAsyncImage(
             modifier = modifier,
             imageUrl = profileImgUrl,
             contentDescription = null,
-            completeTag = "CoupleProfile:Image"
+            completeTag = profileTag,
         )
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenSuccessPreview(
     @PreviewParameter(HomeMainResourcePreviewParameterProvider::class)
-    homeMainResource: HomeMainResource
+    homeMainResource: HomeMainResource,
 ) {
     DoTheme {
         HomeScreen(
             homeState = HomeUiState.Success(
-                homeMainResource = homeMainResource
-            )
+                homeMainResource = homeMainResource,
+            ),
         )
     }
 }
@@ -305,13 +303,11 @@ fun HomeScreenSuccessPreview(
 @Composable
 fun HomeScreenLoadingPreview(
     @PreviewParameter(HomeMainResourcePreviewParameterProvider::class)
-    homeMainResource: HomeMainResource
+    homeMainResource: HomeMainResource,
 ) {
     DoTheme {
         HomeScreen(
-            homeState = HomeUiState.Loading
+            homeState = HomeUiState.Loading,
         )
     }
 }
-
-

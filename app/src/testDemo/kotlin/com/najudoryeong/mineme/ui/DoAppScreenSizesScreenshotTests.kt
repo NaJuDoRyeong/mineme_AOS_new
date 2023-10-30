@@ -1,9 +1,9 @@
 /*
- * right 2022 The Android Open Source Project
+ * Copyright 2022 KDW03
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a  of the License at
+ * You may obtain a copy of the License at
  *
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -33,7 +33,6 @@ import androidx.work.testing.SynchronousExecutor
 import androidx.work.testing.WorkManagerTestInitHelper
 import com.github.takahirom.roborazzi.captureRoboImage
 import com.google.accompanist.testharness.TestHarness
-import com.najudoryeong.mineme.core.data.repository.UserDataRepository
 import com.najudoryeong.mineme.core.data.util.NetworkMonitor
 import com.najudoryeong.mineme.core.testing.util.DefaultRoborazziOptions
 import com.najudoryeong.mineme.uitesthiltmanifest.HiltComponentActivity
@@ -103,8 +102,6 @@ class DoAppScreenSizesScreenshotTests {
         )
 
         hiltRule.inject()
-
-
     }
 
     @Before
@@ -124,7 +121,7 @@ class DoAppScreenSizesScreenshotTests {
                             windowSizeClass = WindowSizeClass.calculateFromSize(
                                 DpSize(maxWidth, maxHeight),
                             ),
-                            networkMonitor = networkMonitor
+                            networkMonitor = networkMonitor,
                         )
                     }
                 }
@@ -137,7 +134,6 @@ class DoAppScreenSizesScreenshotTests {
                 roborazziOptions = DefaultRoborazziOptions,
             )
     }
-
 
     @Test
     fun compactWidth_mediumHeight_showsNavigationBar() {
@@ -165,6 +161,4 @@ class DoAppScreenSizesScreenshotTests {
             "compactWidth_compactHeight_showsNavigationBar",
         )
     }
-
-
 }

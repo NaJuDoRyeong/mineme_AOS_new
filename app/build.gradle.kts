@@ -1,3 +1,18 @@
+/*
+ * Copyright 2023 KDW03
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 import com.najudoryeong.mineme.DoBuildType
 
 plugins {
@@ -26,26 +41,23 @@ android {
     buildTypes {
         debug {
             applicationIdSuffix = DoBuildType.DEBUG.applicationIdSuffix
+            manifestPlaceholders["appName"] = "Mineme (Debug)"
         }
         val release by getting {
             isMinifyEnabled = true
             applicationIdSuffix = DoBuildType.RELEASE.applicationIdSuffix
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            // To publish on the Play store a private signing key is required, but to allow anyone
-            // who clones the code to sign and run the release variant, use the debug signing key.
-            // TODO: Abstract the signing configuration to a separate file to avoid hardcoding this.
             signingConfig = signingConfigs.getByName("debug")
+            manifestPlaceholders["appName"] = "Mineme"
         }
         create("benchmark") {
-            // Enable all the optimizations from release build through initWith(release).
             initWith(release)
             matchingFallbacks.add("release")
-            // Debug key signing is available to everyone.
             signingConfig = signingConfigs.getByName("debug")
-            // Only use benchmark proguard rules
             proguardFiles("benchmark-rules.pro")
             isMinifyEnabled = true
             applicationIdSuffix = DoBuildType.BENCHMARK.applicationIdSuffix
+            manifestPlaceholders["appName"] = "Mineme (Benchmark)"
         }
     }
 
@@ -60,6 +72,8 @@ android {
             isIncludeAndroidResources = true
         }
     }
+
+
 }
 dependencies {
 
@@ -72,9 +86,6 @@ dependencies {
     implementation(project(":core:designsystem"))
     implementation(project(":core:data"))
     implementation(project(":core:model"))
-    implementation(project(":core:analytics"))
-
-    implementation(project(":sync:work"))
 
     androidTestImplementation(project(":core:testing"))
     androidTestImplementation(project(":core:datastore-test"))

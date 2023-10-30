@@ -1,10 +1,43 @@
-<vector android:autoMirrored="true" android:height="24dp"
-    android:viewportHeight="24" android:viewportWidth="24"
-    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2023 KDW03
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:autoMirrored="true"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
     <group>
-        <clip-path android:pathData="M2,2h20v20h-20z"/>
-        <path android:fillColor="#8BD0F6" android:pathData="M10.636,3H11.727H13.364L21,10.636V21H3V10.636L10.636,3Z"/>
-        <path android:fillColor="#FFDB94" android:pathData="M16,21C16,18.667 15.143,14 11.715,14C8.286,14 7.837,18.667 8.041,21H16Z"/>
-        <path android:fillColor="#191919" android:pathData="M21.267,9.557L14.947,3.236C14.164,2.456 13.105,2.018 12,2.018C10.895,2.018 9.836,2.456 9.053,3.236L2.733,9.557C2.5,9.789 2.315,10.064 2.189,10.368C2.063,10.671 1.999,10.996 2,11.325V19.506C2,20.169 2.263,20.805 2.732,21.273C3.201,21.742 3.837,22.006 4.5,22.006H19.5C20.163,22.006 20.799,21.742 21.268,21.273C21.737,20.805 22,20.169 22,19.506V11.325C22.001,10.996 21.937,10.671 21.811,10.368C21.685,10.064 21.5,9.789 21.267,9.557ZM14.5,20.339H9.5V17.061C9.5,16.398 9.763,15.762 10.232,15.293C10.701,14.824 11.337,14.561 12,14.561C12.663,14.561 13.299,14.824 13.768,15.293C14.237,15.762 14.5,16.398 14.5,17.061V20.339ZM20.333,19.506C20.333,19.727 20.246,19.939 20.089,20.095C19.933,20.251 19.721,20.339 19.5,20.339H16.167V17.061C16.167,15.955 15.728,14.896 14.946,14.114C14.165,13.333 13.105,12.894 12,12.894C10.895,12.894 9.835,13.333 9.054,14.114C8.272,14.896 7.833,15.955 7.833,17.061V20.339H4.5C4.279,20.339 4.067,20.251 3.911,20.095C3.754,19.939 3.667,19.727 3.667,19.506V11.325C3.667,11.104 3.755,10.892 3.911,10.736L10.232,4.416C10.701,3.949 11.337,3.686 12,3.686C12.663,3.686 13.299,3.949 13.768,4.416L20.089,10.738C20.244,10.894 20.332,11.105 20.333,11.325V19.506Z"/>
+        <clip-path android:pathData="M2,2h20v20h-20z" />
+    </group>
+    <group>
+        <path
+            android:fillColor="#8BD0F6"
+            android:pathData="M10.636,3H11.727H13.364L21,10.636V21H3V10.636L10.636,3Z" />
+    </group>
+    <group>
+        <path
+            android:fillColor="#FFDB94"
+            android:pathData="M16,21C16,18.667 15.143,14 11.715,14C8.286,14 7.837,18.667 8.041,21H16Z" />
+    </group>
+    <group>
+        <path
+            android:fillColor="#191919"
+            android:pathData="M21.267,9.557L14.947,3.236C14.164,2.456 13.105,2.018 12,2.018C10.895,2.018 9.836,2.456 9.053,3.236L2.733,9.557C2.5,9.789 2.315,10.064 2.189,10.368C2.063,10.671 1.999,10.996 2,11.325V19.506C2,20.169 2.263,20.805 2.732,21.273C3.201,21.742 3.837,22.006 4.5,22.006H19.5C20.163,22.006 20.799,21.742 21.268,21.273C21.737,20.805 22,20.169 22,19.506V11.325C22.001,10.996 21.937,10.671 21.811,10.368C21.685,10.064 21.5,9.789 21.267,9.557ZM14.5,20.339H9.5V17.061C9.5,16.398 9.763,15.762 10.232,15.293C10.701,14.824 11.337,14.561 12,14.561C12.663,14.561 13.299,14.824 13.768,15.293C14.237,15.762 14.5,16.398 14.5,17.061V20.339ZM20.333,19.506C20.333,19.727 20.246,19.939 20.089,20.095C19.933,20.251 19.721,20.339 19.5,20.339H16.167V17.061C16.167,15.955 15.728,14.896 14.946,14.114C14.165,13.333 13.105,12.894 12,12.894C10.895,12.894 9.835,13.333 9.054,14.114C8.272,14.896 7.833,15.955 7.833,17.061V20.339H4.5C4.279,20.339 4.067,20.251 3.911,20.095C3.754,19.939 3.667,19.727 3.667,19.506V11.325C3.667,11.104 3.755,10.892 3.911,10.736L10.232,4.416C10.701,3.949 11.337,3.686 12,3.686C12.663,3.686 13.299,3.949 13.768,4.416L20.089,10.738C20.244,10.894 20.332,11.105 20.333,11.325V19.506Z" />
     </group>
 </vector>
+
+

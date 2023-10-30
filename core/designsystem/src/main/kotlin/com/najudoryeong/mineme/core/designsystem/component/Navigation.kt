@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022 KDW03
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -51,7 +50,7 @@ fun RowScope.DoNavigationBarItem(
             selectedTextColor = DoNavigationDefaults.navigationSelectedItemColor(),
             unselectedTextColor = DoNavigationDefaults.navigationContentColor(),
             indicatorColor = DoNavigationDefaults.navigationIndicatorColor(),
-        )
+        ),
     )
 }
 
@@ -76,5 +75,5 @@ object DoNavigationDefaults {
     fun navigationSelectedItemColor() = MaterialTheme.colorScheme.onPrimaryContainer
 
     @Composable
-    fun navigationIndicatorColor() = Color.White
+    fun navigationIndicatorColor() = MaterialTheme.colorScheme.primaryContainer
 }

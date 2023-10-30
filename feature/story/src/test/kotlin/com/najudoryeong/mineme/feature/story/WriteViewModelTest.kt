@@ -1,8 +1,22 @@
+/*
+ * Copyright 2023 KDW03
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.najudoryeong.mineme.feature.story
 
-import android.net.Uri
 import androidx.lifecycle.SavedStateHandle
-import com.najudoryeong.mineme.core.testing.repository.TestUserDataRepository
 import com.najudoryeong.mineme.core.testing.util.MainDispatcherRule
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.flow.first
@@ -17,17 +31,15 @@ class WriteViewModelTest {
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
 
-
     private val savedStateHandle = SavedStateHandle()
     private lateinit var viewModel: WriteStoryViewModel
 
     @Before
     fun setup() {
         viewModel = WriteStoryViewModel(
-            savedStateHandle = savedStateHandle
+            savedStateHandle = savedStateHandle,
         )
     }
-
 
     @Test
     fun testInitValue() = runTest {
@@ -37,7 +49,6 @@ class WriteViewModelTest {
         // 첫번째 region에 해당하는 첫 번째 도시가 selectedCity 초기값과 일치하는지
         assertEquals(koreanCities[koreanProvinces.first()]?.first() ?: "", viewModel.selectedCity.first())
     }
-
 
     @Test
     fun testUpdateDate() = runTest {
@@ -61,6 +72,4 @@ class WriteViewModelTest {
         viewModel.updateCity(newCity)
         assertEquals(newCity, viewModel.selectedCity.first())
     }
-
 }
-
