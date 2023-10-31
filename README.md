@@ -3,6 +3,9 @@
 ![image](https://github.com/NaJuDoRyeong/mineme_AOS_new/assets/109224863/91100610-2cfa-434c-9cb9-c5ecaf106e13)
 
 
+<br>
+<br>
+
 ## 🌸 프로젝트 소개
 
 소중한 연인과의 추억을 기록해 보세요 🥰
@@ -10,6 +13,10 @@
 위치와 날짜를 기반으로 사진을 기록해요 😎
 
 위치와 날짜를 기반으로 추억을 모아볼 수 있어요 ☺
+
+<br>
+<br>
+
 
 ## 👩‍💻 개발자
 
@@ -21,6 +28,11 @@
 
 </div>
 
+
+<br>
+<br>
+
+
 ## 🛠️ 아키텍처
 
 <img width="850" alt="Untitled" src="https://github.com/NaJuDoRyeong/mineme_AOS_new/assets/109224863/2941a9fb-93f9-4d65-948f-ba2d1ee19afc">
@@ -29,6 +41,9 @@
 **Mineme**는 [앱 아키텍처 가이드](https://developer.android.com/topic/architecture)를 따릅니다.
 
 전체 구조는 UI Layer과 Data Layer, 두 부분으로 이루어져 있습니다. 각 계층은 자신만의 요소들을 가지고 특정 역할을 합니다. 화살표는 한 요소가 다른 요소에 의존한다는 것을 나타냅니다.
+
+
+<br>
 
 ### **📌 아키텍처 개요**
 
@@ -44,6 +59,8 @@
 <img width="1819" alt="image" src="https://github.com/NaJuDoRyeong/mineme_AOS_new/assets/109224863/657fd8a0-49f8-4a7d-bee1-310dee857941">
 
 
+<br>
+<br>
 
 
 ## 🪧 모듈화
@@ -57,6 +74,11 @@
 - **feature:Module** - 특정 기능을 담당하는 모듈입니다. 필요할 때 다양한 앱에서 재사용 가능하며, 독립적으로 유지됩니다. 한 클래스가 특정 `feature` 모듈에만 필요하면 그 안에 둬야 합니다. 그렇지 않으면 `core` 모듈로 옮겨야 합니다. `feature` 모듈은 다른 `feature` 모듈에 의존하면 안 되며, `core` 모듈에만 의존해야 합니다.
 - **core:Module** - 앱 내에서 공통적으로 사용되는 부분들을 담은 라이브러리 모듈입니다. 다른 `core` 모듈에는 의존할 수 있지만, `feature`이나 `app` 모듈에는 의존하면 안 됩니다.
 
+
+
+<br>
+<br>
+
 ## 🧪 Testing
 
 **Mineme**는 `Hilt`를 사용한 DI로 testing을 쉽게 합니다.
@@ -69,6 +91,12 @@
 - Instrumentation tests에서, 사용자의 preferences를 임시 폴더에 저장한 후, 테스트가 끝나면 삭제합니다. 이렇게 함으로써 real DataStore의 동작을 모두 테스트할 수 있습니다.
 - Test versions의 repositories는 standard repositories와 같은 기능을 제공하며, 추가적인 testing hooks도 제공합니다. 이를 통해 ViewModel의 behavior를 검증합니다.
 
+
+
+<br>
+<br>
+
+
 ## 🖥️ UI
 
 **Mineme**는 [Material 3 가이드라인](https://m3.material.io/)을 사용하여 디자인되었습니다.
@@ -77,6 +105,10 @@
 - 두 가지 테마를 지원합니다. (각 테마는 다크 모드를 지원합니다.)
     - **동적 색상** - 사용자의 현재 색상 테마를 기반
     - **기본 테마** - 동적 색상을 지원하지 않을 때
+
+
+<br>
+<br>
 
 ## ©️ License
 
@@ -95,5 +127,9 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 ```
+
+
+<br>
+<br>
 
 ## 📚 개발로그
