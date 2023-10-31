@@ -14,29 +14,29 @@
  * limitations under the License.
  */
 
-package com.najudoryeong.mineme.core.designsystem.component
+package com.najudoryeong.mineme.core.ui
 
-import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun DottedLine(modifier: Modifier = Modifier) {
-    val pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f)
-    val color = MaterialTheme.colorScheme.tertiaryContainer
-    Canvas(modifier.fillMaxWidth().height(1.dp)) {
-        drawLine(
-            color = color,
-            start = Offset(0f, 0f),
-            end = Offset(size.width, 0f),
-            pathEffect = pathEffect,
-            strokeWidth = 2.dp.toPx(),
-        )
-    }
+fun Separator(
+    modifier: Modifier = Modifier,
+    color: Color = MaterialTheme.colorScheme.tertiaryContainer,
+    thickness: Dp = 1.dp,
+) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(thickness)
+            .background(color),
+    )
 }

@@ -14,25 +14,22 @@
  * limitations under the License.
  */
 
-package com.najudoryeong.mineme.core.designsystem.component
+package com.najudoryeong.mineme.core.ui
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 
 @Composable
-fun Indicator(isSelected: Boolean) {
-    Box(
-        modifier = Modifier
-            .size(8.dp)
-            .background(
-                color = if (isSelected) Color.White else Color.Gray,
-                shape = CircleShape,
-            ),
-    )
+fun AnimatedScreen(isVisible: Boolean, content: @Composable () -> Unit) {
+    AnimatedVisibility(
+        visible = isVisible,
+        enter = fadeIn() + slideInHorizontally(),
+        exit = fadeOut() + slideOutHorizontally(),
+    ) {
+        content()
+    }
 }

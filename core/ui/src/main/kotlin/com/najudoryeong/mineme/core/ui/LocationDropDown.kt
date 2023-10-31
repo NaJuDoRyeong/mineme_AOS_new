@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.najudoryeong.mineme.core.designsystem.component
+package com.najudoryeong.mineme.core.ui
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -39,6 +39,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
 
 @Composable
 fun LocationDropdownMenu(
@@ -60,7 +61,7 @@ fun LocationDropdownMenu(
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Text(text = selectedLocation)
-            Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = null) // 화살표 아이콘 추가
+            Icon(imageVector = DoIcons.ArrowDown, contentDescription = null) // 화살표 아이콘 추가
         }
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
             menuList.forEach { location ->

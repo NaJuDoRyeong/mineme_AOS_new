@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.najudoryeong.mineme.core.designsystem.component
+package com.najudoryeong.mineme.core.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -34,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
 
 @Composable
 fun DateDropdown(
@@ -57,7 +58,7 @@ fun DateDropdown(
         Spacer(modifier = Modifier.width(8.dp))
 
         Icon(
-            imageVector = Icons.Default.ArrowDropDown,
+            imageVector = DoIcons.ArrowDown,
             contentDescription = "Dropdown Arrow",
         )
     }

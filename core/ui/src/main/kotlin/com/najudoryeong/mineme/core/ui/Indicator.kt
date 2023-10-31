@@ -14,29 +14,25 @@
  * limitations under the License.
  */
 
-package com.najudoryeong.mineme.core.designsystem.component
+package com.najudoryeong.mineme.core.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Separator(
-    modifier: Modifier = Modifier,
-    color: Color = MaterialTheme.colorScheme.tertiaryContainer,
-    thickness: Dp = 1.dp,
-) {
+fun Indicator(isSelected: Boolean) {
     Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(thickness)
-            .background(color),
+        modifier = Modifier
+            .size(8.dp)
+            .background(
+                color = if (isSelected) Color.White else Color.Gray,
+                shape = CircleShape,
+            ),
     )
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.najudoryeong.mineme.core.designsystem.component
+package com.najudoryeong.mineme.core.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -40,6 +40,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.najudoryeong.mineme.core.designsystem.component.DoTextButton
 
 @Composable
 fun DateDialog(
@@ -146,14 +147,14 @@ fun DateDialog(
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
-                        TextButton(
+                        DoTextButton(
                             onClick = { showDialog = false },
                             modifier = Modifier.weight(1f),
                         ) {
                             Text("취소")
                         }
                         Spacer(modifier = Modifier.width(8.dp))
-                        TextButton(
+                        DoTextButton(
                             onClick = {
                                 updateDate(
                                     yearPickerState.selectedItem.toInt(),

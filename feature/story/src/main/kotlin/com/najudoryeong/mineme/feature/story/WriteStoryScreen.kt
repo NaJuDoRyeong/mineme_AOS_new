@@ -50,11 +50,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.najudoryeong.mineme.core.designsystem.component.AnimatedScreen
 import com.najudoryeong.mineme.core.designsystem.component.CustomBottomButton
-import com.najudoryeong.mineme.core.designsystem.component.DateDialog
-import com.najudoryeong.mineme.core.designsystem.component.ImageSlider
-import com.najudoryeong.mineme.core.designsystem.component.LocationDropdownMenu
+import com.najudoryeong.mineme.core.ui.AnimatedScreen
+import com.najudoryeong.mineme.core.ui.DateDialog
+import com.najudoryeong.mineme.core.ui.ImageSlider
+import com.najudoryeong.mineme.core.ui.LocationDropdownMenu
 import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
 import com.najudoryeong.mineme.core.ui.R.string
 import java.time.LocalDate

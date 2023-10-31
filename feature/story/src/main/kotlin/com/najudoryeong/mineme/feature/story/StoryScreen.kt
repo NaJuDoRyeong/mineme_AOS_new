@@ -72,9 +72,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.najudoryeong.mineme.core.designsystem.component.DoOverlayLoadingWheel
 import com.najudoryeong.mineme.core.designsystem.component.DoTextButton
 import com.najudoryeong.mineme.core.designsystem.component.DynamicAsyncImage
-import com.najudoryeong.mineme.core.designsystem.component.LocationDropdownMenu
-import com.najudoryeong.mineme.core.designsystem.component.Picker
-import com.najudoryeong.mineme.core.designsystem.component.rememberPickerState
+import com.najudoryeong.mineme.core.ui.LocationDropdownMenu
+import com.najudoryeong.mineme.core.ui.Picker
+import com.najudoryeong.mineme.core.ui.rememberPickerState
 import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
 import com.najudoryeong.mineme.core.model.data.Post
 import com.najudoryeong.mineme.core.model.data.StoryRegionResource

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.najudoryeong.mineme.core.designsystem.component
+package com.najudoryeong.mineme.core.ui
 
 import android.net.Uri
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -31,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.najudoryeong.mineme.core.designsystem.component.DynamicAsyncImage
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

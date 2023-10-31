@@ -56,7 +56,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.najudoryeong.mineme.core.designsystem.component.DoOverlayLoadingWheel
-import com.najudoryeong.mineme.core.designsystem.component.DottedLine
+import com.najudoryeong.mineme.core.ui.DottedLine
 import com.najudoryeong.mineme.core.designsystem.component.DynamicAsyncImage
 import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
 import com.najudoryeong.mineme.core.designsystem.theme.DoTheme

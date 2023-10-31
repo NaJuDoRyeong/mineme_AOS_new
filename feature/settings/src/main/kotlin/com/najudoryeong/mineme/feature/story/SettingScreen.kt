@@ -43,7 +43,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.najudoryeong.mineme.core.designsystem.component.Separator
+import com.najudoryeong.mineme.core.ui.Separator
 import com.najudoryeong.mineme.core.designsystem.icon.DoIcons
 import com.najudoryeong.mineme.feature.settings.R
 

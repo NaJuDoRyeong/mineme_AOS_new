@@ -36,7 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.najudoryeong.mineme.core.designsystem.component.DoOverlayLoadingWheel
-import com.najudoryeong.mineme.core.designsystem.component.Separator
+import com.najudoryeong.mineme.core.ui.Separator
 import com.najudoryeong.mineme.core.model.data.Code
 import com.najudoryeong.mineme.core.ui.AccountUiState
 import com.najudoryeong.mineme.feature.settings.R
