@@ -23,32 +23,27 @@ import com.najudoryeong.mineme.core.model.data.UserData
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-/**
- * Fake implementation of the [UserDataRepository] that returns hardcoded user data.
- *
- * This allows us to run the app with fake data, without needing an internet connection or working
- * backend.
- */
+
 class FakeUserDataRepository @Inject constructor(
-    private val DoPreferencesDataSource: DoPreferencesDataSource,
+    private val doPreferencesDataSource: DoPreferencesDataSource,
 ) : UserDataRepository {
 
     override val userData: Flow<UserData> =
-        DoPreferencesDataSource.userData
+        doPreferencesDataSource.userData
 
     override suspend fun setDarkThemeConfig(darkThemeConfig: DarkThemeConfig) {
-        DoPreferencesDataSource.setDarkThemeConfig(darkThemeConfig)
+        doPreferencesDataSource.setDarkThemeConfig(darkThemeConfig)
     }
 
     override suspend fun setDynamicColorPreference(useDynamicColor: Boolean) {
-        DoPreferencesDataSource.setDynamicColorPreference(useDynamicColor)
+        doPreferencesDataSource.setDynamicColorPreference(useDynamicColor)
     }
 
     override suspend fun setShouldHideOnboarding(shouldHideOnboarding: Boolean) {
-        DoPreferencesDataSource.setShouldHideOnboarding(shouldHideOnboarding)
+        doPreferencesDataSource.setShouldHideOnboarding(shouldHideOnboarding)
     }
 
     override suspend fun setJwt(jwt: String) {
-        DoPreferencesDataSource.setJwt(jwt)
+        doPreferencesDataSource.setJwt(jwt)
     }
 }

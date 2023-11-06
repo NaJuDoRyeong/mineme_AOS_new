@@ -26,7 +26,6 @@ import com.android.tools.lint.detector.api.Issue
  */
 class DesignSystemIssueRegistry : IssueRegistry() {
 
-    // 필요에 따라 여러 이슈 포함 가능
     override val issues: List<Issue> = listOf(DesignSystemDetector.ISSUE)
 
     override val api: Int = CURRENT_API

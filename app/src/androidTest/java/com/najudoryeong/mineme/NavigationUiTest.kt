@@ -41,9 +41,7 @@ import javax.inject.Inject
 @HiltAndroidTest
 class NavigationUiTest {
 
-    /**
-     * Manages the components' state and is used to perform injection on your test
-     */
+
     @get:Rule(order = 0)
     val hiltRule = HiltAndroidRule(this)
 

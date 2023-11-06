@@ -20,12 +20,15 @@ import com.najudoryeong.mineme.core.data.di.DataModule
 import com.najudoryeong.mineme.core.data.repository.DetailStoryResourceRepository
 import com.najudoryeong.mineme.core.data.repository.HomeResourceRepository
 import com.najudoryeong.mineme.core.data.repository.OfflineFirstDetailStoryResourceRepository
-import com.najudoryeong.mineme.core.data.repository.OfflineFirstHomeResourceRepository
 import com.najudoryeong.mineme.core.data.repository.OfflineFirstSettingsResourceRepository
 import com.najudoryeong.mineme.core.data.repository.OfflineFirstStoryResourceRepository
 import com.najudoryeong.mineme.core.data.repository.SettingsResourceRepository
 import com.najudoryeong.mineme.core.data.repository.StoryResourceRepository
 import com.najudoryeong.mineme.core.data.repository.UserDataRepository
+import com.najudoryeong.mineme.core.data.repository.fake.FakeDetailStoryResourceRepository
+import com.najudoryeong.mineme.core.data.repository.fake.FakeHomeResourceRepository
+import com.najudoryeong.mineme.core.data.repository.fake.FakeSettingsResourceRepository
+import com.najudoryeong.mineme.core.data.repository.fake.FakeStoryResourceRepository
 import com.najudoryeong.mineme.core.data.repository.fake.FakeUserDataRepository
 import com.najudoryeong.mineme.core.data.util.NetworkMonitor
 import dagger.Binds
@@ -53,21 +56,21 @@ interface TestDataModule {
     // todo
     @Binds
     fun bindsHomeResourceRepository(
-        homeResourceRepository: OfflineFirstHomeResourceRepository,
+        homeResourceRepository: FakeHomeResourceRepository,
     ): HomeResourceRepository
 
     @Binds
     fun bindsStoryResourceRepository(
-        storyResourceRepository: OfflineFirstStoryResourceRepository,
+        storyResourceRepository: FakeStoryResourceRepository,
     ): StoryResourceRepository
 
     @Binds
     fun bindsDetailStoryResourceRepository(
-        detailStoryResourceRepository: OfflineFirstDetailStoryResourceRepository,
+        detailStoryResourceRepository: FakeDetailStoryResourceRepository,
     ): DetailStoryResourceRepository
 
     @Binds
     fun bindsSettingsResourceRepository(
-        settingsResourceRepository: OfflineFirstSettingsResourceRepository,
+        settingsResourceRepository: FakeSettingsResourceRepository,
     ): SettingsResourceRepository
 }

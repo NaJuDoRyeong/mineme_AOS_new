@@ -110,9 +110,7 @@ class DoAppState(
         navController.navigateToWriteStory()
     }
 
-    /**
-     trace 함수는 특정 작업의 성능 추적을 수행하기 위해 사용
-     */
+
     fun navigateToTopLevelDestination(topLevelDestination: TopLevelDestination) {
         val topLevelNavOptions = navOptions {
             // 현재 네비게이션 스택에서 시작 목적지까지 모든 목적지를 팝

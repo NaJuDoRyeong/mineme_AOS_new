@@ -32,8 +32,8 @@ import org.robolectric.RuntimeEnvironment
 
 val DefaultRoborazziOptions =
     RoborazziOptions(
-        compareOptions = CompareOptions(changeThreshold = 0f), // Pixel-perfect matching
-        recordOptions = RecordOptions(resizeScale = 0.5), // Reduce the size of the PNGs
+        compareOptions = CompareOptions(changeThreshold = 0f),
+        recordOptions = RecordOptions(resizeScale = 0.5),
     )
 
 fun <A : ComponentActivity> AndroidComposeTestRule<ActivityScenarioRule<A>, A>.captureMultiDevice(
@@ -58,7 +58,7 @@ fun <A : ComponentActivity> AndroidComposeTestRule<ActivityScenarioRule<A>, A>.c
 ) {
     val (width, height, dpi) = extractSpecs(deviceSpec)
 
-    // Set qualifiers from specs
+
     RuntimeEnvironment.setQualifiers("w${width}dp-h${height}dp-${dpi}dpi")
 
     this.activity.setContent {
@@ -75,9 +75,7 @@ fun <A : ComponentActivity> AndroidComposeTestRule<ActivityScenarioRule<A>, A>.c
         )
 }
 
-/**
- * Extracts some properties from the spec string. Note that this function is not exhaustive.
- */
+
 private fun extractSpecs(deviceSpec: String): TestDeviceSpecs {
     val specs = deviceSpec.substringAfter("spec:")
         .split(",").map { it.split("=") }.associate { it[0] to it[1] }
