@@ -23,13 +23,17 @@ import com.najudoryeong.mineme.core.network.model.NetworkStoryCalendarResource
 import com.najudoryeong.mineme.core.network.model.NetworkStoryRegionResource
 
 interface DoNetworkDataSource {
-    suspend fun getHomeData(): NetworkHomeMainResource
+    suspend fun getHomeData(jwt: String): NetworkHomeMainResource
 
-    suspend fun getRegionStory(): NetworkStoryRegionResource
+    suspend fun getRegionStory(jwt: String): NetworkStoryRegionResource
 
-    suspend fun getCalendarStory(year: String, month: String): NetworkStoryCalendarResource
+    suspend fun getCalendarStory(
+        jwt: String,
+        year: String,
+        month: String,
+    ): NetworkStoryCalendarResource
 
-    suspend fun getDetailStory(storyId: Int): NetworkDetailStoryResource
+    suspend fun getDetailStory(jwt: String, storyId: Int): NetworkDetailStoryResource
 
-    suspend fun getCode(): NetworkCode
+    suspend fun getCode(jwt: String): NetworkCode
 }

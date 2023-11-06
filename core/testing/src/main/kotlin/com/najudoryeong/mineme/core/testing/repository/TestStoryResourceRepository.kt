@@ -36,9 +36,13 @@ class TestStoryResourceRepository : StoryResourceRepository {
     fun sendCalendarStoryResource(storyCalendarResource: StoryCalendarResource) =
         storyCalendarResourceFlow.tryEmit(storyCalendarResource)
 
-    override fun getRegionStory(): Flow<StoryRegionResource> =
+    override fun getRegionStory(jwt: String): Flow<StoryRegionResource> =
         storyRegionResourceFlow
 
-    override fun getCalendarStory(year: String, month: String): Flow<StoryCalendarResource> =
+    override fun getCalendarStory(
+        jwt: String,
+        year: String,
+        month: String,
+    ): Flow<StoryCalendarResource> =
         storyCalendarResourceFlow
 }

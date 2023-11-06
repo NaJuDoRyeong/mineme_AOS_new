@@ -26,7 +26,7 @@ class TestHomeResourceRepository : HomeResourceRepository {
     private val homeResourcesFlow: MutableSharedFlow<HomeMainResource> =
         MutableSharedFlow(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
 
-    override fun getHomeData(): Flow<HomeMainResource> = homeResourcesFlow
+    override fun getHomeData(jwt: String): Flow<HomeMainResource> = homeResourcesFlow
 
     fun sendHomeResources(homeMainResources: HomeMainResource) {
         homeResourcesFlow.tryEmit(homeMainResources)

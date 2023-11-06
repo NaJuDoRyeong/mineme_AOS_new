@@ -25,6 +25,7 @@ import com.najudoryeong.mineme.core.ui.AccountUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -53,7 +54,9 @@ class SettingsViewModel @Inject constructor(
             )
 
     val accountState: StateFlow<AccountUiState> =
-        settingsResourceRepository.getCode().map(AccountUiState::Success).stateIn(
+        userDataRepository.userData.map { it.jwt }.flatMapLatest { jwt ->
+            settingsResourceRepository.getCode(jwt).map(AccountUiState::Success)
+        }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = AccountUiState.Loading,

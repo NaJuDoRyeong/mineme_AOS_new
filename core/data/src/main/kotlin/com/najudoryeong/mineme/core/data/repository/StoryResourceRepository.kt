@@ -23,8 +23,8 @@ import kotlinx.coroutines.flow.Flow
 interface StoryResourceRepository {
 
     // 지역별
-    fun getRegionStory(): Flow<StoryRegionResource>
+    fun getRegionStory(jwt: String): Flow<StoryRegionResource>
 
     // 캘린더
-    fun getCalendarStory(year: String, month: String): Flow<StoryCalendarResource>
+    fun getCalendarStory(jwt: String, year: String, month: String): Flow<StoryCalendarResource>
 }

@@ -20,11 +20,13 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.najudoryeong.mineme.core.data.repository.DetailStoryResourceRepository
+import com.najudoryeong.mineme.core.data.repository.UserDataRepository
 import com.najudoryeong.mineme.core.ui.DetailStoryUiState
 import com.najudoryeong.mineme.feature.story.navigation.StoryArgs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
@@ -32,15 +34,20 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailStoryViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
+    userDataRepository: UserDataRepository,
     detailStoryResourceRepository: DetailStoryResourceRepository,
 ) : ViewModel() {
 
     private val storyArgs: StoryArgs = StoryArgs(savedStateHandle)
 
-    val detailStoryUiState: StateFlow<DetailStoryUiState> =
-        detailStoryResourceRepository.getDetailStory(
-            storyArgs.storyId.toInt(),
-        ).map(DetailStoryUiState::Success).stateIn(
+    val detailStoryUiState: StateFlow<DetailStoryUiState> = userDataRepository.userData
+        .map { it.jwt }
+        .flatMapLatest { jwt ->
+            detailStoryResourceRepository.getDetailStory(
+                jwt = jwt,
+                storyId = storyArgs.storyId.toInt(),
+            ).map { DetailStoryUiState.Success(it) }
+        }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = DetailStoryUiState.Loading,

@@ -31,7 +31,7 @@ class OfflineFirstHomeResourceRepository @Inject constructor(
     private val network: DoNetworkDataSource,
     @Dispatcher(DoDispatchers.IO) private val ioDispatcher: CoroutineDispatcher,
 ) : HomeResourceRepository {
-    override fun getHomeData(): Flow<HomeMainResource> = flow {
-        emit(network.getHomeData().asDomainModel())
+    override fun getHomeData(jwt: String): Flow<HomeMainResource> = flow {
+        emit(network.getHomeData(jwt).asDomainModel())
     }.flowOn(ioDispatcher)
 }

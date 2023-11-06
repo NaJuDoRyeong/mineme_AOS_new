@@ -29,5 +29,5 @@ class TestSettingsResourceRepository : SettingsResourceRepository {
     fun sendCode(code: Code) =
         codeFlow.tryEmit(code)
 
-    override fun getCode(): Flow<Code> = codeFlow
+    override fun getCode(jwt: String): Flow<Code> = codeFlow
 }

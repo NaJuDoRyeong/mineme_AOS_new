@@ -34,8 +34,7 @@ import okio.use
 import javax.inject.Inject
 
 @OptIn(ExperimentalSerializationApi::class)
-class
-FakeDoNetworkDataSource @Inject constructor(
+class FakeDoNetworkDataSource @Inject constructor(
     @Dispatcher(DoDispatchers.IO) private val ioDispatcher: CoroutineDispatcher,
     private val networkJson: Json,
     private val assets: FakeAssetManager = JvmUnitTestFakeAssetManager,
@@ -50,17 +49,18 @@ FakeDoNetworkDataSource @Inject constructor(
     }
 
     // 애셋을 josn으로 디코딩
-    override suspend fun getHomeData(): NetworkHomeMainResource =
+    override suspend fun getHomeData(jwt: String): NetworkHomeMainResource =
         withContext(ioDispatcher) {
             assets.open(HOME_ASSET).use(networkJson::decodeFromStream)
         }
 
-    override suspend fun getRegionStory(): NetworkStoryRegionResource =
+    override suspend fun getRegionStory(jwt: String): NetworkStoryRegionResource =
         withContext(ioDispatcher) {
             assets.open(StoryRegion_ASSET).use(networkJson::decodeFromStream)
         }
 
     override suspend fun getCalendarStory(
+        jwt: String,
         year: String,
         month: String,
     ): NetworkStoryCalendarResource =
@@ -68,12 +68,12 @@ FakeDoNetworkDataSource @Inject constructor(
             assets.open(StoryCalendar_ASSET).use(networkJson::decodeFromStream)
         }
 
-    override suspend fun getDetailStory(storyId: Int): NetworkDetailStoryResource =
+    override suspend fun getDetailStory(jwt: String,storyId: Int): NetworkDetailStoryResource =
         withContext(ioDispatcher) {
             assets.open(DetailStory_ASSET).use(networkJson::decodeFromStream)
         }
 
-    override suspend fun getCode(): NetworkCode =
+    override suspend fun getCode(jwt: String): NetworkCode =
         withContext(ioDispatcher) {
             assets.open(CODE_ASSET).use(networkJson::decodeFromStream)
         }

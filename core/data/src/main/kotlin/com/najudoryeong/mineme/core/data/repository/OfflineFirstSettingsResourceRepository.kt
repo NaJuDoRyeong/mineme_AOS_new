@@ -31,7 +31,7 @@ class OfflineFirstSettingsResourceRepository @Inject constructor(
     private val network: DoNetworkDataSource,
     @Dispatcher(DoDispatchers.IO) private val ioDispatcher: CoroutineDispatcher,
 ) : SettingsResourceRepository {
-    override fun getCode(): Flow<Code> = flow {
-        emit(network.getCode().asDomainModel())
+    override fun getCode(jwt : String): Flow<Code> = flow {
+        emit(network.getCode(jwt).asDomainModel())
     }.flowOn(ioDispatcher)
 }

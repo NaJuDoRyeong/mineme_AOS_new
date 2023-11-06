@@ -32,7 +32,7 @@ class OfflineFirstDetailStoryResourceRepository @Inject constructor(
     @Dispatcher(DoDispatchers.IO) private val ioDispatcher: CoroutineDispatcher,
 ) : DetailStoryResourceRepository {
 
-    override fun getDetailStory(storyId: Int): Flow<DetailStoryResource> = flow {
-        emit(network.getDetailStory(storyId = storyId).asDomainModel())
+    override fun getDetailStory(jwt: String, storyId: Int): Flow<DetailStoryResource> = flow {
+        emit(network.getDetailStory(jwt, storyId = storyId).asDomainModel())
     }.flowOn(ioDispatcher)
 }

@@ -30,5 +30,5 @@ class TestDetailStoryResourceRepository : DetailStoryResourceRepository {
     fun sendDetailStoryResource(detailStoryResource: DetailStoryResource) =
         detailStoryResourceFlow.tryEmit(detailStoryResource)
 
-    override fun getDetailStory(storyId: Int): Flow<DetailStoryResource> = detailStoryResourceFlow
+    override fun getDetailStory(jwt: String,storyId: Int): Flow<DetailStoryResource> = detailStoryResourceFlow
 }

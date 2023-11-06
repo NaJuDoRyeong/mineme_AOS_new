@@ -33,11 +33,15 @@ class OfflineFirstStoryResourceRepository @Inject constructor(
     @Dispatcher(DoDispatchers.IO) private val ioDispatcher: CoroutineDispatcher,
 ) : StoryResourceRepository {
 
-    override fun getRegionStory(): Flow<StoryRegionResource> = flow {
-        emit(network.getRegionStory().asDomainModel())
+    override fun getRegionStory(jwt: String): Flow<StoryRegionResource> = flow {
+        emit(network.getRegionStory(jwt).asDomainModel())
     }.flowOn(ioDispatcher)
 
-    override fun getCalendarStory(year: String, month: String): Flow<StoryCalendarResource> = flow {
-        emit(network.getCalendarStory(year, month).asDomainModel())
+    override fun getCalendarStory(
+        jwt: String,
+        year: String,
+        month: String,
+    ): Flow<StoryCalendarResource> = flow {
+        emit(network.getCalendarStory(jwt, year, month).asDomainModel())
     }.flowOn(ioDispatcher)
 }

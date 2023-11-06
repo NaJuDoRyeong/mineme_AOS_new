@@ -26,6 +26,7 @@ import com.najudoryeong.mineme.core.model.data.StoryWithRegion
 import com.najudoryeong.mineme.core.ui.CalendarStoryUiState
 import com.najudoryeong.mineme.core.ui.RegionStoryUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -34,13 +35,13 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
 class StoryViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle,
-    private val userDataRepository: UserDataRepository,
+    userDataRepository: UserDataRepository,
     storyResourceRepository: StoryResourceRepository,
 ) : ViewModel() {
 
@@ -63,27 +64,36 @@ class StoryViewModel @Inject constructor(
     private val _allCities = MutableStateFlow(listOf(DEFAULT_VALUE))
     val allCities: StateFlow<List<String>> = _allCities.asStateFlow()
 
+
     val regionState: StateFlow<RegionStoryUiState> =
-        combine(
-            storyResourceRepository.getRegionStory(),
-            _searchRegion,
-            _searchCity,
-        ) { storyRegionResource, regionQuery, cityQuery ->
-            updateRegionsAndCities(storyRegionResource, regionQuery)
-            filterStories(storyRegionResource, regionQuery, cityQuery)
-        }.map { filteredStories ->
-            RegionStoryUiState.Success(StoryRegionResource(filteredStories))
+        userDataRepository.userData.map { it.jwt }.flatMapLatest { jwt ->
+            combine(
+                storyResourceRepository.getRegionStory(jwt),
+                _searchRegion,
+                _searchCity,
+            ) { storyRegionResource, regionQuery, cityQuery ->
+                updateRegionsAndCities(storyRegionResource, regionQuery)
+                filterStories(storyRegionResource, regionQuery, cityQuery)
+            }.map { filteredStories ->
+                RegionStoryUiState.Success(StoryRegionResource(filteredStories))
+            }
         }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), RegionStoryUiState.Loading)
 
     val calendarState: StateFlow<CalendarStoryUiState> =
-        _selectDate.flatMapLatest { date ->
-            val year = date.year.toString()
-            val month = date.monthValue.toString()
-            storyResourceRepository.getCalendarStory(year, month)
-                .map { storyResource ->
-                    CalendarStoryUiState.Success(year, month, storyResource)
-                }
-        }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), CalendarStoryUiState.Loading)
+        userDataRepository.userData.map { it.jwt }.flatMapLatest { jwt ->
+            _selectDate.flatMapLatest { date ->
+                val year = date.year.toString()
+                val month = date.monthValue.toString()
+                storyResourceRepository.getCalendarStory(jwt, year, month)
+                    .map { storyResource ->
+                        CalendarStoryUiState.Success(year, month, storyResource)
+                    }
+            }
+        }.stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5_000),
+            CalendarStoryUiState.Loading,
+        )
 
     fun updateYearMonth(year: Int, month: Int) {
         _selectDate.value = LocalDate.of(year, month, 1)
@@ -97,9 +107,13 @@ class StoryViewModel @Inject constructor(
         _searchCity.value = newCity
     }
 
-    private fun updateRegionsAndCities(storyRegionResource: StoryRegionResource, regionQuery: String) {
+    private fun updateRegionsAndCities(
+        storyRegionResource: StoryRegionResource,
+        regionQuery: String,
+    ) {
         if (_allRegions.value.size <= 1) {
-            _allRegions.value = listOf(DEFAULT_VALUE) + storyRegionResource.stories.map { it.region }.distinct()
+            _allRegions.value =
+                listOf(DEFAULT_VALUE) + storyRegionResource.stories.map { it.region }.distinct()
         }
 
         if (regionQuery == DEFAULT_VALUE) {
@@ -113,10 +127,14 @@ class StoryViewModel @Inject constructor(
         }
     }
 
-    private fun filterStories(storyRegionResource: StoryRegionResource, regionQuery: String, cityQuery: String): List<StoryWithRegion> {
+    private fun filterStories(
+        storyRegionResource: StoryRegionResource,
+        regionQuery: String,
+        cityQuery: String,
+    ): List<StoryWithRegion> {
         return storyRegionResource.stories.filter {
             (regionQuery == DEFAULT_VALUE || it.region.contains(regionQuery, ignoreCase = true)) &&
-                (cityQuery == DEFAULT_VALUE || it.city.contains(cityQuery, ignoreCase = true))
+                    (cityQuery == DEFAULT_VALUE || it.city.contains(cityQuery, ignoreCase = true))
         }
     }
 }

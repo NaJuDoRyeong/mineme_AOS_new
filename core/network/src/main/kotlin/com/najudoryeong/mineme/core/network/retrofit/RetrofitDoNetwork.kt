@@ -88,21 +88,22 @@ class RetrofitDoNetwork @Inject constructor(
         .build()
         .create(RetrofitDoNetworkApi::class.java)
 
-    override suspend fun getHomeData(): NetworkHomeMainResource =
-        networkApi.getHomeMainResource(token = "jwt").data
+    override suspend fun getHomeData(jwt: String): NetworkHomeMainResource =
+        networkApi.getHomeMainResource(token = jwt).data
 
-    override suspend fun getRegionStory(): NetworkStoryRegionResource =
-        networkApi.getRegionStory(token = "jwt").data
+    override suspend fun getRegionStory(jwt: String): NetworkStoryRegionResource =
+        networkApi.getRegionStory(token = jwt).data
 
     override suspend fun getCalendarStory(
+        jwt: String,
         year: String,
         month: String,
     ): NetworkStoryCalendarResource =
-        networkApi.getCalendarStory(token = "jwt", year = year, month = month).data
+        networkApi.getCalendarStory(token = jwt, year = year, month = month).data
 
-    override suspend fun getDetailStory(storyId: Int): NetworkDetailStoryResource =
-        networkApi.getDetailStory(token = "jwt", storyId = storyId).data
+    override suspend fun getDetailStory(jwt: String, storyId: Int): NetworkDetailStoryResource =
+        networkApi.getDetailStory(token = jwt, storyId = storyId).data
 
-    override suspend fun getCode(): NetworkCode =
-        networkApi.getCode(token = "jwt").data
+    override suspend fun getCode(jwt: String): NetworkCode =
+        networkApi.getCode(token = jwt).data
 }

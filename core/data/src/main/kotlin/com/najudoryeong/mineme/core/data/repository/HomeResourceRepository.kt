@@ -20,5 +20,5 @@ import com.najudoryeong.mineme.core.model.data.HomeMainResource
 import kotlinx.coroutines.flow.Flow
 
 interface HomeResourceRepository {
-    fun getHomeData(): Flow<HomeMainResource>
+    fun getHomeData(jwt: String): Flow<HomeMainResource>
 }

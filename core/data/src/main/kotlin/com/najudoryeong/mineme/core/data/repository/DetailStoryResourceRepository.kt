@@ -20,5 +20,5 @@ import com.najudoryeong.mineme.core.model.data.DetailStoryResource
 import kotlinx.coroutines.flow.Flow
 
 interface DetailStoryResourceRepository {
-    fun getDetailStory(storyId: Int): Flow<DetailStoryResource>
+    fun getDetailStory(jwt: String, storyId: Int): Flow<DetailStoryResource>
 }
