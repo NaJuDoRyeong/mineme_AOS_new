@@ -54,6 +54,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
@@ -397,9 +398,9 @@ fun YearMonthPicker(
             .padding(top = 16.dp)
             .testTag("Story:DatePicker"),
 
-    ) {
+        ) {
         Text(
-            text = "$selectedYear / $selectedMonth",
+            text = "${selectedYear}년 / ${selectedMonth}월",
             style = MaterialTheme.typography.titleLarge,
         )
         Icon(
@@ -411,76 +412,62 @@ fun YearMonthPicker(
 
     if (showDialog) {
         Dialog(onDismissRequest = { showDialog = false }) {
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(300.dp)
-                    .padding(16.dp),
+            Column(
+                Modifier.fillMaxWidth().height(300.dp).padding(16.dp).background(Color.White),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
             ) {
-                Text(
-                    text = "날짜 선택",
-                    modifier = Modifier
-                        .padding(top = 16.dp)
-                        .fillMaxWidth(),
-                    textAlign = TextAlign.Center,
+                val yearPickerState = rememberPickerState()
+                val startIndexYear = yearList.indexOf(
+                    selectedYear.toString(),
                 )
-                Column(
-                    Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                ) {
-                    val yearPickerState = rememberPickerState()
-                    val startIndexYear = yearList.indexOf(
-                        selectedYear.toString(),
-                    )
-                    val monthPickerState = rememberPickerState()
-                    val startIndexMonth = monthList.indexOf(String.format("%02d", selectedMonth))
+                val monthPickerState = rememberPickerState()
+                val startIndexMonth = monthList.indexOf(String.format("%02d", selectedMonth))
 
-                    Row(modifier = Modifier.fillMaxWidth()) {
-                        Picker(
-                            modifier = Modifier.weight(0.3f),
-                            items = yearList,
-                            state = yearPickerState,
-                            startIndex = startIndexYear,
-                            visibleItemsCount = 3,
-                            textModifier = Modifier.padding(8.dp),
-                        )
-                        Picker(
-                            state = monthPickerState,
-                            items = monthList,
-                            visibleItemsCount = 3,
-                            modifier = Modifier.weight(0.7f),
-                            textModifier = Modifier.padding(8.dp),
-                            startIndex = startIndexMonth,
-                            pickerTag = "MonthPicker",
-                        )
-                    }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 16.dp),
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically,
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    Picker(
+                        modifier = Modifier.weight(1f),
+                        items = yearList,
+                        state = yearPickerState,
+                        startIndex = startIndexYear,
+                        visibleItemsCount = 3,
+                        textModifier = Modifier.padding(8.dp),
+                    )
+                    Picker(
+                        state = monthPickerState,
+                        items = monthList,
+                        visibleItemsCount = 3,
+                        modifier = Modifier.weight(1f),
+                        textModifier = Modifier.padding(8.dp),
+                        startIndex = startIndexMonth,
+                        pickerTag = "MonthPicker",
+                    )
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 16.dp),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    DoTextButton(
+                        onClick = { showDialog = false },
+                        modifier = Modifier.weight(1f),
                     ) {
-                        DoTextButton(
-                            onClick = { showDialog = false },
-                            modifier = Modifier.weight(1f),
-                        ) {
-                            Text("취소")
-                        }
-                        Spacer(modifier = Modifier.width(8.dp))
-                        DoTextButton(
-                            onClick = {
-                                onYearMonthChanged(
-                                    yearPickerState.selectedItem.toInt(),
-                                    monthPickerState.selectedItem.toInt(),
-                                )
-                                showDialog = false
-                            },
-                            modifier = Modifier.weight(1f),
-                        ) {
-                            Text("확인")
-                        }
+                        Text("취소")
+                    }
+                    Spacer(modifier = Modifier.width(8.dp))
+                    DoTextButton(
+                        onClick = {
+                            onYearMonthChanged(
+                                yearPickerState.selectedItem.toInt(),
+                                monthPickerState.selectedItem.toInt(),
+                            )
+                            showDialog = false
+                        },
+                        modifier = Modifier.weight(1f),
+                    ) {
+                        Text("확인")
                     }
                 }
             }
@@ -560,7 +547,10 @@ fun CalendarItem(
     Box(
         modifier = modifier.background(
             brush = Brush.radialGradient(
-                colors = listOf(MaterialTheme.colorScheme.tertiaryContainer, MaterialTheme.colorScheme.tertiaryContainer),
+                colors = listOf(
+                    MaterialTheme.colorScheme.tertiaryContainer,
+                    MaterialTheme.colorScheme.tertiaryContainer,
+                ),
                 radius = radiusPx,
             ),
             shape = roundedIrregularShape(),

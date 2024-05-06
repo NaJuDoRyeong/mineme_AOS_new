@@ -42,6 +42,7 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.coil.kt.compose)
+    implementation("com.github.KDW03:IOS_DATEPICKER:1.0.3")
 
     androidTestImplementation(project(":core:testing"))
 

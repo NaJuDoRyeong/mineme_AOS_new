@@ -71,6 +71,18 @@
     },
     {
       "region": "경남",
+      "city": "마산시",
+      "isAnniversary": "n",
+      "date": "2023-08-30",
+      "images": [
+        "https://picsum.photos/999/1000"
+      ],
+      "postId": 70,
+      "content": "마산이 최고지 역시",
+      "author": "김도우"
+    },
+    {
+      "region": "경남",
       "city": "창원시",
       "isAnniversary": "y",
       "anniversary": {

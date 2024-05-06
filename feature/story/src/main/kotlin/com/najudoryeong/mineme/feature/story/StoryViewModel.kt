@@ -91,6 +91,7 @@ class StoryViewModel @Inject constructor(
 
     fun updateRegion(newRegion: String) {
         _searchRegion.value = newRegion
+        _searchCity.value = DEFAULT_VALUE
     }
 
     fun updateCity(newCity: String) {

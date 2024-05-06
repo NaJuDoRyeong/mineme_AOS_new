@@ -38,10 +38,15 @@ fun ImageSlider(
     images: List<Uri>,
     modifier: Modifier = Modifier,
 ) {
-    val pagerState = rememberPagerState()
+    val pagerState = rememberPagerState(
+        initialPage = 0,
+        initialPageOffsetFraction = 0f
+    ) {
+        images.size
+    }
 
     Box(modifier = modifier.padding(top = 16.dp)) {
-        HorizontalPager(state = pagerState, pageCount = images.size) { page ->
+        HorizontalPager(state = pagerState) { page ->
             val imageUri = images[page]
             DynamicAsyncImage(
                 imageUrl = imageUri.toString(),
