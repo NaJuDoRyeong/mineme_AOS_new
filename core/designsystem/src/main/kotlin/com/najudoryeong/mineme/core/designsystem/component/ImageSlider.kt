@@ -48,7 +48,7 @@ fun ImageSlider(
                 contentDescription = null,
                 modifier = Modifier
                     .aspectRatio(1f)
-                    .clip(RoundedCornerShape(8.dp)), // 이 부분을 추가합니다.
+                    .clip(RoundedCornerShape(8.dp)),
             )
         }
 

@@ -26,12 +26,10 @@ include(":core:database")
 include(":core:datastore")
 include(":core:datastore-test")
 include(":core:designsystem")
-include(":core:domain")
 include(":core:model")
 include(":core:network")
 include(":core:ui")
 include(":core:testing")
-include(":core:notifications")
 
 
 include(":feature:home")

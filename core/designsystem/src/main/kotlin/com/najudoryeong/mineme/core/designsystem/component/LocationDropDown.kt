@@ -75,3 +75,39 @@ fun LocationDropdownMenu(
         }
     }
 }
+
+
+@Composable
+fun LocationDropdownMenu(
+    menuList: List<String>,
+    onItemSelected: (String) -> Unit,
+    selectedLocation : String,
+    modifier: Modifier = Modifier,
+) {
+    var expanded by remember { mutableStateOf(false) }
+
+    Box(modifier = modifier) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { expanded = true }
+                .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
+                .padding(8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            Text(text = selectedLocation)
+            Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = null) // 화살표 아이콘 추가
+        }
+        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+            menuList.forEach { location ->
+                DropdownMenuItem(onClick = {
+                    expanded = false
+                    onItemSelected(location)
+                }, text = {
+                    Text(text = location)
+                })
+            }
+        }
+    }
+}

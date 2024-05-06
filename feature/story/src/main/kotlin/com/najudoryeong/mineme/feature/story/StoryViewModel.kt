@@ -119,4 +119,6 @@ class StoryViewModel @Inject constructor(
                 (cityQuery == DEFAULT_VALUE || it.city.contains(cityQuery, ignoreCase = true))
         }
     }
+
+
 }

@@ -22,5 +22,8 @@ plugins {
 android {
     namespace = "com.najudoryeong.mineme.feature.story"
 }
+dependencies {
+    implementation(libs.androidx.exifinterface)
+}
 
 

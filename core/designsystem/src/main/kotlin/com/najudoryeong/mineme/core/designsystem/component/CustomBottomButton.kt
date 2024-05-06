@@ -18,6 +18,7 @@ package com.najudoryeong.mineme.core.designsystem.component
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -26,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun CustomBottomButton(
@@ -38,7 +40,7 @@ fun CustomBottomButton(
 ) {
     Button(
         onClick = onClick,
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier.height(50.dp).fillMaxWidth(),
         enabled = enabled,
         colors = ButtonDefaults.buttonColors(
             containerColor = containerColor,

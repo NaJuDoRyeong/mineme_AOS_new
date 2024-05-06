@@ -20,8 +20,10 @@
     <string name="region_loading">Loading for regionStory…</string>
     <string name="writeStory">스토리 작성</string>
     <string name="choosePicture">사진 고르기</string>
+    <string name="next_writeStory">스토리 작성하기</string>
     <string name="day_pick_title">언제였나요?</string>
     <string name="region_city_pick_title">어디였나요?</string>
     <string name="story_content_placeholder">무슨 이야기를 남기고 싶나요?</string>
     <string name="detail_story_loading">detail story Loading…</string>
+    <string name="access_media_location">사진 위치 정보를 자동으로 표시하기 위해 권한이 필요합니다.</string>
 </resources>
