@@ -1,3 +1,19 @@
+/*
+ * Copyright 2024 KDW03
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.najudoryeong.mineme.feature.story.util
 
 import android.content.Context
@@ -10,14 +26,12 @@ import androidx.exifinterface.media.ExifInterface
 import java.io.IOException
 import java.util.Locale
 
-
 fun readImageMetadata(
     uri: Uri,
     context: Context,
     updateDate: (Int, Int, Int) -> Unit,
     updateLocation: (String, String) -> Unit,
 ) {
-
     try {
         context.contentResolver.openInputStream(uri)?.use { inputStream ->
             val exifInterface = ExifInterface(inputStream)
@@ -33,7 +47,7 @@ fun readImageMetadata(
             val latitudeRef = exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE_REF)
             val longitude = exifInterface.getAttribute(ExifInterface.TAG_GPS_LONGITUDE)
             val longitudeRef = exifInterface.getAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF)
-            Log.d("Error[KDW]", "Latitude raw data: ${latitude}, Ref: $latitudeRef")
+            Log.d("Error[KDW]", "Latitude raw data: $latitude, Ref: $latitudeRef")
             Log.d("Error[KDW]", "Longitude raw data: $longitude, Ref: $longitudeRef")
 
             val lat = convertToDegree(latitude, latitudeRef)
@@ -48,7 +62,6 @@ fun readImageMetadata(
         Log.e("Error[KDW]", "Error reading image metadata", e)
     }
 }
-
 
 fun convertToDegree(gpsInfo: String?, ref: String?): Double? {
     gpsInfo?.let {
@@ -84,7 +97,7 @@ fun getAddressFromLocation(
                     val address = addresses[0]
                     val region = address.adminArea
                     val city = address.locality
-                    if (region != null && city != null) updateLocation(region,city)
+                    if (region != null && city != null) updateLocation(region, city)
                 }
             }
 
@@ -100,7 +113,7 @@ fun getAddressFromLocation(
                 val address = addresses[0]
                 val region = address.adminArea
                 val city = address.locality
-                if (region != null && city != null) updateLocation(region,city)
+                if (region != null && city != null) updateLocation(region, city)
             }
         }
     }

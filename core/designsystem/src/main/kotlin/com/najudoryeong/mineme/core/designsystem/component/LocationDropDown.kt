@@ -76,12 +76,11 @@ fun LocationDropdownMenu(
     }
 }
 
-
 @Composable
 fun LocationDropdownMenu(
     menuList: List<String>,
     onItemSelected: (String) -> Unit,
-    selectedLocation : String,
+    selectedLocation: String,
     modifier: Modifier = Modifier,
 ) {
     var expanded by remember { mutableStateOf(false) }

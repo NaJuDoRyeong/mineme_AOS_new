@@ -44,9 +44,9 @@ internal class StoryArgs(val storyId: String) {
 }
 
 fun NavController.navigateToDetailStory(storyId: Int) {
-    Log.d("kdw0303",storyId.toString())
+    Log.d("kdw0303", storyId.toString())
     val encodedId = URLEncoder.encode(storyId.toString(), URL_CHARACTER_ENCODING)
-    Log.d("kdw0303",encodedId)
+    Log.d("kdw0303", encodedId)
     this.navigate("story_route/$encodedId") {
         launchSingleTop = true
     }
@@ -64,7 +64,7 @@ fun NavGraphBuilder.detailStoryScreen(
         val index = it.arguments?.getString(storyArg)?.toIntOrNull()!!
         DetailStoryRoute(
             onBackClick = onBackClick,
-            scrollIndex = index
+            scrollIndex = index,
         )
     }
 }

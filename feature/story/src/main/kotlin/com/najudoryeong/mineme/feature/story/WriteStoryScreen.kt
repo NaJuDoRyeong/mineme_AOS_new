@@ -23,7 +23,6 @@ import android.os.Build
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -41,16 +40,12 @@ import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
@@ -60,10 +55,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -159,9 +152,9 @@ fun WriteStoryFirstPageScreen(
     updateCity: (String) -> Unit = {},
     updateImages: (List<Uri>) -> Unit = {},
     updateLocation: (String, String) -> Unit = { _, _ -> },
-    selectedImages: List<Uri>,
-    selectedCity: String,
-    selectedRegion: String,
+    selectedImages: List<Uri> = emptyList(),
+    selectedCity: String = "",
+    selectedRegion: String = "",
 ) {
     val context = LocalContext.current
 
@@ -183,7 +176,8 @@ fun WriteStoryFirstPageScreen(
             if (!isGranted) {
                 Toast.makeText(
                     context,
-                    context.getString(R.string.access_media_location), Toast.LENGTH_LONG,
+                    context.getString(R.string.access_media_location),
+                    Toast.LENGTH_LONG,
                 ).show()
             }
         },
@@ -207,9 +201,11 @@ fun WriteStoryFirstPageScreen(
         }
 
     LaunchedEffect(Unit) {
-        if (!hasPermission && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) permissionLauncher.launch(
-            Manifest.permission.ACCESS_MEDIA_LOCATION,
-        )
+        if (!hasPermission && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            permissionLauncher.launch(
+                Manifest.permission.ACCESS_MEDIA_LOCATION,
+            )
+        }
         if (selectedImages.isEmpty()) imagePicker.launch("image/*")
     }
 
@@ -276,7 +272,6 @@ fun WriteStoryFirstPageScreen(
             Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.safeDrawing))
         }
     }
-
 }
 
 @Composable
@@ -291,7 +286,6 @@ fun WriteStorySecondPageScreen(
     firstOnBackClick: () -> Unit = {},
     storyContent: MutableState<String>,
 ) {
-
     var showDialog by remember { mutableStateOf(false) }
 
     Column(
@@ -344,7 +338,6 @@ fun WriteStorySecondPageScreen(
             )
         }
 
-
         if (showDialog) {
             Dialog(onDismissRequest = { showDialog = false }) {
                 Column {
@@ -364,13 +357,13 @@ fun WriteStorySecondPageScreen(
                             focusedPlaceholderColor = MaterialTheme.colorScheme.onSecondary,
                             disabledLabelColor = MaterialTheme.colorScheme.onSecondary,
                             focusedLabelColor = MaterialTheme.colorScheme.onSecondary,
-                            unfocusedLabelColor = MaterialTheme.colorScheme.onSecondary
+                            unfocusedLabelColor = MaterialTheme.colorScheme.onSecondary,
                         ),
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(150.dp)
                             .padding(vertical = 8.dp),
-                        )
+                    )
                     Row(
                         horizontalArrangement = Arrangement.End,
                         modifier = Modifier.fillMaxWidth(),
@@ -383,7 +376,7 @@ fun WriteStorySecondPageScreen(
                             Text(
                                 "확인",
                                 style = MaterialTheme.typography.titleMedium,
-                                color = MaterialTheme.colorScheme.onPrimary
+                                color = MaterialTheme.colorScheme.onPrimary,
                             )
                         }
                     }
@@ -401,7 +394,6 @@ fun WriteStorySecondPageScreen(
         Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.safeDrawing))
     }
 }
-
 
 @Composable
 fun WriteStoryToolBar(

@@ -40,7 +40,7 @@ fun ImageSlider(
 ) {
     val pagerState = rememberPagerState(
         initialPage = 0,
-        initialPageOffsetFraction = 0f
+        initialPageOffsetFraction = 0f,
     ) {
         images.size
     }

@@ -91,7 +91,7 @@ fun DetailStoryScreen(
     val listState = rememberLazyListState()
 
     LaunchedEffect(scrollIndex) {
-        Log.d("kdw0303",scrollIndex.toString())
+        Log.d("kdw0303", scrollIndex.toString())
         scrollIndex?.let {
             listState.scrollToItem(it)
         }
@@ -208,7 +208,7 @@ fun DetailStoryToolBar(
         Text(
             text = stringResource(id = R.string.story),
             modifier = Modifier.align(Alignment.Center),
-            style = MaterialTheme.typography.titleLarge
+            style = MaterialTheme.typography.titleLarge,
         )
 
         IconButton(onClick = { onBackClick() }) {
