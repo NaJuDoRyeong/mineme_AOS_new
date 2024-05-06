@@ -412,7 +412,7 @@ fun YearMonthPicker(
     if (showDialog) {
         Dialog(onDismissRequest = { showDialog = false }) {
             Column(
-                Modifier.fillMaxWidth().height(300.dp).padding(16.dp).background(Color.White),
+                Modifier.fillMaxWidth().background(Color.White).clip(shape = RoundedCornerShape(16.dp)),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
             ) {
@@ -423,7 +423,7 @@ fun YearMonthPicker(
                 val monthPickerState = rememberPickerState()
                 val startIndexMonth = monthList.indexOf(String.format("%02d", selectedMonth))
 
-                Row(modifier = Modifier.fillMaxWidth()) {
+                Row(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
                     Picker(
                         modifier = Modifier.weight(1f),
                         items = yearList,
@@ -445,7 +445,7 @@ fun YearMonthPicker(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 16.dp),
+                        .padding(vertical = 16.dp),
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
