@@ -34,8 +34,8 @@ class DetailStoryViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     detailStoryResourceRepository: DetailStoryResourceRepository,
 ) : ViewModel() {
-
     private val storyArgs: StoryArgs = StoryArgs(savedStateHandle)
+
 
     val detailStoryUiState: StateFlow<DetailStoryUiState> =
         detailStoryResourceRepository.getDetailStory(

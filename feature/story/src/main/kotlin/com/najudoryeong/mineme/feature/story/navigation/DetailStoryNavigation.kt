@@ -16,6 +16,7 @@
 
 package com.najudoryeong.mineme.feature.story.navigation
 
+import android.util.Log
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
@@ -43,7 +44,9 @@ internal class StoryArgs(val storyId: String) {
 }
 
 fun NavController.navigateToDetailStory(storyId: Int) {
+    Log.d("kdw0303",storyId.toString())
     val encodedId = URLEncoder.encode(storyId.toString(), URL_CHARACTER_ENCODING)
+    Log.d("kdw0303",encodedId)
     this.navigate("story_route/$encodedId") {
         launchSingleTop = true
     }
@@ -58,8 +61,10 @@ fun NavGraphBuilder.detailStoryScreen(
             navArgument(storyArg) { type = NavType.StringType },
         ),
     ) {
+        val index = it.arguments?.getString(storyArg)?.toIntOrNull()!!
         DetailStoryRoute(
             onBackClick = onBackClick,
+            scrollIndex = index
         )
     }
 }

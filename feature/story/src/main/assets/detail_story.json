@@ -9,7 +9,7 @@
         "https://picsum.photos/1000/1002",
         "https://picsum.photos/1002/1001"
       ],
-      "postId": 17,
+      "postId": 0,
       "content": "창원의 중앙공원에서 피크닉. 햇볕 좋은 날씨에 함께 즐기니 기분 최고~ 🌳",
       "author": "김도우"
     },
@@ -22,7 +22,7 @@
         "https://picsum.photos/1000/1003",
         "https://picsum.photos/1003/1001"
       ],
-      "postId": 18,
+      "postId": 1,
       "content": "창원시 미디어 센터에서 진행한 공연을 보러 갔어. 정말 감동적이었다!",
       "author": "김도우"
     },
@@ -35,7 +35,7 @@
         "https://picsum.photos/1000/1004",
         "https://picsum.photos/1004/1000"
       ],
-      "postId": 19,
+      "postId": 2,
       "content": "창원의 유명한 카페에 다녀왔어. 분위기도 좋고, 커피도 맛있어서 자주 가게 될 것 같아.",
       "author": "김도우"
     },
@@ -52,7 +52,7 @@
         "https://picsum.photos/1000/1005",
         "https://picsum.photos/1005/1000"
       ],
-      "postId": 20,
+      "postId": 3,
       "content": "100일 기념으로 창원의 특별한 레스토랑에서 식사. 맛도 분위기도 최고였다~ 🍽",
       "author": "김도우"
     },
@@ -65,7 +65,7 @@
         "https://picsum.photos/1000/1006",
         "https://picsum.photos/1006/1000"
       ],
-      "postId": 21,
+      "postId": 4,
       "content": "창원 상남동에서 거리 예술가들의 공연을 감상. 거리에서의 생생한 공연이 정말 인상적이었다!",
       "author": "김도우"
     },
@@ -77,7 +77,7 @@
       "images": [
         "https://picsum.photos/999/1000"
       ],
-      "postId": 70,
+      "postId": 5,
       "content": "마산이 최고지 역시",
       "author": "김도우"
     },
@@ -94,7 +94,7 @@
         "https://picsum.photos/1000/1001",
         "https://picsum.photos/1001/1000"
       ],
-      "postId": 1,
+      "postId": 6,
       "content": "창원시의 메타프로방스에서 200일을 맞아 꼭 와보고 싶었던 곳이었어. 여기 커피랑 디저트 진짜 꿀맛~ 🍰☕",
       "author": "김도우"
     },
@@ -107,7 +107,7 @@
         "https://picsum.photos/1001/1001",
         "https://picsum.photos/1001/1002"
       ],
-      "postId": 2,
+      "postId": 7,
       "content": "서울대 근처에서 열린 전시회 다녀왔는데, 예술 작품들 보면서 우리끼리 감상 토크하니까 완전 재밌었어. 다음에 또 가자!",
       "author": "신원지"
     },
@@ -120,7 +120,7 @@
         "https://picsum.photos/1005/1002",
         "https://picsum.photos/1001/1002"
       ],
-      "postId": 16,
+      "postId": 8,
       "content": "춘천 닭갈비 진짜 맛있어서 매번 가는데, 오늘도 너무 만족! 막국수랑 같이 먹으니 완전 꿀조합! 🔥",
       "author": "신원지"
     },
@@ -133,7 +133,7 @@
         "https://picsum.photos/1002/1002",
         "https://picsum.photos/1000/1002"
       ],
-      "postId": 3,
+      "postId": 9,
       "content": "해운대에서의 저녁 데이트. 파도 소리 들으면서 맥주 한 캔. 👌",
       "author": "김도우"
     },
@@ -146,7 +146,7 @@
         "https://picsum.photos/1002/1000",
         "https://picsum.photos/1002/1003"
       ],
-      "postId": 4,
+      "postId": 10,
       "content": "대구 동성로에서의 쇼핑 데이트. 빈티지 스타일의 카페에서 좋은 음악 들으면서 잠시 휴식. 좋은 날이었어.",
       "author": "김도우"
     },
@@ -159,7 +159,7 @@
         "https://picsum.photos/1003/1002",
         "https://picsum.photos/1003/1003"
       ],
-      "postId": 5,
+      "postId": 11,
       "content": "인천 송도에서 걷기 딱 좋은 데이트 코스 찾았어. 석양도 예쁘고, 다음엔 피크닉 가자!",
       "author": "신원지"
     },
@@ -172,7 +172,7 @@
         "https://picsum.photos/1004/1004",
         "https://picsum.photos/1004/1003"
       ],
-      "postId": 6,
+      "postId": 12,
       "content": "국립아시아문화전당에서 엄청 큰 전시회가 있더라고! 예술에 대해 많이 몰라도 완전 즐겁게 봤어~🎨",
       "author": "김도우"
     },
@@ -189,7 +189,7 @@
         "https://picsum.photos/1001/1003",
         "https://picsum.photos/1002/1003"
       ],
-      "postId": 15,
+      "postId": 13,
       "content": "경주에서 우리 첫 데이트 기념일! 불국사, 첨성대 다녀왔어. 함께라서 더 의미있는 하루였다!",
       "author": "김도우"
     },
@@ -202,7 +202,7 @@
         "https://picsum.photos/1002/1004",
         "https://picsum.photos/1002/1003"
       ],
-      "postId": 7,
+      "postId": 14,
       "content": "대전 동구에서 데이트!",
       "author": "김도우"
     },
@@ -219,7 +219,7 @@
         "https://picsum.photos/1003/1001",
         "https://picsum.photos/1002/1004"
       ],
-      "postId": 8,
+      "postId": 15,
       "content": "대왕암공원에서 생일 피크닉! 기분 좋은 날씨에 더 좋은 기분으로 보냈어. 생일 선물도 받고!🎁",
       "author": "신원지"
     },
@@ -232,7 +232,7 @@
         "https://picsum.photos/1004/1003",
         "https://picsum.photos/1002/1004"
       ],
-      "postId": 9,
+      "postId": 16,
       "content": "세종시에서 자전거 타기! 특히 호수공원 주변이 진짜 예뻐서 계속 돌고 싶었어. 사진도 엄청 찍었지롱~🚴‍♂️",
       "author": "김도우"
     },
@@ -245,7 +245,7 @@
         "https://picsum.photos/1001/1005",
         "https://picsum.photos/1002/1005"
       ],
-      "postId": 10,
+      "postId": 17,
       "content": "한라산 정상에서 바라본 전경은 진짜 말로 못할 정도로 예뻤어. 함께라서 더 좋았던 것 같아~",
       "author": "신원지"
     },
@@ -258,7 +258,7 @@
         "https://picsum.photos/1000/1000",
         "https://picsum.photos/1001/1002"
       ],
-      "postId": 11,
+        "postId": 18,
       "content": "청주에서는 문암생태공원을 다녀왔어. 힐링하면서 산책 좋았다. 특히나 공기가 진짜 좋더라고!",
       "author": "김도우"
     },
@@ -271,7 +271,7 @@
         "https://picsum.photos/1002/1001",
         "https://picsum.photos/1000/1005"
       ],
-      "postId": 12,
+      "postId": 19,
       "content": "아산의 온천에서 스파. 그 중에서도 온양온천은 뭐~ 항상 최고! 꼭 가봐!",
       "author": "신원지"
     },
@@ -284,7 +284,7 @@
         "https://picsum.photos/1003/1003",
         "https://picsum.photos/1001/1003"
       ],
-      "postId": 13,
+      "postId": 20,
       "content": "전주 한옥마을에서 한복 입고 산책하는 건 진짜 또 다른 느낌! 아, 그리고 전주 빙수 맛집 찾았어! 다음에 또 가야지~",
       "author": "김도우"
     },
@@ -297,7 +297,7 @@
         "https://picsum.photos/1000/1000",
         "https://picsum.photos/1002/1003"
       ],
-      "postId": 14,
+      "postId": 21,
       "content": "여수 밤바다, 진짜 말로 못할 정도로 예쁜 거 아니니? 스마트폰 카메라로는 절대 못 담아! 직접 가봐야해!",
       "author": "신원지"
     }

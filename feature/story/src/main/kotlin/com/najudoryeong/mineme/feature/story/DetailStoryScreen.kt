@@ -17,6 +17,7 @@
 package com.najudoryeong.mineme.feature.story
 
 import android.net.Uri
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -36,11 +37,13 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -65,6 +68,7 @@ internal fun DetailStoryRoute(
     modifier: Modifier = Modifier,
     onBackClick: () -> Unit = {},
     viewModel: DetailStoryViewModel = hiltViewModel(),
+    scrollIndex: Int? = null,
 ) {
     val detailStoryUiState by viewModel.detailStoryUiState.collectAsStateWithLifecycle()
 
@@ -72,6 +76,7 @@ internal fun DetailStoryRoute(
         modifier = modifier,
         onBackClick = onBackClick,
         detailStoryUiState = detailStoryUiState,
+        scrollIndex = scrollIndex,
     )
 }
 
@@ -80,21 +85,37 @@ fun DetailStoryScreen(
     modifier: Modifier = Modifier,
     detailStoryUiState: DetailStoryUiState,
     onBackClick: () -> Unit,
+    scrollIndex: Int? = null,
 ) {
     val isDetailLoading = detailStoryUiState is DetailStoryUiState.Loading
+    val listState = rememberLazyListState()
+
+    LaunchedEffect(scrollIndex) {
+        Log.d("kdw0303",scrollIndex.toString())
+        scrollIndex?.let {
+            listState.scrollToItem(it)
+        }
+    }
 
     Box(modifier = modifier.fillMaxSize()) {
         Column {
             Spacer(Modifier.windowInsetsTopHeight(WindowInsets.safeDrawing))
             DetailStoryToolBar(onBackClick = onBackClick)
 
-            LazyColumn(modifier = Modifier.testTag("detail:posts").fillMaxSize()) {
+            LazyColumn(
+                state = listState,
+                modifier = Modifier
+                    .testTag("detail:posts")
+                    .fillMaxSize(),
+            ) {
                 when (detailStoryUiState) {
                     DetailStoryUiState.Loading, DetailStoryUiState.Error -> Unit
                     is DetailStoryUiState.Success -> {
                         items(detailStoryUiState.detailStoryResource.stories) { story ->
                             DetailStoryItem(
-                                modifier = Modifier.padding(16.dp).fillMaxWidth(),
+                                modifier = Modifier
+                                    .padding(16.dp)
+                                    .fillMaxWidth(),
                                 location = "${story.region}  ${story.city}",
                                 date = story.date,
                                 images = story.images,
@@ -187,6 +208,7 @@ fun DetailStoryToolBar(
         Text(
             text = stringResource(id = R.string.story),
             modifier = Modifier.align(Alignment.Center),
+            style = MaterialTheme.typography.titleLarge
         )
 
         IconButton(onClick = { onBackClick() }) {
